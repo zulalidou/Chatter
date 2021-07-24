@@ -43,13 +43,13 @@ class Navbar extends React.Component {
 
 
     componentDidUpdate() {
-        console.log("componentDidUpdate()")
+        // console.log("componentDidUpdate()")
 
         if (Cookies.get("jwtHP") !== undefined && this.state.timerID === null) {
             const timerID = setInterval(async () => {
-                console.log("setInterval() called")
-                console.log(timerID)
-                console.log(this.state)
+                // console.log("setInterval() called")
+                // console.log(timerID)
+                // console.log(this.state)
 
                 if (Cookies.get("jwtHP") === undefined) {
                     clearInterval(timerID)
@@ -206,8 +206,8 @@ class Navbar extends React.Component {
 
 
     render() {
-        console.log(Cookies.get("jwtHP"))
-        console.log(this.state)
+        // console.log(Cookies.get("jwtHP"))
+        // console.log(this.state)
 
         if (this.state.timerID !== null && Cookies.get("jwtHP") === undefined)
             clearInterval(this.state.timerID)

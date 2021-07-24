@@ -40,12 +40,6 @@ class Home extends React.Component {
     async componentDidMount() {
         console.log('componentDidMount()')
 
-        console.log(this.state.userID)
-        console.log(Cookies.get("jwtHP"))
-        console.log(Cookies.get("jwtS"))
-        console.log(document.cookie)
-        console.log(document.cookies)
-
         if (Cookies.get("jwtHP") === undefined) {
             this.setState({isLoggedIn: false})
             return
@@ -96,13 +90,15 @@ class Home extends React.Component {
 
 
     componentWillUnmount() {
-        console.log("home.js")
         console.log("componentWillUnmount() has been called")
     }
 
 
     async getRoomID() {
+        console.log("getRoomID()")
+
         let response = await fetch(`/get-user-field-info?userID=${this.state.userID}&attribute=currentRoomOpen`, {credentials: "include"})
+        console.log(response)
 
         try {
             if (response.status !== 200)
@@ -119,6 +115,8 @@ class Home extends React.Component {
 
 
     async setRoomID(roomID) {
+        console.log("setRoomID()")
+
         const response = await fetch('/set-user-info', {
             method: 'POST',
             credentials: "include",
@@ -127,6 +125,8 @@ class Home extends React.Component {
             },
             body: JSON.stringify({userID: this.state.userID, attribute: 'currentRoomOpen', value: roomID})
         })
+
+        console.log(response)
 
         try {
             if (response.status !== 200)
@@ -142,7 +142,9 @@ class Home extends React.Component {
 
 
     async getGroupNumber(userID) {
+        console.log("getGroupNumber()")
         const response = await fetch(`/get-group-number?userID=${userID}`, {credentials: "include"})
+        console.log(response)
 
         try {
             if (response.status !== 200)
@@ -159,7 +161,9 @@ class Home extends React.Component {
 
 
     async getLoggedInUsersNumber(userID) {
+        console.log("getLoggedInUsersNumber()")
         const response = await fetch(`/get-logged-in-users?userID=${userID}`, {credentials: "include"})
+        console.log(response)
 
         try {
             if (response.status !== 200)
@@ -182,9 +186,6 @@ class Home extends React.Component {
 
 
     render() {
-        console.log(Cookies.get("jwtHP"))
-        console.log(Cookies.get("jwtS"))
-
         if (!this.state.isLoggedIn)
             return <Redirect to="/login"/>
 
