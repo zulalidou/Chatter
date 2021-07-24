@@ -177,6 +177,7 @@ class Home extends React.Component {
             return "ERROR-OCCURRED"
         }
 
+        console.log("hey hey hey")
         const loggedInUsers = await response.json()
 
         console.log(loggedInUsers)

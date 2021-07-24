@@ -34,7 +34,7 @@ router.get('/', authenticate, async function(req, res) {
         return
     }
 
-    res.status(200).send(loggedInUsers)
+    res.status(200).send({response: loggedInUsers})
 })
 
 
