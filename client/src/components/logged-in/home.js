@@ -71,11 +71,6 @@ class Home extends React.Component {
             return
         }
 
-        //
-        this.setState({stateLoaded: true})
-        return
-        //
-
 
         const loggedInUsersNumber = await this.getLoggedInUsersNumber(this.state.userID)
         console.log(loggedInUsersNumber)
