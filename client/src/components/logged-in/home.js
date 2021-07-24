@@ -74,12 +74,15 @@ class Home extends React.Component {
 
 
         const loggedInUsersNumber = await this.getLoggedInUsersNumber(this.state.userID)
+        console.log(loggedInUsersNumber)
 
         if (loggedInUsersNumber === "ERROR-OCCURRED") {
             this.setState({stateLoaded: true})
             return
         }
 
+
+        console.log("hola")
 
         this.setState({
             groupNumber: groupNumber,
@@ -175,6 +178,8 @@ class Home extends React.Component {
         }
 
         const loggedInUsers = await response.json()
+
+        console.log(loggedInUsers)
         return loggedInUsers.length
     }
 
