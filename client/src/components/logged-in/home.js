@@ -64,6 +64,10 @@ class Home extends React.Component {
         }
         ////////////////////////////////////////////////////
 
+        //
+        this.setState({stateLoaded: true})
+        return
+        //
 
         const groupNumber = await this.getGroupNumber(this.state.userID)
 
