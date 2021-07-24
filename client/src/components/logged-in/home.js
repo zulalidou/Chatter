@@ -64,17 +64,17 @@ class Home extends React.Component {
         }
         ////////////////////////////////////////////////////
 
-        //
-        this.setState({stateLoaded: true})
-        return
-        //
-
         const groupNumber = await this.getGroupNumber(this.state.userID)
 
         if (groupNumber === "ERROR-OCCURRED") {
             this.setState({stateLoaded: true})
             return
         }
+
+        //
+        this.setState({stateLoaded: true})
+        return
+        //
 
 
         const loggedInUsersNumber = await this.getLoggedInUsersNumber(this.state.userID)
