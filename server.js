@@ -48,7 +48,7 @@ app.use(cors(corsOptions))
 app.use(cookieParser())
 
 
-app.get('/*', (req,res) => {
+app.get('/', (req,res) => {
   res.sendFile(path.join(__dirname, '/client/build/index.html'))
 })
 
