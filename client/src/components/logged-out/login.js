@@ -65,7 +65,7 @@ class Login extends React.Component {
         console.log(Cookies.get("jwtHP"))
         console.log("about to head to the /home page")
 
-        // this.props.history.push("/home") remove this
+        this.props.history.push("/home")
     }
 
 
