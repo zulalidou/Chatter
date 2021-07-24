@@ -1,0 +1,131 @@
+.navbar {
+    background-color: orange;
+    padding: 5px;
+    position: relative;
+    height: 60px;
+}
+
+.nav-img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+
+@media screen and (max-width: 576px) {
+    .nav-hamburger {
+        position: relative;
+        background-color: white;
+        border-radius: 25px;
+        border-style: none;
+
+        width: 40px;
+        height: 40px;
+    }
+
+    .nav-close {
+        position: relative;
+        background-color: white;
+        border-radius: 25px;
+        border-style: none;
+        margin-top: 5px;
+
+        width: 40px;
+        height: 40px;
+    }
+
+
+    .nav-logo {
+        position: absolute;
+        background-color: white;
+        border-radius: 25px;
+        border-style: none;
+
+        width: 40px;
+        height: 40px;
+
+        left: 50%;
+        transform: translate(-50%);
+    }
+
+    .nav-hamburger:hover, .nav-close:hover, .nav-logo:hover {
+        cursor: pointer;
+        background-color: #EBEBEB;
+    }
+
+
+    #sidebar {
+        background-color: white;
+        width: 0;
+        height: 100%;
+        z-index: 1;
+
+        position: fixed;
+        top: 0;
+        left: 0;
+        overflow-x: hidden;
+        transition: 0.5s;
+    }
+
+    .sidebar-header {
+        padding: 5px;
+        height: 60px;
+        border-bottom: 1px solid gray;
+    }
+
+    .sidebar-link {
+        background-color: white;
+        font-size: 20px;
+        padding: 10px;
+    }
+
+    .sidebar-link:hover {
+        background-color: #EBEBEB;
+    }
+
+
+    .nav-item {
+        display: none;
+    }
+}
+
+
+@media (min-width: 577px) {
+    .nav-hamburger, #sidebar {
+        display: none;
+    }
+
+    .nav-logo {
+        position: relative;
+        background-color: white;
+        border-radius: 25px;
+        border-style: none;
+
+        width: 40px;
+        height: 40px;
+    }
+
+    .nav-item {
+        position: absolute;
+
+        background-color: white;
+        border-radius: 25px;
+        border-style: none;
+
+        width: 40px;
+        height: 40px;
+    }
+
+    .nav-logo:hover, .nav-item:hover {
+        background-color: #EBEBEB;
+    }
+
+    #notifications-btn {
+        right: 50px;
+    }
+
+    #navbar-menu-btn {
+        right: 5px;
+    }
+}

@@ -1,0 +1,238 @@
+.cr-form-bottom-btn:hover {
+    background-color: #A8A8A8;
+}
+
+#cr-error-message {
+    color: red;
+    visibility: hidden;
+    margin: 0;
+    font-size: 4vw;
+}
+
+
+
+@media screen and (max-width: 768px) {
+    .create-room-form {
+        width: 90%;
+        max-height: 90%;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: white;
+        border-radius: 3px;
+        overflow-y: auto;
+    }
+
+
+    .cr-form-top {
+        width: 100%;
+        display: flex;
+    }
+
+    .cr-form-title {
+        text-align: center;
+        padding-top: 10px;
+        width: 80%;
+    }
+
+    .cr-form-title h3 {
+        font-size: 7vw;
+        vertical-align: middle;
+    }
+
+
+    .cr-form-closer {
+        width: 20%;
+        display: flex;
+        margin: 3px;
+    }
+
+    .cr-close-form-btn {
+        background-color: white;
+        border: none;
+        border-radius: 5px;
+        font-size: 5vw;
+        flex: 1;
+    }
+
+    .cr-close-form-btn:hover {
+        background-color: #A8A8A8;
+    }
+
+
+
+    .cr-form-middle {
+        padding: 0 10px;
+    }
+
+    .cr-form-middle p {
+        font-size: 3vw;
+    }
+
+    .cr-form-middle label {
+        margin-bottom: 0;
+        font-size: 4vw;
+        width: 100%;
+    }
+
+    .cr-form-middle input {
+        width: 100%;
+        padding: 5px;
+        outline: none;
+        margin-bottom: 10px;
+        font-size: 5vw;
+        border: 1px solid black;
+    }
+
+
+
+    .cr-form-bottom {
+        text-align: right;
+        padding: 5px;
+    }
+
+    .cr-form-bottom-container {
+        margin: 5px;
+    }
+
+
+    .cr-form-bottom-btn {
+        background-color: white;
+        padding: 5px;
+        border: 1px solid black;
+        border-radius: 10px;
+        font-size: 3vw;
+        word-wrap: break-word;
+    }
+
+    .cr-btn-2 {
+        margin-left: 15px;
+    }
+}
+
+
+
+@media screen and (max-width: 279px) {
+    .cr-form-bottom-container {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .cr-btn-1 {
+        flex: 1;
+        margin-bottom: 10px;
+    }
+
+    .cr-btn-2 {
+        flex: 1;
+        margin: 0;
+    }
+}
+
+
+
+@media screen and (min-width: 769px) {
+    .create-room-form {
+        width: 700px;
+        max-height: 90%;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: white;
+        border-radius: 3px;
+        overflow-y: auto;
+    }
+
+
+    .cr-form-top {
+        width: 100%;
+        display: flex;
+    }
+
+    .cr-form-title {
+        text-align: center;
+        padding-top: 10px;
+        width: 80%;
+    }
+
+    .cr-form-title h3 {
+        font-size: 50px;
+        vertical-align: middle;
+    }
+
+
+    .cr-form-closer {
+        width: 20%;
+        display: flex;
+        margin: 3px;
+    }
+
+    .cr-close-form-btn {
+        background-color: white;
+        border: none;
+        border-radius: 5px;
+        font-size: 30px;
+        flex: 1;
+    }
+
+    .cr-close-form-btn:hover {
+        background-color: #A8A8A8;
+    }
+
+
+
+    .cr-form-middle {
+        padding: 0 10px;
+    }
+
+    .cr-form-middle p {
+        font-size: 25px;
+    }
+
+    .cr-form-middle label {
+        margin-bottom: 0;
+        font-size: 30px;
+        width: 100%;
+    }
+
+    .cr-form-middle input {
+        width: 100%;
+        padding: 5px;
+        outline: none;
+        margin-bottom: 10px;
+        font-size: 25px;
+        border: 1px solid black;
+    }
+
+
+
+    .cr-form-bottom {
+        text-align: right;
+        padding: 5px;
+    }
+
+    .cr-form-bottom-container {
+        margin: 5px;
+    }
+
+
+    .cr-form-bottom-btn {
+        background-color: white;
+        padding: 5px;
+        border: 1px solid black;
+        border-radius: 10px;
+        font-size: 25px;
+        word-wrap: break-word;
+    }
+
+    .cr-btn-2 {
+        margin-left: 15px;
+    }
+
+
+    #cr-error-message {
+        font-size: 25px;
+    }
+}

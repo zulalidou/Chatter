@@ -1,0 +1,106 @@
+.lc-outer-container {
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    visibility: hidden;
+    padding-right: 10px;
+}
+
+.lc-inner-container,
+.lc-outer-container:hover,
+.lc-outer-container:focus {
+  visibility: visible;
+}
+
+
+
+.group-roomnames {
+    background-color: white;
+    padding: 5px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+.group-roomnames button {
+    background-color: white;
+    padding: 3px;
+    border: 1px solid black;
+    border-radius: 5px;
+    display: block;
+    margin: 5px auto 0 auto;
+}
+
+.group-roomnames button:hover {
+    background-color: #A8A8A8;
+    color: white;
+}
+
+
+
+.group-admin-container {
+    margin-bottom: 10px;
+    background-color: white;
+    padding: 5px;
+    border-radius: 10px;
+}
+
+.admin-exists-container {
+    padding-left: 5px;
+}
+
+.admin-missing-container button {
+    border: 1px solid black;
+    border-radius: 5px;
+    background-color: white;
+    padding: 3px;
+}
+
+.admin-missing-container button:hover {
+    background-color: #A8A8A8;
+    color: white;
+}
+
+
+
+.invite-users-category, .leave-group-category {
+    margin-bottom: 10px;
+    padding: 5px;
+    background-color: white;
+    border-radius: 10px;
+}
+
+.invite-users-category button, .leave-group-category button {
+    border: 1px solid black;
+    border-radius: 5px;
+    background-color: white;
+    padding: 3px;
+}
+
+.invite-users-category button:hover, .leave-group-category button:hover {
+    background-color: #A8A8A8;
+    color: white;
+}
+
+
+
+
+
+.current-group-room-link {
+    padding: 5px;
+    border-radius: 5px;
+    background-color: #F2F2F2;
+    margin: 5px 0;
+}
+
+.new-group-room-link {
+    padding: 5px;
+    border-radius: 5px;
+    margin: 5px 0;
+
+}
+
+.new-group-room-link:hover {
+    cursor: pointer;
+    background-color: #A8A8A8;
+    color: white;
+}

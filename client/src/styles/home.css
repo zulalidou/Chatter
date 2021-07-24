@@ -1,0 +1,152 @@
+.body {
+    height: calc(100vh - 60px);
+    width: 100%;
+}
+
+.dark-background {
+    background-color: rgba(0, 0, 0, 0.2);
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    position: fixed;
+}
+
+
+
+.left-container {
+    background-color: #F2F2F2;
+    width: 250px;
+    padding: 0 0 0 10px;
+}
+
+.left-container:hover {
+    overflow-y: auto;
+}
+
+.left-container-link {
+    color: black;
+    font-size: 20px;
+    padding: 10px;
+}
+
+.left-container-link:hover {
+    background-color: #EBEBEB;
+}
+
+
+
+.right-container {
+    background-color: white;
+}
+
+
+
+@media screen and (max-width: 576px) {
+    .left-container {
+        display: none;
+    }
+
+
+
+    .right-container {
+        height: 100%;
+        overflow: auto;
+    }
+
+    .group-number-container, .users-online-container  {
+        background-color: #F2F2F2;
+        width: 35%;
+        margin: 25px auto;
+        border-radius: 10px;
+    }
+
+    .number-container {
+        text-align: center;
+        padding: 5px;
+        font-size: 7vw;
+    }
+
+    .label-container {
+        text-align: center;
+        padding: 5px;
+        font-size: 4vw;
+        word-wrap: break-word;
+    }
+}
+
+
+
+@media (min-width: 577px) and (max-width: 768px) {
+    .body {
+        display: flex;
+        justify-content: space-between;
+    }
+
+
+
+    .right-container {
+        flex: 1;
+        overflow: auto;
+    }
+
+    .group-number-container, .users-online-container {
+        background-color: #F2F2F2;
+        width: 250px;
+        margin: 25px auto;
+        border-radius: 10px;
+    }
+
+    .number-container {
+        text-align: center;
+        font-size: 45px;
+    }
+
+    .label-container {
+        text-align: center;
+        font-size: 30px;
+        padding: 10px;
+        word-wrap: break-word;
+    }
+}
+
+
+@media (min-width: 769px) {
+    .body {
+        display: flex;
+        justify-content: space-between;
+    }
+
+
+
+    .right-container {
+        flex: 1;
+        overflow: auto;
+    }
+
+    .main-menu-items-container {
+        width: 500px;
+        margin: 25px auto;
+        display: flex;
+        justify-content: space-around;
+    }
+
+    .group-number-container, .users-online-container {
+        background-color: #F2F2F2;
+        width: 230px;
+        border-radius: 10px;
+    }
+
+    .number-container {
+        text-align: center;
+        font-size: 75px;
+    }
+
+    .label-container {
+        text-align: center;
+        font-size: 35px;
+        padding: 10px;
+        word-wrap: break-word;
+    }
+}

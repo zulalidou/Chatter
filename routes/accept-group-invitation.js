@@ -1,0 +1,242 @@
+const express = require('express')
+const router = express.Router()
+const { v4: uuidv4 } = require('uuid')
+const jwt = require('jsonwebtoken')
+
+const AWS = require('aws-sdk')
+AWS.config.update({region: "us-west-2", endpoint: "https://dynamodb.us-west-2.amazonaws.com"})
+const DynamoDB_client = new AWS.DynamoDB.DocumentClient()
+
+
+
+function authenticate(req, res, next) {
+    try {
+        jwt.verify(req.cookies.jwtHP + "." + req.cookies.jwtS, process.env.jwtSignKey)
+    } catch (err) {
+        console.log("An error occurred - accept-group-invite.js - authenticate()\n")
+        res.status(401).send(err.message)
+        return
+    }
+
+    next()
+}
+
+
+// 1. Make sure that before the user accepts the group invitation, the group hasn't been deleted yet.
+// 2. If it has been deleted, don't do anything, otherwise, add the user as a new member of the group
+router.post('/', authenticate, async function(req, res) {
+    console.log('\n\naccept-group-invitation')
+
+    const groupExists = await doesGroupExist(req.body.groupID)
+
+    if (groupExists === "ERROR-OCCURRED") {
+        res.status(404).send("Couldn't retrieve data")
+        return
+    }
+
+
+    console.log('group exists')
+
+    const userIsAlreadyMember = await isUserAlreadyMember(req.body.userID, req.body.groupID)
+
+    if (userIsAlreadyMember === "ERROR-OCCURRED") {
+        res.status(404).send("Couldn't retrieve data")
+        return
+    }
+
+
+    if (userIsAlreadyMember) {
+        console.log('user is already a member of the group')
+        res.status(200).end("User is already member")
+        return
+    }
+
+    let status = await createGroupMembership(req.body.userID, req.body.groupID)
+
+    if (status === "ERROR-OCCURRED") {
+        res.status(500).send("Couldn't create group membership")
+        return
+    }
+
+
+    const roomIDs = await getRoomIDs(req.body.groupID)
+
+    if (roomIDs === "ERROR-OCCURRED") {
+        res.status(404).send("Couldn't retrieve data")
+        return
+    }
+
+
+    for (let i = 0; i < roomIDs.length; i++) {
+        status = await createRoomMembership(req.body.userID, roomIDs[i], req.body.groupID)
+
+        if (status === "ERROR-OCCURRED") {
+            res.status(404).send("Couldn't retrieve data")
+            return
+        }
+    }
+
+
+    res.status(200).send("Success")
+})
+
+
+async function doesGroupExist(groupID) {
+    const params = {
+        TableName: "Groups",
+        Key: {
+            id: groupID
+        }
+    }
+
+
+    console.log("\n\ndoesGroupExist() called")
+    console.log("groupID = " + groupID)
+    console.log("\n\n")
+
+    try {
+        const response = await DynamoDB_client.get(params).promise()
+        const group = response.Item
+
+        if (isEmpty(group))
+            return false
+        return true
+    } catch (err) {
+        console.log("An error has occurred - accept-group-invitation.js - doesGroupExist()")
+        console.log(err)
+        return "ERROR-OCCURRED"
+    }
+}
+
+
+function isEmpty(obj) {
+    for (let prop in obj) {
+        if (obj.hasOwnProperty(prop))
+            return false
+    }
+
+    return true
+}
+
+
+async function isUserAlreadyMember(userID, groupID) {
+    const params = {
+        TableName: "Users_Groups",
+        IndexName: "userID-index",
+        KeyConditionExpression: "userID = :uid",
+        ExpressionAttributeValues: {
+            ":uid": userID
+        }
+    }
+
+    console.log("\n\nisUserAlreadyMember() called")
+    console.log("userID = " + userID + ", groupID = " + groupID + "\n")
+
+    try {
+        const response = await DynamoDB_client.query(params).promise()
+
+        for (let i = 0; i < response.Items.length; i++) {
+            if (response.Items[i].groupID === groupID)
+                return true
+        }
+
+        return false
+    } catch (err) {
+        console.log("An error has occurred - accept-group-invitation.js - isUserAlreadyMember()")
+        console.log(err)
+        return "ERROR-OCCURRED"
+    }
+}
+
+
+async function createGroupMembership(userID, groupID) {
+    const params = {
+        TableName: "Users_Groups",
+        Item: {
+            id: uuidv4(),
+            userID: userID,
+            groupID: groupID,
+            date: getDate(),
+            time: getTime()
+        }
+    }
+
+    try {
+        await DynamoDB_client.put(params).promise()
+        return "Success"
+    } catch (err) {
+        console.log('An error occurred (create-group.js)')
+        console.log(err)
+        return "ERROR-OCCURRED"
+    }
+}
+
+
+function getDate() {
+    let dateObj = new Date()
+    const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+
+    return months[dateObj.getMonth()] + " " + dateObj.getDate() + ", " + dateObj.getFullYear()
+}
+
+
+function getTime() {
+    let dateObj = new Date()
+    return dateObj.getTime()
+}
+
+
+async function getRoomIDs(groupID) {
+    const params = {
+        TableName: "Rooms",
+        IndexName: "groupID-index",
+        KeyConditionExpression: "groupID = :gid",
+        ExpressionAttributeValues: {
+            ":gid": groupID
+        }
+    }
+
+    try {
+        const response = await DynamoDB_client.query(params).promise()
+
+        console.log("\n\ngetRoomIDs:\n")
+        console.log(response)
+
+
+        let roomIDs = []
+
+        for (let i = 0; i < response.Items.length; i++)
+            roomIDs.push(response.Items[i].id)
+
+        return roomIDs
+    } catch (err) {
+        console.log('An error occurred (create-group.js)')
+        console.log(err)
+        return "ERROR-OCCURRED"
+    }
+}
+
+
+async function createRoomMembership(userID, roomID, groupID) {
+    const params = {
+        TableName: "Users_Rooms",
+        Item: {
+            id: uuidv4(),
+            userID: userID,
+            roomID: roomID,
+            groupID: groupID
+        }
+    }
+
+    try {
+        await DynamoDB_client.put(params).promise()
+        return "Success"
+    } catch(err) {
+        console.log("An error occurred (accept-group-invitation.js)")
+        console.log(err)
+        return "ERROR-OCCURRED"
+    }
+}
+
+
+module.exports = router

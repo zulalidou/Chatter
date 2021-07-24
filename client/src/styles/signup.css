@@ -1,0 +1,161 @@
+.signup-container {
+    height: 100vh;
+    background-color: #FFF4E8;
+    position: relative;
+}
+
+.signup-form {
+    max-height: 90%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    border-radius: 3px;
+    border: 1px solid black;
+    padding: 15px;
+    overflow-y: auto;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+input {
+    width: 100%;
+}
+
+
+.signup-btn {
+    margin-bottom: 10px;
+    background-color: orange;
+    color: white;
+    font-size: 25px;
+    width: 100%;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 10px;
+    text-align: center;
+    word-wrap: break-word;
+}
+
+.signup-btn:hover {
+    background-color: #FF8C00;
+}
+
+.signup-input:focus {
+    outline-color: orange;
+}
+
+
+#signup-error-msg-1, #signup-error-msg-2, #signup-error-msg-3, #signup-error-msg-4 {
+    color: red;
+    margin-bottom: 0px;
+    visibility: hidden;
+}
+
+
+
+.center-item {
+    text-align: center;
+}
+
+
+
+@media screen and (max-width: 576px) {
+    .signup-form {
+        width: 80%;
+    }
+
+
+    .sf-title-container h2 {
+        font-size: 7vw;
+        margin-bottom: 30px;
+    }
+
+
+
+    .sf-name-container, .sf-password-container, .sf-email-container, .sf-password-container {
+        margin-bottom: 10px;
+    }
+
+    .sf-name-container label, .sf-username-container label,
+    .sf-email-container label, .sf-password-container label {
+        margin-bottom: 0px;
+        width: 100%;
+        font-size: 4vw;
+    }
+
+    .signup-input {
+        width: 100%;
+        padding: 5px;
+        border-radius: 5px;
+        border: 1px solid black;
+        font-size: 3vw;
+    }
+
+
+
+    .signup-btn {
+        font-size: 3vw;
+    }
+
+
+
+    #signup-error-msg-1, #signup-error-msg-2, #signup-error-msg-3, #signup-error-msg-4 {
+        font-size: 3vw;
+    }
+
+
+    .signup-form-link {
+        font-size: 4vw;
+    }
+}
+
+
+
+@media (min-width: 577px) {
+    .signup-form {
+        width: 400px;
+    }
+
+
+    .sf-title-container h2 {
+        font-size: 30px;
+        margin-bottom: 20px;
+    }
+
+
+    .sf-name-container, .sf-password-container, .sf-email-container, .sf-password-container {
+        margin-bottom: 10px;
+    }
+
+    .sf-name-container label, .sf-username-container label,
+    .sf-email-container label, .sf-password-container label {
+        margin-bottom: 0px;
+        width: 100%;
+        font-size: 18px;
+    }
+
+    .signup-input {
+        width: 100%;
+        padding: 5px;
+        border-radius: 5px;
+        border: 1px solid black;
+        font-size: 15px;
+    }
+
+
+
+    .signup-btn {
+        font-size: 18px;
+    }
+
+
+
+    #signup-error-msg-1, #signup-error-msg-2, #signup-error-msg-3, #signup-error-msg-4 {
+        font-size: 15px;
+    }
+
+
+    .signup-form-link {
+        font-size: 18px;
+    }
+}

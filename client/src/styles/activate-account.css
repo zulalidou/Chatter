@@ -1,0 +1,175 @@
+.activate-account-container {
+    height: 100vh;
+    background-color: #FFF4E8;
+    position: relative;
+}
+
+.aa-form {
+    max-height: 90%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    border-radius: 3px;
+    border: 1px solid black;
+    padding: 15px;
+    overflow-y: auto;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+input {
+    width: 100%;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.aa-input:focus {
+    outline-color: orange;
+}
+
+
+
+.aa-btn {
+    margin-bottom: 10px;
+    background-color: orange;
+    color: white;
+    font-size: 25px;
+    width: 100%;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 10px;
+    text-align: center;
+    word-wrap: break-word;
+}
+
+.aa-btn:hover {
+    background-color: #FF8C00;
+}
+
+
+
+#aa-error-message {
+    color: red;
+    margin-bottom: 0px;
+    visibility: hidden;
+}
+
+
+
+.resend-aa-code-btn {
+    border: none;
+    padding: 0px;
+    background-color: white;
+    margin-top: 10px;
+}
+
+.resend-aa-code-btn:hover {
+    color: blue;
+}
+
+
+
+#aa-code-sent-div {
+    color: green;
+    visibility: hidden;
+    margin-bottom: 20px;
+}
+
+
+
+@media screen and (max-width: 576px) {
+    .aa-form {
+        width: 80%;
+    }
+
+    .aa-form-inner-container-1 .title-container h2, .aa-form-inner-container-2 .title-container h2 {
+        font-size: 7vw;
+        margin-bottom: 30px;
+    }
+
+
+
+    .aa-form-inner-container-1-body, .aa-form-inner-container-2-body {
+        margin-bottom: 10px;
+    }
+
+    .aa-form-inner-container-1-body p, .aa-form-inner-container-2-body p {
+        font-size: 4vw;
+        margin-bottom: 10px;
+        word-wrap: break-word;
+    }
+
+
+    #aa-code-input {
+        width: 100%;
+        padding: 5px;
+        border-radius: 5px;
+        border: 1px solid black;
+        font-size: 3vw;
+    }
+
+
+    .aa-btn {
+        font-size: 3vw;
+    }
+
+
+
+    .resend-aa-code-btn {
+        font-size: 3vw;
+    }
+
+    #aa-code-sent-div {
+        font-size: 3vw;
+    }
+}
+
+
+
+@media (min-width: 577px) {
+    .aa-form {
+        width: 400px;
+    }
+
+    .aa-form-inner-container-1 .title-container h2, .aa-form-inner-container-2 .title-container h2 {
+        font-size: 30px;
+        margin-bottom: 20px;
+    }
+
+
+
+    .aa-form-inner-container-1-body, .aa-form-inner-container-2-body {
+        margin-bottom: 10px;
+    }
+
+    .aa-form-inner-container-1-body p, .aa-form-inner-container-2-body p {
+        font-size: 18px;
+        margin-bottom: 10px;
+        word-wrap: break-word;
+    }
+
+
+    #aa-code-input {
+        width: 100%;
+        padding: 5px;
+        border-radius: 5px;
+        border: 1px solid black;
+        font-size: 15px;
+    }
+
+
+    .aa-btn {
+        font-size: 18px;
+    }
+
+
+    .resend-aa-code-btn {
+        font-size: 15px;
+    }
+
+    #aa-code-sent-div {
+        font-size: 15px;
+    }
+}

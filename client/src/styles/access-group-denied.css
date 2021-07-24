@@ -1,0 +1,117 @@
+@media screen and (max-width: 768px) {
+    .access-group-denied-container {
+        background-color: #F2F2F2;
+        width: 80%;
+        margin: 20px auto;
+        border-radius: 10px;
+        padding: 5px;
+    }
+
+    .access-group-denied-container h3 {
+        text-align: center;
+        font-size: 7vw;
+    }
+
+    .access-group-denied-container p {
+        text-align: center;
+        font-size: 4vw;
+    }
+
+
+
+    .access-group-denied-icon-container {
+        margin: auto;
+        width: 20%;
+        height: 20%;
+    }
+
+    .access-group-denied-icon {
+        width: 100%;
+        height: 100%;
+    }
+
+
+
+    .access-group-denied-container img {
+        display: block;
+        margin: auto;
+    }
+
+    .access-group-denied-container-link {
+        text-align: center;
+        margin: auto;
+        font-size: 4vw;
+        color: black;
+        width: 30%;
+        word-wrap: break-word;
+        border: 1px solid black;
+        border-radius: 5px;
+    }
+
+    .access-group-denied-container-link:hover {
+        background-color: #A8A8A8;
+    }
+
+    .access-group-denied-btn1 {
+        margin-bottom: 10px;
+    }
+}
+
+
+
+@media (min-width: 768px) {
+    .access-group-denied-container {
+        background-color: #F2F2F2;
+        width: 600px;
+        margin: 20px auto;
+        border-radius: 10px;
+        padding: 5px;
+    }
+
+    .access-group-denied-container h3 {
+        font-size: 50px;
+    }
+
+    .access-group-denied-container p {
+        text-align: center;
+        font-size: 25px;
+    }
+
+
+
+    .access-group-denied-icon-container {
+        margin: auto;
+        width: 20%;
+        height: 20%;
+    }
+
+    .access-group-denied-icon {
+        width: 100%;
+        height: 100%;
+    }
+
+
+
+    .access-group-denied-container img {
+        display: block;
+        margin: auto;
+    }
+
+    .access-group-denied-container-link {
+        text-align: center;
+        margin: auto;
+        font-size: 25px;
+        color: black;
+        width: 180px;
+        border: 1px solid black;
+        border-radius: 5px;
+    }
+
+    .access-group-denied-container-link:hover {
+        background-color: #A8A8A8;
+    }
+
+    .access-group-denied-btn1 {
+        margin-bottom: 10px;
+    }
+}

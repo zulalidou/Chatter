@@ -1,0 +1,136 @@
+@media screen and (max-width: 576px) {
+    #groups-header {
+        background-color: #F2F2F2;
+        padding-left: 5px;
+        margin: 0;
+        font-size: 7vw;
+    }
+
+    .create-group-btn {
+        background-color: white;
+        border-radius: 10px;
+        border: 1px solid black;
+        padding: 5px;
+        font-size: 5vw;
+
+        display: block;
+        margin: 30px auto;
+        width: 80%;
+    }
+
+    .create-group-btn:hover {
+        background-color: #F2F2F2;
+    }
+
+
+    #user-groups-header {
+        background-color: #F2F2F2;
+        text-align: center;
+        padding: 5px;
+        font-size: 5vw;
+        margin-bottom: 0;
+    }
+
+
+
+    .groups-container {
+        background-color: #F2F2F2;
+        width: 80%;
+        font-size: 5vw;
+        border-radius: 5px;
+        margin: 30px auto;
+        padding: 10px;
+        word-wrap: break-word;
+    }
+}
+
+
+
+@media (min-width: 577px) and (max-width: 768px) {
+    .create-group-btn {
+        background-color: white;
+        border-radius: 10px;
+        border: 1px solid black;
+        padding: 5px;
+        font-size: 20px;
+        margin-top: 10px;
+    }
+
+    .create-group-btn:hover {
+        background-color: #A8A8A8;
+    }
+
+
+
+    #groups-header {
+        display: none;
+    }
+
+    .right-container .create-group-btn {
+        display: none;
+    }
+
+    #user-groups-header {
+        background-color: #F9F8F7;
+        text-align: center;
+        padding: 5px;
+        font-size: 30px;
+    }
+
+
+    .groups-container {
+        background-color: #F2F2F2;
+        width: 80%;
+        font-size: 25px;
+        border-radius: 5px;
+        margin: 30px auto;
+        padding: 10px;
+        word-wrap: break-word;
+    }
+}
+
+
+
+@media screen and (min-width: 769px) {
+    .create-group-btn {
+        background-color: white;
+        border-radius: 10px;
+        border: 1px solid black;
+        padding: 5px;
+        font-size: 20px;
+        margin-top: 10px;
+    }
+
+    .create-group-btn:hover {
+        background-color: #A8A8A8;
+    }
+
+
+
+    #groups-header {
+        display: none;
+    }
+
+    .right-container .create-group-btn {
+        display: none;
+    }
+
+    #user-groups-header {
+        background-color: #F9F8F7;
+        text-align: center;
+        padding: 5px;
+        font-size: 30px;
+    }
+
+
+
+    .groups-container {
+        background-color: #F2F2F2;
+        width: 500px;
+        font-size: 25px;
+        border-radius: 5px;
+        margin: 25px auto;
+        padding: 10px;
+        word-wrap: break-word;
+    }
+}

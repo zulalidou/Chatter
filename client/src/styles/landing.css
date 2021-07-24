@@ -1,0 +1,115 @@
+.landing-page-body-container {
+    height: 100vh;
+    overflow: auto;
+    background-color: #FFF4E8;
+    text-align: center;
+    position: relative;
+}
+
+.lp-content-container {
+    padding: 15px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+
+#bc-btn-1 {
+    margin-bottom: 10px;
+    background-color: orange;
+    color: white;
+    font-size: 18px;
+}
+
+#bc-btn-1:hover {
+    background-color: #FF8C00;
+}
+
+#bc-btn-2 {
+    background-color: white;
+    font-size: 18px;
+}
+
+#bc-btn-2:hover {
+    background-color: #F2F2F2;
+}
+
+
+@media screen and (max-width: 576px) {
+    .lp-content-container {
+        width: 80%;
+        max-height: 90%;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: white;
+        border-radius: 3px;
+        overflow-y: auto;
+        border: 1px solid black;
+    }
+
+    .lp-content-container p {
+        font-size: 4vw;
+        margin-top: 10px;
+    }
+
+
+
+    .lp-content-container div {
+        width: 100%;
+        margin: auto;
+    }
+
+
+
+    .buttons-container button {
+        border: 1px solid black;
+        border-radius: 10px;
+        padding: 10px;
+        font-size: 3vw;
+        width: 100%;
+        word-wrap: break-word;
+    }
+
+
+
+    #bc-btn-1, #bc-btn-2 {
+        font-size: 3vw;
+    }
+}
+
+
+
+@media (min-width: 577px) {
+    .lp-content-container {
+        width: 400px;
+        max-height: 90%;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: white;
+        border-radius: 3px;
+        overflow-y: auto;
+        border: 1px solid black;
+    }
+
+    .lp-content-container p {
+        font-size: 20px;
+        margin-top: 10px;
+    }
+
+    .lp-content-container div {
+        /* width: 300px; */
+        /* margin: auto;/ */
+        /* background-color: green; */
+    }
+
+
+
+    .buttons-container button {
+        border: 1px solid black;
+        border-radius: 10px;
+        padding: 10px;
+        width: 100%;
+    }
+}

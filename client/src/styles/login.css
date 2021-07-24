@@ -1,0 +1,153 @@
+.login-container {
+    height: 100vh;
+    background-color: #FFF4E8;
+    position: relative;
+}
+
+.login-form {
+    max-height: 90%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    border-radius: 3px;
+    border: 1px solid black;
+    padding: 15px;
+    overflow-y: auto;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+
+.login-btn {
+    margin-bottom: 10px;
+    background-color: orange;
+    color: white;
+    font-size: 25px;
+    width: 100%;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 10px;
+    text-align: center;
+}
+
+.login-btn:hover {
+    background-color: #FF8C00;
+}
+
+
+#login-error-msg-1, #login-error-msg-2 {
+    color: red;
+    margin-bottom: 0px;
+    visibility: hidden;
+}
+
+
+.login-input:focus {
+    outline-color: orange;
+}
+
+
+
+
+@media screen and (max-width: 768px) {
+    .login-form {
+        width: 80%;
+    }
+
+
+
+    .lf-title-container h2 {
+        font-size: 7vw;
+        margin-bottom: 30px;
+    }
+
+
+
+    .lf-email-container, .lf-password-container {
+        margin-bottom: 10px;
+    }
+
+    .lf-email-container label, .lf-password-container label {
+        margin-bottom: 0px;
+        width: 100%;
+        font-size: 4vw;
+    }
+
+    .login-input {
+        width: 100%;
+        padding: 5px;
+        border-radius: 5px;
+        border: 1px solid black;
+        font-size: 3vw;
+    }
+
+
+
+    .login-btn {
+        font-size: 3vw;
+    }
+
+
+
+    #login-error-msg-1, #login-error-msg-2 {
+        font-size: 3vw;
+    }
+
+
+    .login-form-link {
+        font-size: 4vw;
+    }
+}
+
+
+
+@media (min-width: 769px) {
+    .login-form {
+        width: 400px;
+    }
+
+
+
+    .lf-title-container h2 {
+        font-size: 30px;
+        margin-bottom: 20px;
+    }
+
+
+
+    .lf-email-container, .lf-password-container {
+        margin-bottom: 10px;
+    }
+
+    .lf-email-container label, .lf-password-container label {
+        margin-bottom: 0px;
+        width: 100%;
+        font-size: 18px;
+    }
+
+    .login-input {
+        width: 100%;
+        padding: 5px;
+        border-radius: 5px;
+        border: 1px solid black;
+        font-size: 15px;
+    }
+
+
+
+    .login-btn {
+        font-size: 18px;
+    }
+
+
+
+    #login-error-msg-1, #login-error-msg-2 {
+        font-size: 15px;
+    }
+
+
+    .login-form-link {
+        font-size: 18px;
+    }
+}

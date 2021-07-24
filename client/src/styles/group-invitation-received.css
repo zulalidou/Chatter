@@ -1,0 +1,157 @@
+.gir-decline-btn:hover, .gir-accept-btn:hover {
+    background-color: #A8A8A8;
+}
+
+
+@media screen and (max-width: 768px) {
+    .group-invitation-received-form {
+        width: 90%;
+        max-height: 90%;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: white;
+        border-radius: 3px;
+        overflow-y: auto;
+    }
+
+
+
+    .gir-form-top {
+        width: 100%;
+        display: flex;
+    }
+
+    .gir-form-title {
+        text-align: center;
+        padding-top: 10px;
+        width: 100%;
+    }
+
+    .gir-form-title h3 {
+        font-size: 5vw;
+        vertical-align: middle;
+    }
+
+
+
+    .gir-form-middle {
+        padding: 0 10px;
+    }
+
+    .gir-form-middle p {
+        font-size: 3vw;
+    }
+
+
+
+    .gir-form-bottom {
+        text-align: right;
+        padding: 5px;
+    }
+
+    .gir-form-bottom-container {
+        margin: 5px;
+    }
+
+
+    .gir-form-bottom-btn {
+        background-color: white;
+        padding: 5px;
+        border: 1px solid black;
+        border-radius: 10px;
+        font-size: 3vw;
+        word-wrap: break-word;
+    }
+
+    .gir-accept-btn {
+        margin-left: 15px;
+    }
+}
+
+
+@media screen and (max-width: 279px) {
+    .gir-form-bottom-container {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .gir-decline-btn {
+        flex: 1;
+        margin-bottom: 10px;
+    }
+
+    .gir-accept-btn {
+        flex: 1;
+        margin: 0;
+    }
+}
+
+
+@media screen and (min-width: 769px) {
+    .group-invitation-received-form {
+        width: 700px;
+        max-height: 90%;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: white;
+        border-radius: 3px;
+        overflow-y: auto;
+    }
+
+
+
+    .gir-form-top {
+        width: 100%;
+        display: flex;
+    }
+
+    .gir-form-title {
+        text-align: center;
+        padding-top: 10px;
+        width: 100%;
+    }
+
+    .gir-form-title h3 {
+        font-size: 35px;
+        vertical-align: middle;
+    }
+
+
+
+    .gir-form-middle {
+        padding: 0 10px;
+    }
+
+    .gir-form-middle p {
+        font-size: 25px;
+    }
+
+
+
+    .gir-form-bottom {
+        text-align: right;
+        padding: 5px;
+    }
+
+    .gir-form-bottom-container {
+        margin: 5px;
+    }
+
+
+    .gir-form-bottom-btn {
+        background-color: white;
+        padding: 5px;
+        border: 1px solid black;
+        border-radius: 10px;
+        font-size: 25px;
+        word-wrap: break-word;
+    }
+
+    .gir-accept-btn {
+        margin-left: 15px;
+    }
+}

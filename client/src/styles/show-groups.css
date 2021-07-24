@@ -1,0 +1,48 @@
+.group-btn {
+    background-color: #F2F2F2;
+    width: 80%;
+    display: block;
+    margin: 10px auto;
+
+    border: none;
+    border-radius: 10px;
+    padding: 5px;
+}
+
+.group-btn:hover {
+    background-color: #A8A8A8;
+}
+
+
+
+.group-container {
+    text-align: left;
+    word-wrap: break-word;
+}
+
+.group-name-container {
+    color: black;
+    font-size: 5vw;
+}
+
+.group-date-container {
+    color: gray;
+    font-size: 3vw;
+}
+
+
+
+@media (min-width: 769px) {
+    .group-btn {
+        width: 450px;
+        height: 100px;
+    }
+
+    .group-name-container {
+        font-size: 40px;
+    }
+
+    .group-date-container {
+        font-size: 25px;
+    }
+}

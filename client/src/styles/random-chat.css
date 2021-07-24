@@ -1,0 +1,98 @@
+.left-container {
+    /* padding-right: 10px; */
+}
+
+
+#random-chat-message {
+    padding: 25px;
+    background-color: #FFB326;
+    border-radius: 10px;
+    margin: auto;
+}
+
+#random-chat-message p {
+    font-size: 20px;
+}
+
+#item-list-container {
+    /* This is to keep the bullet points inside */
+    list-style-position: inside;
+}
+
+
+
+@media screen and (max-width: 576px) {
+    #random-chat-message {
+        width: 80%;
+        margin-top: 25px;
+        word-wrap: break-word;
+    }
+
+    #random-chat-message p {
+        font-size: 4vw;
+    }
+
+
+    .logged-in-user {
+        background-color: white;
+    }
+
+
+    .bullet-point-span {
+        font-size: 5vw;
+    }
+}
+
+
+
+@media (min-width: 577px) and (max-width: 768px) {
+    #random-chat-message {
+        width: 80%;
+        margin: 25px auto;
+        word-wrap: break-word;
+    }
+
+    .right-container #users-online-container {
+        display: none;
+    }
+
+
+    .logged-in-user {
+        background-color: #F2F2F2;
+    }
+
+
+    .bullet-point-span {
+        font-size: 5vw;
+    }
+}
+
+
+
+@media screen and (min-width: 769px) {
+    #random-chat-message {
+        width: 500px;
+        margin: 30px auto;
+        word-wrap: break-word;
+    }
+
+    #random-chat-message p {
+        font-size: 25px;
+    }
+
+
+
+    .right-container #users-online-container {
+        display: none;
+    }
+
+    .logged-in-user {
+        background-color: #F2F2F2;
+    }
+
+
+
+    .bullet-point-span {
+        font-size: 38px;
+    }
+}

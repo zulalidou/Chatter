@@ -1,0 +1,300 @@
+.error-message-profile {
+    color: red;
+    font-style: italic;
+}
+
+.profile-container {
+    display: flex;
+    flex-flow: column;
+    background-color: #F2F2F2;
+    padding: 5px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    word-wrap: break-word;
+}
+
+.edit-btn:hover {
+    background-color: #A8A8A8;
+}
+
+
+.mpi-form-bottom-btn:hover {
+    background-color: #A8A8A8;
+}
+
+
+
+@media screen and (max-width: 768px) {
+    .profile-info p {
+        font-size: 8vw;
+        margin: 0;
+    }
+
+    .profile-info label {
+        width: 100%;
+        font-size: 5vw;
+    }
+
+    .edit-btn {
+        border: none;
+        border-radius: 5px;
+        font-size: 5vw;
+        width: 100%;
+        word-wrap: break-word;
+        background-color: white;
+    }
+
+
+
+    .modify-profile-info-form {
+        width: 90%;
+        max-height: 90%;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: white;
+        border-radius: 3px;
+        overflow-y: auto;
+    }
+
+
+
+    .mpi-form-top {
+        width: 100%;
+        display: flex;
+    }
+
+    .mpi-form-title {
+        text-align: center;
+        padding-top: 10px;
+        width: 80%;
+    }
+
+    .mpi-form-title h2 {
+        font-size: 7vw;
+        vertical-align: middle;
+    }
+
+
+    .mpi-form-closer {
+        width: 20%;
+        display: flex;
+        margin: 3px;
+    }
+
+    .mpi-close-form-btn {
+        background-color: white;
+        border: none;
+        border-radius: 5px;
+        font-size: 5vw;
+        flex: 1;
+    }
+
+    .mpi-close-form-btn:hover {
+        background-color: #A8A8A8;
+    }
+
+
+
+    .mpi-form-middle {
+        padding: 0 10px;
+    }
+
+    .mpi-form-middle p {
+        font-size: 4vw;
+    }
+
+    #mpi-attribute-label, #mpi-password-label {
+        margin-bottom: 0;
+        font-size: 4vw;
+        width: 100%;
+    }
+
+    #newValue-input, #password-input {
+        width: 100%;
+        padding: 5px;
+        outline: none;
+        margin-bottom: 10px;
+        font-size: 5vw;
+        border: 1px solid black;
+    }
+
+
+
+    .mpi-form-bottom {
+        text-align: right;
+        padding: 5px;
+    }
+
+    .mpi-form-bottom-container {
+        margin: 5px;
+    }
+
+
+    .mpi-form-bottom-btn {
+        background-color: white;
+        padding: 5px;
+        border: 1px solid black;
+        border-radius: 10px;
+        font-size: 5vw;
+        word-wrap: break-word;
+    }
+
+    .update-profile-info-btn-2 {
+        margin-left: 15px;
+    }
+}
+
+
+
+@media screen and (max-width: 279px) {
+    .mpi-form-bottom-container {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .update-profile-info-btn-1 {
+        flex: 1;
+        margin-bottom: 10px;
+    }
+
+    .update-profile-info-btn-2 {
+        flex: 1;
+        margin: 0;
+    }
+}
+
+
+
+@media (min-width: 769px) {
+    .profile-container {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    .profile-info {
+        width: 100%;
+    }
+
+    .profile-info label {
+        width: 100%;
+        font-size: 30px;
+    }
+
+    .profile-info p {
+        font-size: 25px;
+        margin: 0;
+    }
+
+    .edit-btn {
+        border: none;
+        border-radius: 5px;
+        font-size: 25px;
+        width: 100%;
+        word-wrap: break-word;
+        background-color: white;
+    }
+
+
+
+    .modify-profile-info-form {
+        width: 700px;
+        max-height: 90%;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: white;
+        border-radius: 3px;
+        overflow-y: auto;
+    }
+
+
+
+    .mpi-form-top {
+        width: 100%;
+        display: flex;
+    }
+
+    .mpi-form-title {
+        text-align: center;
+        padding-top: 10px;
+        width: 80%;
+    }
+
+    .mpi-form-title h2 {
+        font-size: 49px;
+        vertical-align: middle;
+    }
+
+
+    .mpi-form-closer {
+        width: 20%;
+        display: flex;
+        margin: 3px;
+    }
+
+    .mpi-close-form-btn {
+        background-color: white;
+        border: none;
+        border-radius: 5px;
+        font-size: 30px;
+        flex: 1;
+    }
+
+    .mpi-close-form-btn:hover {
+        background-color: #A8A8A8;
+    }
+
+
+
+    .mpi-form-middle {
+        padding: 0 10px;
+    }
+
+    .mpi-form-middle p {
+        font-size: 25px;
+    }
+
+    #mpi-attribute-label, #mpi-password-label {
+        margin-bottom: 0;
+        font-size: 30px;
+        width: 100%;
+    }
+
+    #newValue-input, #password-input {
+        width: 100%;
+        padding: 5px;
+        outline: none;
+        margin-bottom: 10px;
+        font-size: 25px;
+        border: 1px solid black;
+    }
+
+
+
+    .mpi-form-bottom {
+        text-align: right;
+        padding: 5px;
+    }
+
+    .mpi-form-bottom-container {
+        margin: 5px;
+    }
+
+
+
+    .mpi-form-bottom-btn {
+        background-color: white;
+        padding: 5px;
+        border: 1px solid black;
+        border-radius: 10px;
+        font-size: 25px;
+        word-wrap: break-word;
+    }
+
+    .update-profile-info-btn-2 {
+        margin-left: 15px;
+    }
+}

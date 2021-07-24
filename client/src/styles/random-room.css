@@ -1,0 +1,123 @@
+#send-btn {
+    padding: 3px;
+    margin: 5px;
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 5px;
+}
+
+#send-btn:hover {
+    background-color: #F0EFED;
+}
+
+
+
+@media screen and (max-width: 576px) {
+    #random-room-container {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        width: 100%;
+    }
+
+
+
+    #random-chat-header {
+        background-color: #F2F2F2;
+        padding-left: 5px;
+        margin: 0;
+        font-size: 7vw;
+    }
+
+    #room-title {
+        font-size: 5vw;
+        word-wrap: break-word;
+        text-align: center;
+        background-color: #F9F8F7;
+        border-bottom: 1px solid gray;
+    }
+
+    #messages-container {
+        flex: 1;
+        overflow: auto;
+    }
+
+
+
+    #bottom-container {
+        border-top: 1px solid black;
+        width: 100%;
+    }
+
+    #form {
+        width: 100%;
+        display: flex;
+    }
+
+    #message-input {
+        border: none;
+        outline: none;
+        font-size: 5vw;
+        padding: 5px;
+        width: 100%;
+        flex: 1;
+    }
+
+    #send-btn {
+        width: 20%;
+        font-size: 5vw;
+        word-wrap: break-word;
+    }
+}
+
+
+
+@media (min-width: 577px) {
+    #random-room-container {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        width: calc(100vw - 250px);
+    }
+
+
+    #random-chat-header {
+        display: none;
+    }
+
+    #room-title {
+        font-size: 25px;
+        text-align: center;
+        background-color: #F9F8F7;
+        border-bottom: 1px solid gray;
+    }
+
+    #messages-container {
+        flex: 1;
+        overflow: auto;
+    }
+
+
+
+    #bottom-container {
+        border-top: 1px solid black;
+        width: 100%;
+    }
+
+    #form {
+        width: 100%;
+        display: flex;
+    }
+
+    #message-input {
+        border: none;
+        outline: none;
+        padding: 5px;
+        width: 100%;
+        flex: 1;
+    }
+
+    #send-btn {
+        font-size: 15px;
+    }
+}

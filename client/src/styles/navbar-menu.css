@@ -1,0 +1,39 @@
+.navbar-menu {
+    width: 300px;
+    position: absolute;
+    z-index: 1;
+    top: 55px;
+    right: 10px;
+    border-radius: 5px;
+
+    border: 1px solid gray;
+
+}
+
+.item {
+    width: 100%;
+    border: none;
+    text-align: left;
+    padding: 5px;
+    font-size: 18px;
+    background-color: white;
+}
+
+
+
+
+.item:hover {
+    background-color: #EBEBEB;
+}
+
+.item-link {
+
+}
+
+#first-item {
+    border-radius: 5px 5px 0px 0px;
+}
+
+#last-item {
+    border-radius: 0px 0px 5px 5px;
+}

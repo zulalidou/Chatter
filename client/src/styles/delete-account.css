@@ -1,0 +1,235 @@
+.edit-btn:hover {
+    background-color: #A8A8A8;
+}
+
+.error-message-delete-account {
+    color: red;
+    font-style: italic;
+}
+
+.da-form-bottom-btn:hover {
+    background-color: #A8A8A8;
+}
+
+
+
+@media screen and (max-width: 768px) {
+    .delete-account-form {
+        width: 90%;
+        max-height: 90%;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: white;
+        border-radius: 3px;
+        overflow-y: auto;
+    }
+
+
+    .da-form-top {
+        width: 100%;
+        display: flex;
+    }
+
+    .da-form-title {
+        text-align: center;
+        padding-top: 10px;
+        width: 80%;
+    }
+
+    .da-form-title h3 {
+        font-size: 7vw;
+        vertical-align: middle;
+    }
+
+
+    .da-form-closer {
+        width: 20%;
+        display: flex;
+        margin: 3px;
+    }
+
+    .da-close-form-btn {
+        background-color: white;
+        border: none;
+        border-radius: 5px;
+        font-size: 5vw;
+        flex: 1;
+    }
+
+    .da-close-form-btn:hover {
+        background-color: #A8A8A8;
+    }
+
+
+
+    .da-form-middle {
+        padding: 0 10px;
+    }
+
+    .da-form-middle p {
+        font-size: 3vw;
+    }
+
+    #da-password-label {
+        margin-bottom: 0;
+        font-size: 4vw;
+        width: 100%;
+    }
+
+    #da-password-input {
+        width: 100%;
+        padding: 5px;
+        outline: none;
+        margin-bottom: 10px;
+        font-size: 5vw;
+        border: 1px solid black;
+    }
+
+
+
+    .da-form-bottom {
+        text-align: right;
+        padding: 5px;
+    }
+
+    .da-form-bottom-container {
+        margin: 5px;
+    }
+
+
+    .da-form-bottom-btn {
+        background-color: white;
+        padding: 5px;
+        border: 1px solid black;
+        border-radius: 10px;
+        font-size: 5vw;
+        word-wrap: break-word;
+    }
+
+    .delete-account-btn {
+        margin-left: 15px;
+    }
+}
+
+
+
+@media screen and (max-width: 279px) {
+    .da-form-bottom-container {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .close-delete-form-btn {
+        flex: 1;
+        margin-bottom: 10px;
+    }
+
+    .delete-account-btn {
+        flex: 1;
+        margin: 0;
+    }
+}
+
+
+
+@media screen and (min-width: 769px) {
+    .delete-account-form {
+        width: 700px;
+        max-height: 90%;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: white;
+        border-radius: 3px;
+        overflow-y: auto;
+    }
+
+
+    .da-form-top {
+        width: 100%;
+        display: flex;
+    }
+
+    .da-form-title {
+        text-align: center;
+        padding-top: 10px;
+        width: 80%;
+    }
+
+    .da-form-title h3 {
+        font-size: 50px;
+        vertical-align: middle;
+    }
+
+
+    .da-form-closer {
+        width: 20%;
+        display: flex;
+        margin: 3px;
+    }
+
+    .da-close-form-btn {
+        background-color: white;
+        border: none;
+        border-radius: 5px;
+        font-size: 30px;
+        flex: 1;
+    }
+
+    .da-close-form-btn:hover {
+        background-color: #A8A8A8;
+    }
+
+
+
+    .da-form-middle {
+        padding: 0 10px;
+    }
+
+    .da-form-middle p {
+        font-size: 25px;
+    }
+
+    #da-password-label {
+        margin-bottom: 0;
+        font-size: 30px;
+        width: 100%;
+    }
+
+    #da-password-input {
+        width: 100%;
+        padding: 5px;
+        outline: none;
+        margin-bottom: 10px;
+        font-size: 25px;
+        border: 1px solid black;
+    }
+
+
+
+    .da-form-bottom {
+        text-align: right;
+        padding: 5px;
+    }
+
+    .da-form-bottom-container {
+        margin: 5px;
+    }
+
+
+    .da-form-bottom-btn {
+        background-color: white;
+        padding: 5px;
+        border: 1px solid black;
+        border-radius: 10px;
+        font-size: 25px;
+        word-wrap: break-word;
+    }
+
+    .delete-account-btn {
+        margin-left: 15px;
+    }
+}
