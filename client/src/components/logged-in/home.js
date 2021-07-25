@@ -164,8 +164,17 @@ class Home extends React.Component {
 
     async getLoggedInUsersNumber(userID) {
         console.log("getLoggedInUsersNumber()")
-        const response = await fetch(`/get-logged-in-users?userID=${userID}`, {credentials: "include"})
+
+        const response = await fetch(`/get-logged-in-users?userID=${userID}`, {
+            credentials: "include",
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            }
+        })
+
         console.log(response)
+
 
         try {
             if (response.status !== 200)
