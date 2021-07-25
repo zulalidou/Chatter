@@ -4,29 +4,31 @@ require('dotenv').config()
 const express = require('express')
 const app = express()
 const server = require('http').Server(app)
-const io = require('socket.io')(server, {
-  cors: {
-    origin: "https://chatter-client.vercel.app", //"http://localhost:3000",
-    credentials: true,
-    // allowedHeaders: ['Origin', 'X-Requested-With', 'Content-Type', 'Accept', 'X-Access-Token', 'Authorization'],
-    methods: ["GET", "POST"]
-  }
-}) // the server from the 'socket.io' module
+const io = require('socket.io')(server
+//     ,{
+//   cors: {
+//     origin: "https://chatter-client.vercel.app", //"http://localhost:3000",
+//     credentials: true,
+//     // allowedHeaders: ['Origin', 'X-Requested-With', 'Content-Type', 'Accept', 'X-Access-Token', 'Authorization'],
+//     methods: ["GET", "POST"]
+//   }
+// }
+) // the server from the 'socket.io' module
 
 const expressLayouts = require('express-ejs-layouts')
 const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
 const path = require('path')
-const cors = require('cors')
+// const cors = require('cors')
 const { v4: uuidv4 } = require('uuid')
 
-const corsOptions = {
-  origin: "https://chatter-client.vercel.app", //'http://localhost:3000',
-  credentials: true,
-  // allowedHeaders: ['Origin', 'X-Requested-With', 'Content-Type', 'Accept', 'X-Access-Token', 'Authorization'],
-  methods: ['GET', 'POST']
-  // optionsSuccessStatus: 200
-}
+// const corsOptions = {
+//   origin: "https://chatter-client.vercel.app", //'http://localhost:3000',
+//   credentials: true,
+//   // allowedHeaders: ['Origin', 'X-Requested-With', 'Content-Type', 'Accept', 'X-Access-Token', 'Authorization'],
+//   methods: ['GET', 'POST']
+//   // optionsSuccessStatus: 200
+// }
 
 
 const AWS = require('aws-sdk')
@@ -44,7 +46,7 @@ app.use(express.urlencoded({extended: true}))
 app.use(express.json())
 app.use(expressLayouts)
 app.use(bodyParser.urlencoded({extended: true}))
-app.use(cors(corsOptions))
+// app.use(cors(corsOptions))
 app.use(cookieParser())
 
 
