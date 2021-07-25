@@ -163,34 +163,22 @@ class Home extends React.Component {
 
     async getLoggedInUsersNumber(userID) {
         console.log("getLoggedInUsersNumber()")
-        await fetch(`/get-logged-in-users?userID=${userID}`, {
-            credentials: "include",
-            headers : {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'
-            }
-        })
-        .then(response => response.json())
-        .then((res) => {
-            console.log("modla")
-            console.log(res)
-        })
-        // console.log(response)
+        const response = await fetch(`/get-logged-in-users?userID=${userID}`, {credentials: "include"})
+        console.log(response)
 
-        // try {
-        //     if (response.status !== 200)
-        //         throw "ERROR-OCCURRED"
-        // } catch (e) {
-        //     console.log(e)
-        //     this.setState({displayError: true})
-        //     return "ERROR-OCCURRED"
-        // }
+        try {
+            if (response.status !== 200)
+                throw "ERROR-OCCURRED"
+        } catch (e) {
+            console.log(e)
+            this.setState({displayError: true})
+            return "ERROR-OCCURRED"
+        }
 
-        // console.log("hey hey hey")
-        // const loggedInUsers = await response.json()
-        // console.log(loggedInUsers)
-
-        return 9//loggedInUsers.response.length
+        console.log("hey hey hey")
+        const loggedInUsers = await response.json()
+        console.log(loggedInUsers)
+        return loggedInUsers.response.length
     }
 
 

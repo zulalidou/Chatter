@@ -28,12 +28,20 @@ router.get('/', authenticate, async function(req, res) {
     console.log("===================================================\n\n")
 
     const loggedInUsers = await getLoggedInUsers(req.query.userID)
+    console.log("\n\n[[[[[[[[[[[[[[[[[[[[[[[[[]]]]]]]]]]]]]]]]]]]]]]]]]")
+    console.log("loggedInUsers:")
+    console.log(loggedInUsers)
+    console.log("[[[[[[[[[[[[[[[[[[[[[[[[[]]]]]]]]]]]]]]]]]]]]]]]]]"\n\n)
 
     if (loggedInUsers === "ERROR-OCCURRED") {
         res.status(404).send("The requested resource was not found.")
         return
     }
 
+
+    console.log("9999999999999999999999999999999999999999")
+    console.log("loggedInUsers:")
+    console.log(loggedInUsers)
     res.status(200).send({response: loggedInUsers})
 })
 
@@ -48,6 +56,10 @@ async function getLoggedInUsers(userID) {
 
     try {
         const response = await DynamoDB_client.scan(params).promise()
+        console.log("\n\n\ngetLoggedInUsers()")
+        console.log(response)
+        console.log("######################################################\n\n")
+
 
         let loggedInUsers = []
 
@@ -57,6 +69,9 @@ async function getLoggedInUsers(userID) {
 
             loggedInUsers.push(response.Items[i].username)
         }
+
+        console.log("loggedInUsers:")
+        console.log(loggedInUsers)
 
         return loggedInUsers
     } catch (err) {
