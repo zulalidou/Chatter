@@ -168,8 +168,8 @@ class Home extends React.Component {
         const response = await fetch(`/get-logged-in-users?userID=${userID}`, {
             credentials: "include",
             headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
             }
         })
 
@@ -189,7 +189,7 @@ class Home extends React.Component {
         const loggedInUsers = await response.json()
 
         console.log(loggedInUsers)
-        return loggedInUsers.response.length
+        return loggedInUser.length
     }
 
 
