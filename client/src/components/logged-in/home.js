@@ -180,7 +180,7 @@ class Home extends React.Component {
         const loggedInUsers = await response.json()
 
         console.log(loggedInUsers)
-        return loggedInUsers.length
+        return loggedInUsers.response.length
     }
 
 
