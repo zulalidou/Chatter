@@ -170,7 +170,7 @@ class Home extends React.Component {
                 'Accept': 'application/json'
             }
         })
-        .then(response => res)
+        .then(response => response.json())
         .then((res) => {
             console.log("modla")
             console.log(res)
