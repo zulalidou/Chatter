@@ -31,7 +31,7 @@ router.get('/', authenticate, async function(req, res) {
     console.log("\n\n[[[[[[[[[[[[[[[[[[[[[[[[[]]]]]]]]]]]]]]]]]]]]]]]]]")
     console.log("loggedInUsers:")
     console.log(loggedInUsers)
-    console.log("[[[[[[[[[[[[[[[[[[[[[[[[[]]]]]]]]]]]]]]]]]]]]]]]]]"\n\n)
+    console.log("[[[[[[[[[[[[[[[[[[[[[[[[[]]]]]]]]]]]]]]]]]]]]]]]]]\n\n")
 
     if (loggedInUsers === "ERROR-OCCURRED") {
         res.status(404).send("The requested resource was not found.")
