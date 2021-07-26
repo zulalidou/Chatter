@@ -35,17 +35,23 @@ router.post('/', authenticate, async function(req, res) {
     const status = await storeMessage(req.body)
 
     if (status === "ERROR-OCCURRED") {
+        console.log("send-message-to-db.js - something went wrong\n\n")
         res.status(500).send("Couldn't store messages")
         return
     }
 
+    console.log("send-message-to-db.js - everything went completely well\n\n")
     res.status(200).send("Success")
 })
 
 
 function encryptMessage(message) {
+    console.log("encryptMessage() - begin")
+
     const ciphertext = CryptoJS.AES.encrypt(message, process.env.messagesKey).toString()
     return ciphertext
+
+    console.log("encryptMessage() - end\n\n")
 }
 
 
@@ -55,8 +61,11 @@ async function storeMessage(data) {
         Item: data
     }
 
+
+    console.log("storeMessage() - called")
     try {
         await DynamoDB_client.put(params).promise()
+        console.log("Message successfully stored!")
         return "Success"
     } catch (err) {
         console.log('An error occurred - save-message-to-db.js - storeMessage')
