@@ -46,7 +46,7 @@ app.use(express.urlencoded({extended: true}))
 app.use(express.json())
 app.use(expressLayouts)
 app.use(bodyParser.urlencoded({extended: true}))
-app.use(cors(corsOptions))
+// app.use(cors(corsOptions))
 app.use(cookieParser())
 
 
