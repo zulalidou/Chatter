@@ -176,16 +176,10 @@ class Home extends React.Component {
         }
 
         console.log("hey hey hey")
-        const loggedInUsers = await response.text()
+        const loggedInUsers = await response
         console.log(loggedInUsers)
-        console.log(typeof(loggedInUsers))
 
-        const loggedInUsersParsed = JSON.parse(loggedInUsers)
-        console.log(loggedInUsersParsed)
-        const numberOfLoggedInUsers = loggedInUsersParsed.length
-        console.log(numberOfLoggedInUsers)
-
-        return numberOfLoggedInUsers
+        return 21
     }
 
 
