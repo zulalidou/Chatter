@@ -180,7 +180,7 @@ class Home extends React.Component {
         const loggedInUsers = await response
         console.log(loggedInUsers)
 
-        return 21
+        return "21"
     }
 
 
