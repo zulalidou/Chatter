@@ -42,7 +42,7 @@ router.get('/', authenticate, async function(req, res) {
     console.log("9999999999999999999999999999999999999999")
     console.log("loggedInUsers:")
     console.log(loggedInUsers)
-    res.status(200).send({response: loggedInUsers})
+    res.status(200).send(loggedInUsers)
 })
 
 
