@@ -34,7 +34,7 @@ class CreateGroup extends React.Component {
 
         const response = await fetch('/api/create-group', {
             method: 'POST',
-            credentials: "include",
+            // credentials: "include",
             headers: {
                 'Content-Type': 'application/json'
             },

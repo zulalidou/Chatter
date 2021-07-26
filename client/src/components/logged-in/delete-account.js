@@ -57,7 +57,7 @@ class DeleteAccount extends React.Component {
             return false
         }
 
-        const response = await fetch(`/api/verify-password?userID=${this.props.userID}&password=${password}`, {credentials: "include"})
+        const response = await fetch(`/api/verify-password?userID=${this.props.userID}&password=${password}`)//, {credentials: "include"})
 
         console.log(response)
 
@@ -87,7 +87,7 @@ class DeleteAccount extends React.Component {
             headers: {
                 'Content-Type': 'application/json'
             },
-            credentials: 'include',
+            // credentials: 'include',
             body: JSON.stringify({id: this.props.userID})
         })
 

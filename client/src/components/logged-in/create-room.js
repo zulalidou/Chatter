@@ -63,7 +63,7 @@ class CreateRoom extends React.Component {
                 headers: {
                     "Content-Type": "application/json"
                 },
-                credentials: "include",
+                // credentials: "include",
                 body: JSON.stringify(newRoom)
             })
 

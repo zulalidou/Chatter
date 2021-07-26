@@ -98,7 +98,7 @@ class Home extends React.Component {
 
     async getRoomID() {
         console.log("getRoomID()")
-        const response = await fetch(`/api/get-user-field-info?userID=${this.state.userID}&attribute=currentRoomOpen`, {credentials: "include"})
+        const response = await fetch(`/api/get-user-field-info?userID=${this.state.userID}&attribute=currentRoomOpen`)//, {credentials: "include"})
         console.log(response)
 
         try {
@@ -120,7 +120,7 @@ class Home extends React.Component {
 
         const response = await fetch('/api/set-user-info', {
             method: 'POST',
-            credentials: "include",
+            // credentials: "include",
             headers: {
                 'Content-Type': 'application/json'
             },
@@ -144,7 +144,7 @@ class Home extends React.Component {
 
     async getGroupNumber(userID) {
         console.log("getGroupNumber()")
-        const response = await fetch(`/api/get-group-number?userID=${userID}`, {credentials: "include"})
+        const response = await fetch(`/api/get-group-number?userID=${userID}`)//, {credentials: "include"})
         console.log(response)
 
         try {
@@ -164,7 +164,7 @@ class Home extends React.Component {
     async getLoggedInUsersNumber(userID) {
         console.log("getLoggedInUsersNumber()")
         console.log(userID)
-        const response = await fetch(`/api/get-logged-in-users?userID=${userID}`, {credentials: "include"})
+        const response = await fetch(`/api/get-logged-in-users?userID=${userID}`)//, {credentials: "include"})
         console.log(response)
 
         try {

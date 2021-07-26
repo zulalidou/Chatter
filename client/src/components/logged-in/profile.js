@@ -81,7 +81,7 @@ class Profile extends React.Component {
 
 
     async getRoomID() {
-        let response = await fetch(`/api/get-user-field-info?userID=${this.state.userID}&attribute=currentRoomOpen`, {credentials: "include"})
+        let response = await fetch(`/api/get-user-field-info?userID=${this.state.userID}&attribute=currentRoomOpen`)//, {credentials: "include"})
 
         try {
             if (response.status !== 200)
@@ -103,7 +103,7 @@ class Profile extends React.Component {
             headers: {
                 'Content-Type': 'application/json'
             },
-            credentials: "include",
+            // credentials: "include",
             body: JSON.stringify({userID: this.state.userID, attribute: 'currentRoomOpen', value: roomID})
         })
 
@@ -121,7 +121,7 @@ class Profile extends React.Component {
 
 
     async getProfileInfo(userID) {
-        const response = await fetch(`/api/get-profile-info?userID=${userID}`, {credentials: "include"})
+        const response = await fetch(`/api/get-profile-info?userID=${userID}`)//, {credentials: "include"})
         const profileInfo = await response.json()
 
         try {
@@ -147,7 +147,7 @@ class Profile extends React.Component {
             headers: {
                 'Content-Type': 'application/json'
             },
-            credentials: "include",
+            // credentials: "include",
             body: JSON.stringify({userID: this.state.userID, attribute: 'avatarString', value: newAvatarString})
         })
 

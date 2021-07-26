@@ -114,7 +114,7 @@ class RandomRoom extends React.Component {
 
 
     async checkIfRoomExists(roomID) {
-        const response = await fetch(`/api/check-if-room-exists?roomID=${roomID}`, {credentials: "include"})
+        const response = await fetch(`/api/check-if-room-exists?roomID=${roomID}`)//, {credentials: "include"})
 
         try {
             if (response.status !== 200)
@@ -140,7 +140,7 @@ class RandomRoom extends React.Component {
             headers: {
                 "Content-Type": "application/json"
             },
-            credentials: "include",
+            // credentials: "include",
             body: JSON.stringify({
                 id: roomID,
                 groupID: "null",
@@ -186,7 +186,7 @@ class RandomRoom extends React.Component {
             headers: {
                 'Content-Type': 'application/json'
             },
-            credentials: "include",
+            // credentials: "include",
             body: JSON.stringify({
                 userID: this.props.user1ID,
                 attribute: 'currentRoomOpen',
@@ -235,7 +235,7 @@ class RandomRoom extends React.Component {
     async getRoomMessages(roomID) {
         console.log(roomID)
 
-        const response = await fetch(`/api/get-room-messages?roomID=${roomID}`, {credentials: "include"})
+        const response = await fetch(`/api/get-room-messages?roomID=${roomID}`)//, {credentials: "include"})
 
         try {
             if (response.status !== 200)
@@ -251,7 +251,7 @@ class RandomRoom extends React.Component {
 
 
     async getAvatarString(userID) {
-        const response = await fetch(`/api/get-user-field-info?userID=${userID}&attribute=avatarString`, {credentials: "include"})
+        const response = await fetch(`/api/get-user-field-info?userID=${userID}&attribute=avatarString`)//, {credentials: "include"})
 
         try {
             if (response.status !== 200)
@@ -316,7 +316,7 @@ class RandomRoom extends React.Component {
             headers: {
                 "Content-Type": "application/json"
             },
-            credentials: "include",
+            // credentials: "include",
             body: JSON.stringify({
                 id: uuidv4(),
                 senderID: this.props.user1ID,
@@ -348,7 +348,7 @@ class RandomRoom extends React.Component {
 
 
     async getUserInfo() {
-        const response = await fetch(`/api/get-profile-info?userID=${this.props.user1ID}`, {credentials: "include"})
+        const response = await fetch(`/api/get-profile-info?userID=${this.props.user1ID}`)//, {credentials: "include"})
 
         try {
             if (response.status !== 200)

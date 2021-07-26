@@ -49,7 +49,7 @@ class GroupInvitationReceived extends React.Component {
             headers: {
                 'Content-Type': 'application/json'
             },
-            credentials: "include",
+            // credentials: "include",
             body: JSON.stringify({
                 userID: this.state.userID,
                 groupID: this.props.groupID
@@ -74,7 +74,7 @@ class GroupInvitationReceived extends React.Component {
         console.log("acceptInvitation() called")
         console.log(this.props.groupID)
 
-        const response = await fetch(`/api/delete-notification?userID=${this.state.userID}&groupID=${this.props.groupID}`, {credentials: "include"})
+        const response = await fetch(`/api/delete-notification?userID=${this.state.userID}&groupID=${this.props.groupID}`)//, {credentials: "include"})
 
         try {
             if (response.status !== 200)

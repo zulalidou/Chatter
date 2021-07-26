@@ -26,7 +26,7 @@ class BecomeAdmin extends React.Component {
             headers: {
                 "Content-Type": "application/json"
             },
-            credentials: "include",
+            // credentials: "include",
             body: JSON.stringify({groupID: this.props.groupID, userID: this.props.userID})
         })
 

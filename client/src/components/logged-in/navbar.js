@@ -84,7 +84,7 @@ class Navbar extends React.Component {
             headers: {
                 "Content-Type": "application/json"
             },
-            credentials: "include",
+            // credentials: "include",
             body: JSON.stringify({
                 userID: jwt_decode(Cookies.get("jwtHP")).userID,
                 sessionEnded: true
@@ -159,7 +159,7 @@ class Navbar extends React.Component {
 
         const response = await fetch("/api/logout", {
             method: 'POST',
-            credentials: "include",
+            // credentials: "include",
             headers: {
                 'Content-Type': 'application/json'
             },

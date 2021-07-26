@@ -46,7 +46,7 @@ class Login extends React.Component {
             headers: {
                 'Content-Type': 'application/json'
             },
-            credentials: 'include',
+            // credentials: 'include',
             body: JSON.stringify({email: email, password: password})
         })
 

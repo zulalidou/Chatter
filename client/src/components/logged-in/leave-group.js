@@ -28,7 +28,7 @@ class LeaveGroup extends React.Component {
             headers: {
                 'Content-Type': 'application/json'
             },
-            credentials: "include",
+            // credentials: "include",
             body: JSON.stringify({userID: this.props.userID, groupID: this.props.groupID})
         })
 

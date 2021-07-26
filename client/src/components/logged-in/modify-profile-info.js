@@ -97,7 +97,7 @@ class ModifyProfileInfo extends React.Component {
 
 
     async passwordIsValid(password) {
-        const response = await fetch(`/api/verify-password?userID=${this.props.userID}&password=${password}`, {credentials: "include"})
+        const response = await fetch(`/api/verify-password?userID=${this.props.userID}&password=${password}`)//, {credentials: "include"})
 
         try {
             if (response.status !== 200)
@@ -136,7 +136,7 @@ class ModifyProfileInfo extends React.Component {
             headers: {
                 'Content-Type': 'application/json'
             },
-            credentials: "include",
+            // credentials: "include",
             body: JSON.stringify({userID: this.props.userID, email: this.props.email, attribute: attribute, value: newValue})
         })
 

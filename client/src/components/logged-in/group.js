@@ -254,7 +254,7 @@ class Group extends React.Component {
     async userReceivedGroupInvitation(groupID) {
         console.log("userReceivedGroupInvitation()")
 
-        const response = await fetch(`/api/did-user-receive-invite?userID=${this.state.userID}&groupID=${groupID}`, {credentials: "include"})
+        const response = await fetch(`/api/did-user-receive-invite?userID=${this.state.userID}&groupID=${groupID}`)//, {credentials: "include"})
 
         try {
             if (response.status !== 200)
@@ -271,7 +271,7 @@ class Group extends React.Component {
 
 
     async userIsGroupMember(userID, groupID) {
-        const response = await fetch(`/api/is-user-group-member?userID=${userID}&groupID=${groupID}`, {credentials: "include"})
+        const response = await fetch(`/api/is-user-group-member?userID=${userID}&groupID=${groupID}`)//, {credentials: "include"})
 
         try {
             if (response.status !== 200)
@@ -288,7 +288,7 @@ class Group extends React.Component {
 
 
     async getGroupInfo(groupID) {
-        let response = await fetch(`/api/get-group?groupID=${groupID}`, {credentials: "include"})
+        let response = await fetch(`/api/get-group?groupID=${groupID}`)//, {credentials: "include"})
 
         try {
             if (response.status !== 200)
@@ -305,7 +305,7 @@ class Group extends React.Component {
 
 
     async getGroupMembers(groupID) {
-        const response = await fetch(`/api/get-group-members?groupID=${groupID}`, {credentials: "include"})
+        const response = await fetch(`/api/get-group-members?groupID=${groupID}`)//, {credentials: "include"})
 
         try {
             if (response.status !== 200)
@@ -322,7 +322,7 @@ class Group extends React.Component {
 
 
     async getGroupRooms(groupID) {
-        let response = await fetch(`/api/get-group-rooms?groupID=${groupID}`, {credentials: "include"})
+        let response = await fetch(`/api/get-group-rooms?groupID=${groupID}`)//, {credentials: "include"})
 
         try {
             if (response.status !== 200)
@@ -341,7 +341,7 @@ class Group extends React.Component {
     async setRoomID(roomID) {
         const response = await fetch('/api/set-user-info', {
             method: 'POST',
-            credentials: "include",
+            // credentials: "include",
             headers: {
                 'Content-Type': 'application/json'
             },
