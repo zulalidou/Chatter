@@ -176,7 +176,7 @@ class Home extends React.Component {
         }
 
         console.log("hey hey hey")
-        const loggedInUsers = await response.json()
+        const loggedInUsers = response.json()
         console.log(loggedInUsers)
         return loggedInUsers.response.length
     }
