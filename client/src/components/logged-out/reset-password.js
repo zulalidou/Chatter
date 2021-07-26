@@ -43,7 +43,7 @@ class ResetPassword extends React.Component {
         }
 
 
-        const response = await fetch(`api/verify-password-reset-code?email=${this.props.location.state.email}&code=${code}`)
+        const response = await fetch(`/api/verify-password-reset-code?email=${this.props.location.state.email}&code=${code}`)
         const result = await response.text()
 
         console.log(result)
@@ -66,7 +66,7 @@ class ResetPassword extends React.Component {
     resendCode() {
         document.getElementById("code-sent-div").style.visibility = "visible"
 
-        fetch('api/send-password-reset-code', {
+        fetch('/api/send-password-reset-code', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

@@ -44,7 +44,7 @@ class GroupInvitationReceived extends React.Component {
         console.log("acceptInvitation() called")
         console.log(this.props.groupID)
 
-        const response = await fetch("api/accept-group-invitation", {
+        const response = await fetch("/api/accept-group-invitation", {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'
@@ -74,7 +74,7 @@ class GroupInvitationReceived extends React.Component {
         console.log("acceptInvitation() called")
         console.log(this.props.groupID)
 
-        const response = await fetch(`api/delete-notification?userID=${this.state.userID}&groupID=${this.props.groupID}`, {credentials: "include"})
+        const response = await fetch(`/api/delete-notification?userID=${this.state.userID}&groupID=${this.props.groupID}`, {credentials: "include"})
 
         try {
             if (response.status !== 200)

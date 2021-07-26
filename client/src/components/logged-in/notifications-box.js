@@ -35,7 +35,7 @@ class NotificationsBox extends React.Component {
         console.log(this.props.userID)
 
         if (!this.state.notificationsFetched) {
-            const response = await fetch(`api/get-notifications?userID=${this.props.userID}`, {credentials: "include"})
+            const response = await fetch(`/api/get-notifications?userID=${this.props.userID}`, {credentials: "include"})
 
             try {
                 if (response.status !== 200)
@@ -107,7 +107,7 @@ class NotificationsBox extends React.Component {
         console.log("acceptInvitation() called")
         console.log(this.props.groupID)
 
-        const response = await fetch(`api/delete-notification-2?notificationID=${notificationID}`, {credentials: "include"})
+        const response = await fetch(`/api/delete-notification-2?notificationID=${notificationID}`, {credentials: "include"})
 
         try {
             if (response.status !== 200)

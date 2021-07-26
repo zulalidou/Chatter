@@ -29,7 +29,7 @@ class ActivateAccount extends React.Component {
     async resendCode() {
         document.getElementById("aa-code-sent-div").style.visibility = "visible"
 
-        const response = await fetch('api/send-account-activation-code', {
+        const response = await fetch('/api/send-account-activation-code', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -63,7 +63,7 @@ class ActivateAccount extends React.Component {
         console.log(this.props.location.state.email)
         console.log(code)
 
-        const response = await fetch(`api/verify-account-activation-code?email=${this.props.location.state.email}&code=${code}`)
+        const response = await fetch(`/api/verify-account-activation-code?email=${this.props.location.state.email}&code=${code}`)
         console.log(response)
 
         if (response.status !== 200) {

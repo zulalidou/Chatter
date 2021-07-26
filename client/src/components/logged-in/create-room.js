@@ -58,7 +58,7 @@ class CreateRoom extends React.Component {
                 groupRoom: true
             }
 
-            const response = await fetch("api/create-room", {
+            const response = await fetch("/api/create-room", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"

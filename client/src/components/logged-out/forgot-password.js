@@ -37,7 +37,7 @@ class ForgotPassword extends React.Component {
         }
 
 
-        fetch('api/send-password-reset-code', {
+        fetch('/api/send-password-reset-code', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

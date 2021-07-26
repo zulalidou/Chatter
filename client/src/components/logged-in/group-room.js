@@ -58,7 +58,7 @@ class GroupRoom extends React.Component {
 
 
     async getRoomMessages(roomID) {
-        const response = await fetch(`api/get-room-messages?roomID=${this.props.roomID}`, {credentials: "include"})
+        const response = await fetch(`/api/get-room-messages?roomID=${this.props.roomID}`, {credentials: "include"})
 
         try {
             if (response.status !== 200)
@@ -126,7 +126,7 @@ class GroupRoom extends React.Component {
         }
 
 
-        const response = await fetch("api/save-message-to-db", {
+        const response = await fetch("/api/save-message-to-db", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -179,7 +179,7 @@ class GroupRoom extends React.Component {
 
 
     async getUserInfo() {
-        const response = await fetch(`api/get-profile-info?userID=${this.props.userID}`, {credentials: "include"})
+        const response = await fetch(`/api/get-profile-info?userID=${this.props.userID}`, {credentials: "include"})
 
         try {
             if (response.status !== 200)

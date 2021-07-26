@@ -80,7 +80,7 @@ class RandomChat extends React.Component {
 
 
     async getLoggedInUsers() {
-        let response = await fetch(`api/get-logged-in-users?userID=${this.state.user1ID}`, {credentials: "include"})
+        let response = await fetch(`/api/get-logged-in-users?userID=${this.state.user1ID}`, {credentials: "include"})
         console.log(response)
 
         try {
@@ -187,7 +187,7 @@ class RandomChat extends React.Component {
 
 
     async setRoomID(roomID) {
-        const response = await fetch('api/set-user-info', {
+        const response = await fetch('/api/set-user-info', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -214,7 +214,7 @@ class RandomChat extends React.Component {
 
 
     async getRoomID() {
-        let response = await fetch(`api/get-user-field-info?userID=${this.state.user1ID}&attribute=currentRoomOpen`, {credentials: "include"})
+        let response = await fetch(`/api/get-user-field-info?userID=${this.state.user1ID}&attribute=currentRoomOpen`, {credentials: "include"})
 
         try {
             if (response.status !== 200)
@@ -235,7 +235,7 @@ class RandomChat extends React.Component {
 
     async isRandomRoom(roomID) {
         console.log(roomID)
-        const response = await fetch(`api/is-random-room?roomID=${roomID}`, {credentials: "include"})
+        const response = await fetch(`/api/is-random-room?roomID=${roomID}`, {credentials: "include"})
 
         try {
             if (response.status !== 200)
@@ -252,7 +252,7 @@ class RandomChat extends React.Component {
 
 
     async getUser2Data(roomID) {
-        const response = await fetch(`api/get-user2-data?user1ID=${this.state.user1ID}&roomID=${roomID}`, {credentials: "include"})
+        const response = await fetch(`/api/get-user2-data?user1ID=${this.state.user1ID}&roomID=${roomID}`, {credentials: "include"})
 
         try {
             if (response.status !== 200)
@@ -316,7 +316,7 @@ class RandomChat extends React.Component {
 
 
     async getUserID(username) {
-        const response = await fetch(`api/get-user-id?username=${username}`, {credentials: "include"})
+        const response = await fetch(`/api/get-user-id?username=${username}`, {credentials: "include"})
 
         try {
             if (response.status !== 200)
