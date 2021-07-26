@@ -79,7 +79,7 @@ class Navbar extends React.Component {
     async logUserOut(timerID) {
         console.log("logUserOut()")
 
-        const response = await fetch("/logout", {
+        const response = await fetch("api/logout", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -157,7 +157,7 @@ class Navbar extends React.Component {
         this.close()
         console.log("logout()")
 
-        const response = await fetch("/logout", {
+        const response = await fetch("api/logout", {
             method: 'POST',
             credentials: "include",
             headers: {

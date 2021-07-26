@@ -41,7 +41,7 @@ class Login extends React.Component {
         // headers.append('Content-Type', 'application/json')
         // headers.append('Accept', 'application/json')
 
-        const response = await fetch("/login", {
+        const response = await fetch("api/login", {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'

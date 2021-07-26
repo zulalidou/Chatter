@@ -32,7 +32,7 @@ class CreateGroup extends React.Component {
         const purpose = document.getElementById('group-purpose-input').value.trim()
 
 
-        const response = await fetch('/create-group', {
+        const response = await fetch('api/create-group', {
             method: 'POST',
             credentials: "include",
             headers: {

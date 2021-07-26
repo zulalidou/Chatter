@@ -23,7 +23,7 @@ class LeaveGroup extends React.Component {
     async leaveGroup() {
         console.log("leaveGroup() called")
 
-        const response = await fetch("/leave-group", {
+        const response = await fetch("api/leave-group", {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'

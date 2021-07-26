@@ -107,7 +107,7 @@ class InviteUser extends React.Component {
 
 
     async getUserID(username) {
-        const response = await fetch(`/get-user-id?username=${username}`, {credentials: "include"})
+        const response = await fetch(`api/get-user-id?username=${username}`, {credentials: "include"})
 
         try {
             if (response.status !== 200)
@@ -137,7 +137,7 @@ class InviteUser extends React.Component {
 
     // Checks to see if the user already received the notification
     async userAlreadyReceivedInvite(recipientID) {
-        const response = await fetch(`/notification-check?userID=${recipientID}&type=group-invitation&attribute=groupID&value=${this.props.groupID}`, {credentials: "include"})
+        const response = await fetch(`api/notification-check?userID=${recipientID}&type=group-invitation&attribute=groupID&value=${this.props.groupID}`, {credentials: "include"})
 
         try {
             if (response.status !== 200)
@@ -160,7 +160,7 @@ class InviteUser extends React.Component {
 
 
     async sendInvitation(recipient) {
-        const response = await fetch('/send-notification', {
+        const response = await fetch('api/send-notification', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

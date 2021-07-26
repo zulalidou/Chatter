@@ -62,7 +62,7 @@ class SetNewPassword extends React.Component {
 
         console.log('----')
 
-        const response = await fetch('/set-new-password', {
+        const response = await fetch('api/set-new-password', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

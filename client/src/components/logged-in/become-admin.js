@@ -21,7 +21,7 @@ class BecomeAdmin extends React.Component {
         console.log("becomeAdmin()")
         console.log(this.props)
 
-        const response = await fetch("/become-admin", {
+        const response = await fetch("api/become-admin", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

@@ -114,7 +114,7 @@ class RandomRoom extends React.Component {
 
 
     async checkIfRoomExists(roomID) {
-        const response = await fetch(`/check-if-room-exists?roomID=${roomID}`, {credentials: "include"})
+        const response = await fetch(`api/check-if-room-exists?roomID=${roomID}`, {credentials: "include"})
 
         try {
             if (response.status !== 200)
@@ -135,7 +135,7 @@ class RandomRoom extends React.Component {
     async createRoom(roomID) {
         console.log(roomID)
 
-        const response = await fetch("/create-room", {
+        const response = await fetch("api/create-room", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -181,7 +181,7 @@ class RandomRoom extends React.Component {
 
 
     async setRoomID(roomID) {
-        const response = await fetch('/set-user-info', {
+        const response = await fetch('api/set-user-info', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -235,7 +235,7 @@ class RandomRoom extends React.Component {
     async getRoomMessages(roomID) {
         console.log(roomID)
 
-        const response = await fetch(`/get-room-messages?roomID=${roomID}`, {credentials: "include"})
+        const response = await fetch(`api/get-room-messages?roomID=${roomID}`, {credentials: "include"})
 
         try {
             if (response.status !== 200)
@@ -251,7 +251,7 @@ class RandomRoom extends React.Component {
 
 
     async getAvatarString(userID) {
-        const response = await fetch(`/get-user-field-info?userID=${userID}&attribute=avatarString`, {credentials: "include"})
+        const response = await fetch(`api/get-user-field-info?userID=${userID}&attribute=avatarString`, {credentials: "include"})
 
         try {
             if (response.status !== 200)
@@ -311,7 +311,7 @@ class RandomRoom extends React.Component {
         }
 
 
-        const response = await fetch("/save-message-to-db", {
+        const response = await fetch("api/save-message-to-db", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -348,7 +348,7 @@ class RandomRoom extends React.Component {
 
 
     async getUserInfo() {
-        const response = await fetch(`/get-profile-info?userID=${this.props.user1ID}`, {credentials: "include"})
+        const response = await fetch(`api/get-profile-info?userID=${this.props.user1ID}`, {credentials: "include"})
 
         try {
             if (response.status !== 200)
