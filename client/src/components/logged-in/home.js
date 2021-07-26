@@ -177,10 +177,10 @@ class Home extends React.Component {
         }
 
         console.log("hey hey hey")
-        const loggedInUsers = await response
+        const loggedInUsers = await response.json()
         console.log(loggedInUsers)
 
-        return "21"
+        return loggedInUsers.length
     }
 
 
