@@ -50,9 +50,7 @@ app.use(bodyParser.urlencoded({extended: true}))
 app.use(cookieParser())
 
 
-app.get('/*', (req,res) => {
-  res.sendFile(path.join(__dirname, '/client/build/index.html'))
-})
+
 
 
 
@@ -138,6 +136,12 @@ app.use('api/did-user-receive-invite', didUserReceiveInviteRoute)
 app.use('api/delete-notification', deleteNotificationRoute)
 app.use('api/delete-notification-2', deleteNotification2Route)
 app.use('api/set-new-password', setNewPasswordRoute)
+
+
+app.get('/*', (req,res) => {
+  res.sendFile(path.join(__dirname, '/client/build/index.html'))
+})
+
 
 
 
