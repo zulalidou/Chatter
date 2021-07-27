@@ -50,7 +50,7 @@ router.post('/', authenticate, async function(req, res) {
     }
 
 
-    status = await removeUserFromList(loggedInInfo.id)
+    status = await removeUserFromList(req.body.userID)
 
     if (status === "ERROR-OCCURRED") {
         res.status(500).send("Couldn't remove user from list of logged-in users")
@@ -58,7 +58,7 @@ router.post('/', authenticate, async function(req, res) {
     }
 
 
-    status = await deleteRandomRooms(loggedInInfo.id)
+    status = await deleteRandomRooms(req.body.userID)
 
     if (status === "ERROR-OCCURRED") {
         res.status(500).send("Couldn't delete random rooms")
@@ -66,7 +66,7 @@ router.post('/', authenticate, async function(req, res) {
     }
 
 
-    status = closeCurrentRoom(loggedInInfo.id)
+    status = closeCurrentRoom(req.body.userID)
 
     if (status === "ERROR-OCCURRED") {
         res.status(500).send("Couldn't remove user from list of logged-in users")
