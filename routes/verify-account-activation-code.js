@@ -47,7 +47,7 @@ router.get('/', async function(req, res) {
 
         userInfo.id = uuidv4()
         delete userInfo.activationCode
-        delete userInfo.expirationTime
+        delete userInfo.timeToLive
 
         status = await createContact(req.query.email, userInfo)
 

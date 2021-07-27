@@ -14,10 +14,6 @@ const DynamoDB_client = new AWS.DynamoDB.DocumentClient() // a simplified client
 
 
 router.post('/', async function(req, res) {
-    // console.log('\n\nlogin.js')
-    // console.log(req.body)
-    // console.log('----------------------------\n\n')
-
     const userInfo = await getUserInfo(req.body.email)
 
     // User does not exist
@@ -25,11 +21,6 @@ router.post('/', async function(req, res) {
         res.status(401).send("Login failed")
         return
     }
-
-
-    // console.log("userInfo:")
-    // console.log(userInfo)
-    // console.log('----------------------------\n\n')
 
 
     // Password is incorrect
@@ -42,12 +33,6 @@ router.post('/', async function(req, res) {
     const session = getSession(userInfo)
 
 
-    console.log("\n\nsession:")
-    console.log('----------------------------')
-    console.log(session)
-    console.log('----------------------------\n\n')
-
-
     // expires in 1 hour & 1 min
     // - the additional minute is just to make sure that there's enough time for the /logout route to be called and do some cleanup
     //   before the token itself expires
@@ -57,50 +42,11 @@ router.post('/', async function(req, res) {
     const payload = JwtTokenArray[1]
     const signature = JwtTokenArray[2]
 
-    console.log("header = " + header)
-    console.log("payload = " + payload)
-    console.log("signature = " + signature)
 
-
-    console.log("\n\nBefore try-1")
-
-    try {
-        console.log("Within try-1")
-        res.cookie("jwtHP", header + "." + payload, {sameSite: "none", secure: true, httpOnly: false, maxAge: 900000}) // domain?
-        console.log("COOKIE-1 SUCCESSFULLY SET")
-    } catch (e) {
-        console.log("TRY-1-ERROR-CALLED:")
-        console.log(e)
-        console.log("++++++++++++++++++++++++++++++++++++++++++++++++++++")
-    }
-
-    console.log("After try-1\n\n")
-
-
-    console.log("Before try-22")
-
-    try {
-        console.log("Within try-22")
-        res.cookie("jwtS", signature, {sameSite: "none", secure: true, httpOnly: true, maxAge: 900000}) // domain?
-        console.log("COOKIE-22 SUCCESSFULLY SET")
-    } catch (e) {
-        console.log("TRY-22-ERROR-CALLED:")
-        console.log(e)
-        console.log("++++++++++++++++++++++++++++++++++++++++++++++++++++")
-    }
-
-    console.log("After try-22\n\n")
-
-
-
+    res.cookie("jwtHP", header + "." + payload, {sameSite: "none", secure: true, httpOnly: false, maxAge: 900000})
+    res.cookie("jwtS", signature, {sameSite: "none", secure: true, httpOnly: true, maxAge: 900000})
 
     setUserToActive(session.userID, session.username, header + "." + payload + "." + signature, session.expirationTime)
-
-    console.log("~THE-END~\n")
-    console.log("LOGIN-WAS-SUCCESSFUL\n\n")
-
-    // console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
-    // console.log("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n")
 
     res.status(200).send("Login successful")
 })
