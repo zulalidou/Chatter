@@ -71,7 +71,7 @@ class Navbar extends React.Component {
                     await this.logUserOut(timerID)
                     console.log("\nsetInterval() HAS BEEN CLEARED")
                 }
-            }, 3000)
+            }, 1000)
         }
     }
 
