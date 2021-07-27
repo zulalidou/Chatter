@@ -13,15 +13,12 @@ class CreateGroup extends React.Component {
             displayError: false
         }
 
-        console.log(this.props)
         this.createNewGroup = this.createNewGroup.bind(this)
         this.toggleErrorComponent = this.toggleErrorComponent.bind(this)
     }
 
 
     async createNewGroup() {
-        console.log('createNewGroup()')
-
         const name = document.getElementById('name-input').value.trim()
 
         if (name === "") {
@@ -34,7 +31,6 @@ class CreateGroup extends React.Component {
 
         const response = await fetch('/api/create-group', {
             method: 'POST',
-            // credentials: "include",
             headers: {
                 'Content-Type': 'application/json'
             },
@@ -47,19 +43,16 @@ class CreateGroup extends React.Component {
 
 
         if (response.status !== 200) {
-            console.log("error occurred")
             this.setState({displayError: true})
             return
         }
 
-        console.log("all clear")
         this.props.addNewGroup()
         this.props.closeComponent()
     }
 
 
     toggleErrorComponent() {
-        console.log("toggleErrorComponent()")
         this.setState({displayError: !this.state.displayError})
     }
 

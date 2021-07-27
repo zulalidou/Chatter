@@ -50,8 +50,6 @@ class RandomChat extends React.Component {
 
 
     async componentDidMount() {
-        console.log('componentDidMount()')
-
         if (Cookies.get('jwtHP') === undefined) {
             this.setState({isLoggedIn: false})
             return
@@ -70,8 +68,6 @@ class RandomChat extends React.Component {
 
 
     componentWillUnmount() {
-        console.log('componentWillUnmount() -- from random-chat.js')
-
         if (this.state.currentRoomID !== null) {
             this.state.socket.emit('leave-room', this.state.currentRoomID)
             this.setRoomID(null)
@@ -80,29 +76,24 @@ class RandomChat extends React.Component {
 
 
     async getLoggedInUsers() {
-        let response = await fetch(`/api/get-logged-in-users?userID=${this.state.user1ID}`)//, {credentials: "include"})
-        console.log(response)
+        let response = await fetch(`/api/get-logged-in-users?userID=${this.state.user1ID}`)
 
         try {
             if (response.status !== 200)
                 throw "ERROR-OCCURRED"
         } catch (e) {
-            console.log(e)
             this.setState({displayError: true})
             return "ERROR-OCCURRED"
         }
 
 
         const users = await response.json()
-        console.log(users)
         return users
     }
 
 
     async setStateValues(loggedInUsers) {
         if (this.props.location.state !== undefined) {
-            console.log(this.props.location.state)
-
             const status = await this.setRoomID(this.props.location.state.roomID)
 
             if (status === "ERROR-OCCURRED")
@@ -128,14 +119,12 @@ class RandomChat extends React.Component {
 
 
         let roomID = await this.getRoomID()
-        console.log(roomID)
 
         if (roomID === "ERROR-OCCURRED")
             return
 
 
         const idBelongsToRandomRoom = await this.isRandomRoom(roomID)
-        console.log(idBelongsToRandomRoom)
 
         if (roomID === "ERROR-OCCURRED")
             return
@@ -164,7 +153,6 @@ class RandomChat extends React.Component {
         }
         else {
             const user2Data = await this.getUser2Data(roomID)
-            console.log(user2Data)
 
             if (user2Data === "ERROR-OCCURRED")
                 return
@@ -192,7 +180,6 @@ class RandomChat extends React.Component {
             headers: {
                 'Content-Type': 'application/json'
             },
-            // credentials: 'include',
             body: JSON.stringify({
                 userID: this.state.user1ID,
                 attribute: 'currentRoomOpen',
@@ -204,7 +191,6 @@ class RandomChat extends React.Component {
             if (response.status !== 200)
                 throw "ERROR-OCCURRED"
         } catch (e) {
-            console.log(e)
             this.setState({displayError: true})
             return "ERROR-OCCURRED"
         }
@@ -214,13 +200,12 @@ class RandomChat extends React.Component {
 
 
     async getRoomID() {
-        let response = await fetch(`/api/get-user-field-info?userID=${this.state.user1ID}&attribute=currentRoomOpen`)//, {credentials: "include"})
+        let response = await fetch(`/api/get-user-field-info?userID=${this.state.user1ID}&attribute=currentRoomOpen`)
 
         try {
             if (response.status !== 200)
                 throw "ERROR-OCCURRED"
         } catch (e) {
-            console.log(e)
             this.setState({displayError: true})
             return "ERROR-OCCURRED"
         }
@@ -234,14 +219,12 @@ class RandomChat extends React.Component {
 
 
     async isRandomRoom(roomID) {
-        console.log(roomID)
-        const response = await fetch(`/api/is-random-room?roomID=${roomID}`)//, {credentials: "include"})
+        const response = await fetch(`/api/is-random-room?roomID=${roomID}`)
 
         try {
             if (response.status !== 200)
                 throw "ERROR-OCCURRED"
         } catch (e) {
-            console.log(e)
             this.setState({displayError: true})
             return "ERROR-OCCURRED"
         }
@@ -252,13 +235,12 @@ class RandomChat extends React.Component {
 
 
     async getUser2Data(roomID) {
-        const response = await fetch(`/api/get-user2-data?user1ID=${this.state.user1ID}&roomID=${roomID}`)//, {credentials: "include"})
+        const response = await fetch(`/api/get-user2-data?user1ID=${this.state.user1ID}&roomID=${roomID}`)
 
         try {
             if (response.status !== 200)
                 throw "ERROR-OCCURRED"
         } catch (e) {
-            console.log(e)
             this.setState({displayError: true})
             return "ERROR-OCCURRED"
         }
@@ -316,34 +298,27 @@ class RandomChat extends React.Component {
 
 
     async getUserID(username) {
-        const response = await fetch(`/api/get-user-id?username=${username}`)//, {credentials: "include"})
+        const response = await fetch(`/api/get-user-id?username=${username}`)
 
         try {
             if (response.status !== 200)
                 throw "ERROR-OCCURRED"
         } catch (e) {
-            console.log(e)
             this.setState({displayError: true})
             return "ERROR-OCCURRED"
         }
 
         const id = await response.text()
-        console.log(id)
         return id
     }
 
 
     toggleErrorComponent() {
-        console.log("toggleErrorComponent()")
         this.setState({displayError: !this.state.displayError})
     }
 
 
     render() {
-        console.log(this.props.location.state)
-        console.log(this.state)
-
-
         if (!this.state.isLoggedIn)
             return <Redirect to="/login"/>
 

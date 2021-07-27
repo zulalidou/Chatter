@@ -41,15 +41,11 @@ class GroupInvitationReceived extends React.Component {
 
 
     async acceptInvitation() {
-        console.log("acceptInvitation() called")
-        console.log(this.props.groupID)
-
         const response = await fetch("/api/accept-group-invitation", {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'
             },
-            // credentials: "include",
             body: JSON.stringify({
                 userID: this.state.userID,
                 groupID: this.props.groupID
@@ -61,7 +57,6 @@ class GroupInvitationReceived extends React.Component {
             if (response.status !== 200)
                 throw "ERROR-OCCURRED"
         } catch (e) {
-            console.log(e)
             this.setState({displayError: true})
             return "ERROR-OCCURRED"
         }
@@ -71,16 +66,12 @@ class GroupInvitationReceived extends React.Component {
 
 
     async deleteNotification() {
-        console.log("acceptInvitation() called")
-        console.log(this.props.groupID)
-
-        const response = await fetch(`/api/delete-notification?userID=${this.state.userID}&groupID=${this.props.groupID}`)//, {credentials: "include"})
+        const response = await fetch(`/api/delete-notification?userID=${this.state.userID}&groupID=${this.props.groupID}`)
 
         try {
             if (response.status !== 200)
                 throw "ERROR-OCCURRED"
         } catch (e) {
-            console.log(e)
             this.setState({displayError: true})
             return "ERROR-OCCURRED"
         }
@@ -90,14 +81,11 @@ class GroupInvitationReceived extends React.Component {
 
 
     toggleErrorComponent() {
-        console.log("toggleErrorComponent()")
         this.setState({displayError: !this.state.displayError})
     }
 
 
     render() {
-        console.log(this.props)
-
         return (
             <div>
                 {/* The purpose of the div immediately below is to provide a slightly dark background for when this component becomes visible */}

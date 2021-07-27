@@ -9,8 +9,6 @@ class InviteUser extends React.Component {
     constructor(props) {
         super(props)
 
-        console.log('INVITE-USER component called')
-
         this.state = {
             displayError: false
         }
@@ -31,11 +29,9 @@ class InviteUser extends React.Component {
 
 
     async validateForm() {
-        console.log('validateForm() called')
         this.hideErrorMessage()
 
         const recipientUsername = document.getElementById("username-input").value.trim()
-        console.log(recipientUsername)
 
         if (!this.usernameIsValid(recipientUsername))
             return
@@ -75,9 +71,6 @@ class InviteUser extends React.Component {
 
 
     usernameIsValid(username) {
-        console.log(this.props.groupMembers)
-        console.log(username)
-
         if (username === "") {
             document.getElementById("iu-error-message").innerHTML = "This field is required"
             document.getElementById("iu-error-message").style.visibility = "visible"
@@ -107,19 +100,17 @@ class InviteUser extends React.Component {
 
 
     async getUserID(username) {
-        const response = await fetch(`/api/get-user-id?username=${username}`)//, {credentials: "include"})
+        const response = await fetch(`/api/get-user-id?username=${username}`)
 
         try {
             if (response.status !== 200)
                 throw "ERROR-OCCURRED"
         } catch (e) {
-            console.log(e)
             this.setState({displayError: true})
             return "ERROR-OCCURRED"
         }
 
         const id = await response.text()
-        console.log(id)
         return id
     }
 
@@ -137,13 +128,12 @@ class InviteUser extends React.Component {
 
     // Checks to see if the user already received the notification
     async userAlreadyReceivedInvite(recipientID) {
-        const response = await fetch(`/api/notification-check?userID=${recipientID}&type=group-invitation&attribute=groupID&value=${this.props.groupID}`)//, {credentials: "include"})
+        const response = await fetch(`/api/notification-check?userID=${recipientID}&type=group-invitation&attribute=groupID&value=${this.props.groupID}`)
 
         try {
             if (response.status !== 200)
                 throw "ERROR-OCCURRED"
         } catch (e) {
-            console.log(e)
             this.setState({displayError: true})
             return "ERROR-OCCURRED"
         }
@@ -165,7 +155,6 @@ class InviteUser extends React.Component {
             headers: {
                 'Content-Type': 'application/json'
             },
-            // credentials: "include",
             body: JSON.stringify({
                 id: uuidv4(),
                 type: "group-invitation",
@@ -185,7 +174,6 @@ class InviteUser extends React.Component {
             if (response.status !== 200)
                 throw "ERROR-OCCURRED"
         } catch (e) {
-            console.log(e)
             this.setState({displayError: true})
             return "ERROR-OCCURRED"
         }
@@ -216,7 +204,6 @@ class InviteUser extends React.Component {
 
 
     toggleErrorComponent() {
-        console.log("toggleErrorComponent()")
         this.setState({displayError: !this.state.displayError})
     }
 

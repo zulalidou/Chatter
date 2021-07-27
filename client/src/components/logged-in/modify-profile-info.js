@@ -11,7 +11,6 @@ class ModifyProfileInfo extends React.Component {
             showPopupMenu: false
         }
 
-        console.log('ModifyProfileInfo component')
         this.modifyInfo = this.modifyInfo.bind(this)
         this.hideErrorMessages = this.hideErrorMessages.bind(this)
         this.inputIsValid = this.inputIsValid.bind(this)
@@ -22,7 +21,6 @@ class ModifyProfileInfo extends React.Component {
 
 
     async modifyInfo(attribute) {
-        console.log('modifyInfo() called')
         this.hideErrorMessages()
 
         const newValue = document.getElementById("newValue-input").value.trim()
@@ -58,10 +56,6 @@ class ModifyProfileInfo extends React.Component {
 
 
     inputIsValid(attribute, newValue, password) {
-        console.log(attribute)
-        console.log(newValue)
-        console.log(password)
-
         if (newValue === "") {
             const errorTag = document.createElement("span")
             const text = document.createTextNode(" - This field is required")
@@ -97,13 +91,12 @@ class ModifyProfileInfo extends React.Component {
 
 
     async passwordIsValid(password) {
-        const response = await fetch(`/api/verify-password?userID=${this.props.userID}&password=${password}`)//, {credentials: "include"})
+        const response = await fetch(`/api/verify-password?userID=${this.props.userID}&password=${password}`)
 
         try {
             if (response.status !== 200)
                 throw "ERROR-OCCURRED"
         } catch (e) {
-            console.log(e)
             this.setState({displayError: true})
             return "ERROR-OCCURRED"
         }
@@ -112,8 +105,6 @@ class ModifyProfileInfo extends React.Component {
         const status = await response.text()
 
         if (status === "Failure") {
-            console.log("Password is incorrect")
-
             const errorTag = document.createElement("span")
             const text = document.createTextNode(" - Password is incorrect")
             errorTag.className = "error-message-profile"
@@ -128,15 +119,11 @@ class ModifyProfileInfo extends React.Component {
 
 
     async setUserInfo(attribute, newValue) {
-        console.log(attribute)
-        console.log(newValue)
-
         const response = await fetch('/api/set-user-info', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            // credentials: "include",
             body: JSON.stringify({userID: this.props.userID, email: this.props.email, attribute: attribute, value: newValue})
         })
 
@@ -144,7 +131,6 @@ class ModifyProfileInfo extends React.Component {
             if (response.status !== 200)
                 throw "ERROR-OCCURRED"
         } catch (e) {
-            console.log(e)
             this.setState({displayError: true})
             return "ERROR-OCCURRED"
         }
@@ -154,14 +140,11 @@ class ModifyProfileInfo extends React.Component {
 
 
     togglePopupMenu() {
-        console.log('togglePopupMenu')
         this.setState({showPopupMenu: !this.state.showPopupMenu})
     }
 
 
     render() {
-        console.log(this.props)
-
         return (
             <div className="profile-container" key={uuidv4()}>
                 <div className="profile-info">

@@ -37,16 +37,11 @@ class Login extends React.Component {
 
 
 
-        // const headers = new Headers()
-        // headers.append('Content-Type', 'application/json')
-        // headers.append('Accept', 'application/json')
-
         const response = await fetch("/api/login", {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'
             },
-            // credentials: 'include',
             body: JSON.stringify({email: email, password: password})
         })
 
@@ -54,16 +49,10 @@ class Login extends React.Component {
             if (response.status !== 200)
                 throw "ERROR-OCCURRED"
         } catch (e) {
-            console.log(e)
             document.getElementById('login-error-msg-2').style.visibility = "visible"
             document.getElementById('login-error-msg-2').innerText = "Incorrect email and/or password"
             return
         }
-
-        console.log(response)
-        console.log(document.cookie)
-        console.log(Cookies.get("jwtHP"))
-        console.log("about to head to the /home page")
 
         this.props.history.push("/home")
     }
@@ -77,7 +66,6 @@ class Login extends React.Component {
 
     render() {
         if (Cookies.get("jwtHP") !== undefined) {
-            console.log("yeet")
             return <Redirect to="/home"/>
         }
 

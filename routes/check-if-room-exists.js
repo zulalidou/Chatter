@@ -12,8 +12,6 @@ function authenticate(req, res, next) {
     try {
         jwt.verify(req.cookies.jwtHP + "." + req.cookies.jwtS, process.env.jwtSignKey)
     } catch (err) {
-        console.log("An error occurred - check-if-room-exists.js - authenticate()\n")
-        console.log(err.message)
         res.status(401).send(err.message)
         return
     }
@@ -23,10 +21,6 @@ function authenticate(req, res, next) {
 
 
 router.get("/", authenticate, async function(req, res) {
-    console.log("\n\n\ncheck-if-room-exists.js")
-    console.log(req.query)
-    console.log("\n")
-
     const result = await roomExists(req.query.roomID)
 
     if (result === "ERROR-OCCURRED") {
@@ -48,14 +42,11 @@ async function roomExists(roomID) {
 
     try {
         const response = await DynamoDB_client.get(params).promise()
-        console.log(response)
 
         if (isEmpty(response.Item))
             return false
         return true
     } catch (err) {
-        console.log("An error has occurred - check-if-room-exists.js - roomExists()")
-        console.log(err)
         return "ERROR-OCCURRED"
     }
 }

@@ -5,14 +5,10 @@ import "../../styles/invitation-sent.css"
 class InvitationSent extends React.Component {
     constructor(props) {
         super(props)
-        console.log('invitation-sent component called')
     }
 
 
     render() {
-        console.log('render render called')
-        console.log(this.props)
-
         return (
             <div className="invitation-sent-container">
                 {/* The purpose of the div immediately below is to provide a slightly dark background for when this component becomes visible */}

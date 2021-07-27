@@ -14,14 +14,7 @@ class ShowGroups extends React.Component {
     }
 
 
-    async componentDidMount() {
-        console.log('componentDidMount() called')
-    }
-
-
     render() {
-        console.log(this.props)
-
         return (
             <div>
                 { this.props.group &&

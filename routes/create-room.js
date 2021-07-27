@@ -17,8 +17,6 @@ function authenticate(req, res, next) {
     try {
         jwt.verify(req.cookies.jwtHP + "." + req.cookies.jwtS, process.env.jwtSignKey)
     } catch (err) {
-        console.log("An error occurred - create-room.js - authenticate()\n")
-        console.log(err.message)
         res.status(401).send(err.message)
         return
     }
@@ -28,8 +26,6 @@ function authenticate(req, res, next) {
 
 
 router.post('/', authenticate, async function(req, res) {
-    console.log('\n\ncreate-room')
-
     const result = await createRoom(req.body)
 
     if (result === "ERROR-OCCURRED") {
@@ -91,15 +87,10 @@ async function createRoom(room) {
         }
     }
 
-    console.log("\n\ncreateRoom() called")
-
     try {
         await DynamoDB_client.put(params).promise()
-        console.log("Success\n\n")
         return "Success"
     } catch (err) {
-        console.log("An error occurred - create-group.js - createRoom()")
-        console.log(err)
         return "ERROR-OCCURRED"
     }
 }
@@ -115,12 +106,8 @@ async function getGroupMemberIDs(groupID) {
         }
     }
 
-    console.log("\n\ngetGroupMemberIDs() called\n")
-
     try {
         const response = await DynamoDB_client.query(params).promise()
-        console.log(response)
-        console.log("*****************************************************************\n\n")
 
         let groupMemberIDs = []
 
@@ -129,8 +116,6 @@ async function getGroupMemberIDs(groupID) {
 
         return groupMemberIDs
     } catch (err) {
-        console.log("An error occurred - create-group.js - getGroupMemberIDs()")
-        console.log(err)
         return "ERROR-OCCURRED"
     }
 }
@@ -147,19 +132,10 @@ async function createRoomMembership(userID, roomID, groupID) {
         }
     }
 
-    console.log("\n\ncreateRoomMembership() called")
-    console.log("userID = " + userID)
-    console.log("roomID = " + roomID)
-    console.log("groupID = " + groupID)
-    console.log("===============\n\n\n")
-
-
     try {
         await DynamoDB_client.put(params).promise()
         return "Success"
     } catch (err) {
-        console.log("An error occurred - create-group.js - createRoomMembership()")
-        console.log(err)
         return "ERROR-OCCURRED"
     }
 }

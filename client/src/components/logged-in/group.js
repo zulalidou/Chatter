@@ -30,12 +30,12 @@ class Group extends React.Component {
             isLoggedIn: true,
             userID: (Cookies.get("jwtHP") === undefined) ? null : jwt_decode(Cookies.get("jwtHP")).userID,
 
-            groupName: null,//this.props.location.state.groupName,
-            groupID: null,//this.props.location.state.groupID,
+            groupName: null,
+            groupID: null,
             groupMembers: null,
             groupRooms: [],
             groupAdmin: null,
-            currentRoomName: null,//this.props.location.state.currentRoomName,
+            currentRoomName: null,
             currentRoomID: null,
 
             showGroup: true,
@@ -56,8 +56,6 @@ class Group extends React.Component {
             childKey: uuidv4()
         }
 
-
-        console.log('GROUP COMPONENT HERE')
 
         this.userReceivedGroupInvitation = this.userReceivedGroupInvitation.bind(this)
         this.userIsGroupMember = this.userIsGroupMember.bind(this)
@@ -86,8 +84,6 @@ class Group extends React.Component {
     // 2. Set the value returned into this.currentRoomOpen
 
     async componentDidMount() {
-        console.log('componentDidMount()')
-
         if (Cookies.get("jwtHP") === undefined) {
             this.setState({isLoggedIn: false})
             return
@@ -100,8 +96,6 @@ class Group extends React.Component {
 
         // This is for when we navigate to this component using the address bar
         if (this.props.location.state === undefined) {
-            console.log("Option - A")
-
             let urlData = this.props.location.pathname.substring(this.props.location.pathname.indexOf("/group") + 7)
             urlData = urlData.split("/")
 
@@ -130,7 +124,6 @@ class Group extends React.Component {
         }
         // This is for when we navigate to this component using a link
         else {
-            console.log("Option - B12")
             groupID = this.props.location.state.groupID
             currentRoomName = this.props.location.state.currentRoomName
 
@@ -144,7 +137,6 @@ class Group extends React.Component {
 
 
         const group = await this.getGroupInfo(groupID)
-        console.log(group)
 
         // an error occurred
         if (group === undefined)
@@ -202,8 +194,6 @@ class Group extends React.Component {
 
 
     async componentWillUnmount() {
-        console.log('componentWillUnmount() -- from group.js')
-        console.log(this.state.currentRoomID)
         await this.setRoomID(null)
 
         if (this.state.currentRoomID !== null)
@@ -212,13 +202,7 @@ class Group extends React.Component {
 
 
     async componentDidUpdate() {
-        console.log('componentDidUpdate')
-        console.log(this.state)
-
         const urlRoomName = window.location.href.substring(window.location.href.lastIndexOf('/') + 1)
-        console.log(urlRoomName)
-        console.log(this.state.currentRoomName)
-
 
         if (urlRoomName !== this.state.currentRoomName) {
             const groupRooms = await this.getGroupRooms(this.state.groupID)
@@ -252,15 +236,12 @@ class Group extends React.Component {
 
 
     async userReceivedGroupInvitation(groupID) {
-        console.log("userReceivedGroupInvitation()")
-
-        const response = await fetch(`/api/did-user-receive-invite?userID=${this.state.userID}&groupID=${groupID}`)//, {credentials: "include"})
+        const response = await fetch(`/api/did-user-receive-invite?userID=${this.state.userID}&groupID=${groupID}`)
 
         try {
             if (response.status !== 200)
                 throw "ERROR-OCCURRED"
         } catch (e) {
-            console.log(e)
             this.setState({displayError: true, stateLoaded: true})
             return undefined
         }
@@ -271,13 +252,12 @@ class Group extends React.Component {
 
 
     async userIsGroupMember(userID, groupID) {
-        const response = await fetch(`/api/is-user-group-member?userID=${userID}&groupID=${groupID}`)//, {credentials: "include"})
+        const response = await fetch(`/api/is-user-group-member?userID=${userID}&groupID=${groupID}`)
 
         try {
             if (response.status !== 200)
                 throw "ERROR-OCCURRED"
         } catch (e) {
-            console.log(e)
             this.setState({displayError: true, stateLoaded: true})
             return undefined
         }
@@ -288,13 +268,12 @@ class Group extends React.Component {
 
 
     async getGroupInfo(groupID) {
-        let response = await fetch(`/api/get-group?groupID=${groupID}`)//, {credentials: "include"})
+        let response = await fetch(`/api/get-group?groupID=${groupID}`)
 
         try {
             if (response.status !== 200)
                 throw "ERROR-OCCURRED"
         } catch (e) {
-            console.log(e)
             this.setState({displayError: true, stateLoaded: true})
             return undefined
         }
@@ -305,13 +284,12 @@ class Group extends React.Component {
 
 
     async getGroupMembers(groupID) {
-        const response = await fetch(`/api/get-group-members?groupID=${groupID}`)//, {credentials: "include"})
+        const response = await fetch(`/api/get-group-members?groupID=${groupID}`)
 
         try {
             if (response.status !== 200)
                 throw "ERROR-OCCURRED"
         } catch (e) {
-            console.log(e)
             this.setState({displayError: true, stateLoaded: true})
             return undefined
         }
@@ -322,13 +300,12 @@ class Group extends React.Component {
 
 
     async getGroupRooms(groupID) {
-        let response = await fetch(`/api/get-group-rooms?groupID=${groupID}`)//, {credentials: "include"})
+        let response = await fetch(`/api/get-group-rooms?groupID=${groupID}`)
 
         try {
             if (response.status !== 200)
                 throw "ERROR-OCCURRED"
         } catch (e) {
-            console.log(e)
             this.setState({displayError: true, stateLoaded: true})
             return undefined
         }
@@ -341,7 +318,6 @@ class Group extends React.Component {
     async setRoomID(roomID) {
         const response = await fetch('/api/set-user-info', {
             method: 'POST',
-            // credentials: "include",
             headers: {
                 'Content-Type': 'application/json'
             },
@@ -352,7 +328,6 @@ class Group extends React.Component {
             if (response.status !== 200)
                 throw "ERROR-OCCURRED"
         } catch (e) {
-            console.log(e)
             this.setState({displayError: true, stateLoaded: true})
             return undefined
         }
@@ -362,10 +337,6 @@ class Group extends React.Component {
 
 
     async openRoom(newRoomName) {
-        console.log('openRoom()')
-        console.log(newRoomName)
-        console.log(this.state.currentRoomName)
-
         if (newRoomName === this.state.currentRoomName)
             return
 
@@ -381,39 +352,32 @@ class Group extends React.Component {
             }
         }
 
-        console.log(newRoomID)
         this.props.history.push(`/group/${this.state.groupID}/${newRoomName}`, {currentRoomName: newRoomName, groupID: this.state.groupID, groupName: this.state.groupName})
     }
 
 
     toggleCreateRoomComponent() {
-        console.log('toggleCreateRoomComponent() called')
         this.setState({showCreateRoomComponent: !this.state.showCreateRoomComponent})
     }
 
 
     toggleBecomeAdminComponent() {
-        console.log('toggleBecomeAdminComponent() called')
         this.setState({showBecomeAdminComponent: !this.state.showBecomeAdminComponent})
     }
 
 
     toggleInviteUserComponent() {
-        console.log('toggleInviteUserComponent() called')
         this.setState({showInviteUserComponent: !this.state.showInviteUserComponent})
     }
 
 
     toggleLeaveGroupComponent() {
-        console.log('toggleLeaveGroupComponent() called')
         this.setState({showLeaveGroupComponent: !this.state.showLeaveGroupComponent})
     }
 
 
     // GIR = Group Invitation Received
     closeGIRcomponent(decision) {
-        console.log("closeGIRcomponent() called")
-
         if (decision === "Decline")
             this.props.history.push("/groups")
 
@@ -422,22 +386,16 @@ class Group extends React.Component {
 
 
     invitationSent(userInvited) {
-        console.log('invitationSent() called')
         this.setState({showInviteUserComponent: false, showInvitationSentComponent: true, userInvited: userInvited})
     }
 
 
     toggleInvitationSentComponent() {
-        console.log('toggleInvitationSentComponent() called')
         this.setState({showInvitationSentComponent: !this.state.showInvitationSentComponent})
     }
 
 
     updateGroupAdmin(status, groupAdmin) {
-        console.log('updateGroupAdmin() called')
-        console.log(status)
-        console.log(groupAdmin)
-
         if (status === "SUCCESS")
             this.setState({showBecomeAdminComponent: false, groupAdmin: groupAdmin})
         else
@@ -446,23 +404,17 @@ class Group extends React.Component {
 
 
     async goToNewRoom(newRoom) {
-        console.log('goToNewRoom() called')
-        console.log(newRoom)
-
         this.state.socket.emit('leave-room', this.state.currentRoomID)
         this.props.history.push(`/group/${this.state.groupID}/${newRoom.name}`)
     }
 
 
     toggleErrorComponent() {
-        console.log("toggleErrorComponent()")
         this.setState({displayError: !this.state.displayError})
     }
 
 
     render() {
-        console.log(this.state)
-
         if (!this.state.stateLoaded)
             return <Loading/>
 

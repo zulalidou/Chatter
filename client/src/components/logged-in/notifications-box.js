@@ -19,8 +19,6 @@ class NotificationsBox extends React.Component {
             stateLoaded: false
         }
 
-        console.log('notification box component')
-
         this.handleNotification = this.handleNotification.bind(this)
         this.deleteNotification = this.deleteNotification.bind(this)
         this.convertTime = this.convertTime.bind(this)
@@ -29,34 +27,24 @@ class NotificationsBox extends React.Component {
 
 
     async componentDidMount() {
-        console.log('componentDidMount() called')
-        console.log(this.state.notificationsFetched)
-
-        console.log(this.props.userID)
-
         if (!this.state.notificationsFetched) {
-            const response = await fetch(`/api/get-notifications?userID=${this.props.userID}`)//, {credentials: "include"})
+            const response = await fetch(`/api/get-notifications?userID=${this.props.userID}`)
 
             try {
                 if (response.status !== 200)
                     throw "ERROR-OCCURRED"
             } catch (e) {
-                console.log(e)
                 this.setState({displayError: true})
                 return
             }
 
             const notifications = await response.json()
-            console.log(notifications)
-
             this.setState({notifications: notifications, notificationsFetched: true, stateLoaded: true})
         }
     }
 
 
     async handleNotification(notification) {
-        console.log(notification)
-
         if (notification.type === "group-invitation") {
             this.props.history.push({
                 pathname: `/group/${notification.groupID}/main`,
@@ -104,16 +92,12 @@ class NotificationsBox extends React.Component {
 
 
     async deleteNotification(notificationID) {
-        console.log("acceptInvitation() called")
-        console.log(this.props.groupID)
-
-        const response = await fetch(`/api/delete-notification-2?notificationID=${notificationID}`)//, {credentials: "include"})
+        const response = await fetch(`/api/delete-notification-2?notificationID=${notificationID}`)
 
         try {
             if (response.status !== 200)
                 throw "ERROR-OCCURRED"
         } catch (e) {
-            console.log(e)
             this.setState({displayError: true})
             return "ERROR-OCCURRED"
         }
@@ -133,14 +117,11 @@ class NotificationsBox extends React.Component {
 
 
     toggleErrorComponent() {
-        console.log("toggleErrorComponent()")
         this.setState({displayError: !this.state.displayError})
     }
 
 
     render() {
-        console.log(this.state)
-
         if (!this.state.stateLoaded)
             return <Loading/>
 

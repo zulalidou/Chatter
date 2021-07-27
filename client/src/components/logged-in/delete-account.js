@@ -6,8 +6,6 @@ class DeleteAccount extends React.Component {
     constructor(props) {
         super(props)
 
-        console.log('DeleteAccount called')
-
         this.hideErrorMessages = this.hideErrorMessages.bind(this)
         this.deleteAccount = this.deleteAccount.bind(this)
         this.passwordIsValid = this.passwordIsValid.bind(this)
@@ -22,12 +20,9 @@ class DeleteAccount extends React.Component {
 
 
     async deleteAccount() {
-        console.log("deleteAccount() called")
         this.hideErrorMessages()
 
         const password = document.getElementById("da-password-input").value
-        console.log(password)
-
 
         const passwordValid = await this.passwordIsValid(password)
 
@@ -40,8 +35,6 @@ class DeleteAccount extends React.Component {
         if (status === null)
             return
 
-
-        console.log('exiting now..')
         this.props.history.push("/signup")
     }
 
@@ -57,17 +50,10 @@ class DeleteAccount extends React.Component {
             return false
         }
 
-        const response = await fetch(`/api/verify-password?userID=${this.props.userID}&password=${password}`)//, {credentials: "include"})
-
-        console.log(response)
-
-
+        const response = await fetch(`/api/verify-password?userID=${this.props.userID}&password=${password}`)
         const status = await response.text()
-        console.log(status)
 
         if (status === "Failure") {
-            console.log("password not valid")
-
             const errorTag = document.createElement("span")
             const text = document.createTextNode(" - Password is incorrect")
             errorTag.className = "error-message-delete-account"
@@ -87,7 +73,6 @@ class DeleteAccount extends React.Component {
             headers: {
                 'Content-Type': 'application/json'
             },
-            // credentials: 'include',
             body: JSON.stringify({id: this.props.userID})
         })
 
@@ -109,8 +94,6 @@ class DeleteAccount extends React.Component {
 
 
     render() {
-        console.log(this.props)
-
         return (
             <div>
                 <div className="dark-background" onClick={this.props.closeComponent}>

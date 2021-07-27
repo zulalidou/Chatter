@@ -14,21 +14,17 @@ class LeaveGroup extends React.Component {
             displayError: false
         }
 
-        console.log("LEAVE-GROUP COMPONENT CALLED")
         this.leaveGroup = this.leaveGroup.bind(this)
         this.toggleErrorComponent = this.toggleErrorComponent.bind(this)
     }
 
 
     async leaveGroup() {
-        console.log("leaveGroup() called")
-
         const response = await fetch("/api/leave-group", {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'
             },
-            // credentials: "include",
             body: JSON.stringify({userID: this.props.userID, groupID: this.props.groupID})
         })
 
@@ -36,7 +32,6 @@ class LeaveGroup extends React.Component {
             if (response.status !== 200)
                 throw "ERROR-OCCURRED"
         } catch (e) {
-            console.log(e)
             this.setState({displayError: true})
             return
         }
@@ -46,7 +41,6 @@ class LeaveGroup extends React.Component {
 
 
     toggleErrorComponent() {
-        console.log("toggleErrorComponent()")
         this.setState({displayError: !this.state.displayError})
     }
 

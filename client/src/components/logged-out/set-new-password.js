@@ -13,15 +13,10 @@ class SetNewPassword extends React.Component {
 
 
     async resetPassword() {
-        console.log('resetPassword()')
         this.hideErrorMessages()
 
         const password1 = document.getElementById('snp-password-input-1').value
         const password2 = document.getElementById('snp-password-input-2').value
-
-        console.log(password1)
-        console.log(password2)
-
 
         if (password1 === "") {
             document.getElementById('snp-error-message-1').innerHTML = "This field is required"
@@ -50,17 +45,12 @@ class SetNewPassword extends React.Component {
         }
 
 
-        console.log("asdf")
-
         if (password1 !== password2) {
             document.getElementById('snp-error-message-2').innerHTML = "The passwords do not match"
             document.getElementById('snp-error-message-2').style.visibility = 'visible'
             return
         }
 
-
-
-        console.log('----')
 
         const response = await fetch('/api/set-new-password', {
             method: 'POST',
@@ -80,7 +70,6 @@ class SetNewPassword extends React.Component {
 
 
     hideErrorMessages() {
-        console.log('hideErrorMessages()')
         document.getElementById('snp-error-message-1').style.visibility = "hidden"
         document.getElementById('snp-error-message-2').style.visibility = "hidden"
     }

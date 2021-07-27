@@ -6,21 +6,13 @@ import { generateFromString } from "generate-avatar"
 class MessageBox extends React.Component {
     constructor() {
         super()
-
-        console.log("Message Box component called")
     }
 
 
     render() {
-        // console.log(this.props)
-        console.log(this.props)
-
-
         /* This is a container returned to a user to let them know that the other user they're chatting with has disconnected -
            in other words, they've either logged out, or their session ended*/
         if (this.props.senderID === "N/A") {
-            console.log("1")
-
             return (
                 <div id="user-disconnected-container">
                     {this.props.message.toUpperCase()}
@@ -31,8 +23,6 @@ class MessageBox extends React.Component {
 
         /* This contains the time at which a user sent a message, along with their actual message. */
         else if (this.props.avatarString === undefined) {
-            console.log("2")
-
             return (
                 <div className="message-container">
                     <div id="time-container">
@@ -45,10 +35,6 @@ class MessageBox extends React.Component {
                 </div>
             )
         }
-
-
-        console.log("3")
-
 
 
         /* This returns the user's profile img, along with a container containing their username and the date and time at which

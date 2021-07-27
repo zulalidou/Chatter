@@ -5,7 +5,6 @@ import "../../styles/error.css"
 class Error extends React.Component {
     constructor() {
         super()
-        console.log("ERROR CONSTRUCTOR CALLED")
     }
 
     render() {

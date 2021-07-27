@@ -11,22 +11,17 @@ class BecomeAdmin extends React.Component {
             displayError: false
         }
 
-        console.log("BECOME-ADMIN COMPONENT")
         this.becomeAdmin = this.becomeAdmin.bind(this)
         this.toggleErrorComponent = this.toggleErrorComponent.bind(this)
     }
 
 
     async becomeAdmin() {
-        console.log("becomeAdmin()")
-        console.log(this.props)
-
         const response = await fetch("/api/become-admin", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
-            // credentials: "include",
             body: JSON.stringify({groupID: this.props.groupID, userID: this.props.userID})
         })
 
@@ -35,7 +30,6 @@ class BecomeAdmin extends React.Component {
             if (response.status !== 200)
                 throw "ERROR-OCCURRED"
         } catch (e) {
-            console.log(e)
             this.setState({displayError: true})
             return
         }
@@ -46,7 +40,6 @@ class BecomeAdmin extends React.Component {
 
 
     toggleErrorComponent() {
-        console.log("toggleErrorComponent()")
         this.setState({displayError: !this.state.displayError})
     }
 

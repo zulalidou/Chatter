@@ -15,7 +15,6 @@ class GroupRoom extends React.Component {
             stateLoaded: false
         }
 
-        console.log('GROUP-ROOM')
         this.getRoomMessages = this.getRoomMessages.bind(this)
         this.subscribeToRoom = this.subscribeToRoom.bind(this)
         this.sendMessage = this.sendMessage.bind(this)
@@ -29,8 +28,6 @@ class GroupRoom extends React.Component {
 
 
     async componentDidMount() {
-        console.log('componentDidMount() called')
-
         // 1. Get the messages for this room
         const messages = await this.getRoomMessages(this.props.roomID)
 
@@ -47,24 +44,18 @@ class GroupRoom extends React.Component {
 
 
     componentDidUpdate() {
-        console.log("componentDidUpdate()")
-        console.log(this.props)
-
         const messagesContainer = document.getElementById("grc-messages-container")
-        console.log(messagesContainer)
-
         this.showLatestMessages()
     }
 
 
     async getRoomMessages(roomID) {
-        const response = await fetch(`/api/get-room-messages?roomID=${this.props.roomID}`)//, {credentials: "include"})
+        const response = await fetch(`/api/get-room-messages?roomID=${this.props.roomID}`)
 
         try {
             if (response.status !== 200)
                 throw "ERROR-OCCURRED"
         } catch (e) {
-            console.log(e)
             return "ERROR-OCCURRED"
         }
 
@@ -74,13 +65,10 @@ class GroupRoom extends React.Component {
 
 
     subscribeToRoom(roomID) {
-        // console.log(roomID)
         this.props.socket.emit("join-room", roomID)
 
         // Every time a message gets posted in the room that we're subscribed in, the function below will get executed.
         this.props.socket.on(roomID, async data => {
-            console.log(data)
-
             let roomMessagesUpdated = this.state.roomMessages
             roomMessagesUpdated.push(data)
 
@@ -91,8 +79,6 @@ class GroupRoom extends React.Component {
 
     async sendMessage() {
         const message = document.getElementById("grc-message-input").value.trim()
-        console.log(message)
-
         if (message === "")
             return
 
@@ -131,7 +117,6 @@ class GroupRoom extends React.Component {
             headers: {
                 "Content-Type": "application/json"
             },
-            // credentials: "include",
             body: JSON.stringify({
                 id: uuidv4(),
                 senderID: this.props.userID,
@@ -149,7 +134,6 @@ class GroupRoom extends React.Component {
             if (response.status !== 200)
                 throw "ERROR-OCCURRED"
         } catch (e) {
-            console.log(e)
             return
         }
     }
@@ -179,18 +163,16 @@ class GroupRoom extends React.Component {
 
 
     async getUserInfo() {
-        const response = await fetch(`/api/get-profile-info?userID=${this.props.userID}`)//, {credentials: "include"})
+        const response = await fetch(`/api/get-profile-info?userID=${this.props.userID}`)
 
         try {
             if (response.status !== 200)
                 throw "ERROR-OCCURRED"
         } catch (e) {
-            console.log(e)
             return "ERROR-OCCURRED"
         }
 
         const userInfo = await response.json()
-        console.log(userInfo)
         return userInfo
     }
 
@@ -204,20 +186,14 @@ class GroupRoom extends React.Component {
 
 
     showLatestMessages() {
-        console.log("showLatestMessages()")
-
         // The purpose of the two lines below is to make sure that when a new message is displayed, the scrollbar is
         // automatically scrolled all the way to the bottom
         const messagesContainer = document.getElementById("grc-messages-container")
-        console.log(messagesContainer)
         messagesContainer.scrollTop = messagesContainer.scrollHeight
     }
 
 
     render() {
-        console.log(this.props)
-        console.log(this.state)
-
         return (
             <div className="group-room-container">
                 <h3 className="group-chat-header">

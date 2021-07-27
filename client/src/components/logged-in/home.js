@@ -20,14 +20,8 @@ class Home extends React.Component {
             loggedInUsersNumber: "-",
             displayError: false,
             stateLoaded: false,
-
-            // isProfilePageOpen: false,
-            // isGroupsPageOpen: false,
-            // isRandomChatPageOpen: false,
             userID: (Cookies.get("jwtHP") === undefined) ? null : jwt_decode(Cookies.get("jwtHP")).userID
         }
-
-        console.log('HOME')
 
         this.getRoomID = this.getRoomID.bind(this)
         this.setRoomID = this.setRoomID.bind(this)
@@ -38,8 +32,6 @@ class Home extends React.Component {
 
 
     async componentDidMount() {
-        console.log('componentDidMount()')
-
         if (Cookies.get("jwtHP") === undefined) {
             this.setState({isLoggedIn: false})
             return
@@ -73,15 +65,12 @@ class Home extends React.Component {
 
 
         const loggedInUsersNumber = await this.getLoggedInUsersNumber(this.state.userID)
-        console.log(loggedInUsersNumber)
 
         if (loggedInUsersNumber === "ERROR-OCCURRED") {
             this.setState({stateLoaded: true})
             return
         }
 
-
-        console.log("hola")
 
         this.setState({
             groupNumber: groupNumber,
@@ -91,21 +80,13 @@ class Home extends React.Component {
     }
 
 
-    componentWillUnmount() {
-        console.log("componentWillUnmount() has been called")
-    }
-
-
     async getRoomID() {
-        console.log("getRoomID()")
-        const response = await fetch(`/api/get-user-field-info?userID=${this.state.userID}&attribute=currentRoomOpen`)//, {credentials: "include"})
-        console.log(response)
+        const response = await fetch(`/api/get-user-field-info?userID=${this.state.userID}&attribute=currentRoomOpen`)
 
         try {
             if (response.status !== 200)
                 throw "ERROR-OCCURRED"
         } catch (e) {
-            console.log(e)
             this.setState({displayError: true})
             return "ERROR-OCCURRED"
         }
@@ -116,24 +97,18 @@ class Home extends React.Component {
 
 
     async setRoomID(roomID) {
-        console.log("setRoomID()")
-
         const response = await fetch('/api/set-user-info', {
             method: 'POST',
-            // credentials: "include",
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({userID: this.state.userID, attribute: 'currentRoomOpen', value: roomID})
         })
 
-        console.log(response)
-
         try {
             if (response.status !== 200)
                 throw "ERROR-OCCURRED"
         } catch (e) {
-            console.log(e)
             this.setState({displayError: true})
             return "ERROR-OCCURRED"
         }
@@ -143,15 +118,12 @@ class Home extends React.Component {
 
 
     async getGroupNumber(userID) {
-        console.log("getGroupNumber()")
-        const response = await fetch(`/api/get-group-number?userID=${userID}`)//, {credentials: "include"})
-        console.log(response)
+        const response = await fetch(`/api/get-group-number?userID=${userID}`)
 
         try {
             if (response.status !== 200)
                 throw "ERROR-OCCURRED"
         } catch (e) {
-            console.log(e)
             this.setState({displayError: true})
             return "ERROR-OCCURRED"
         }
@@ -162,30 +134,22 @@ class Home extends React.Component {
 
 
     async getLoggedInUsersNumber(userID) {
-        console.log("getLoggedInUsersNumber()")
-        console.log(userID)
-        const response = await fetch(`/api/get-logged-in-users?userID=${userID}`)//, {credentials: "include"})
-        console.log(response)
+        const response = await fetch(`/api/get-logged-in-users?userID=${userID}`)
 
         try {
             if (response.status !== 200)
                 throw "ERROR-OCCURRED"
         } catch (e) {
-            console.log(e)
             this.setState({displayError: true})
             return "ERROR-OCCURRED"
         }
 
-        console.log("hey hey hey")
         const loggedInUsers = await response.json()
-        console.log(loggedInUsers)
-
         return loggedInUsers.length
     }
 
 
     toggleErrorComponent() {
-        console.log("toggleErrorComponent()")
         this.setState({displayError: !this.state.displayError})
     }
 

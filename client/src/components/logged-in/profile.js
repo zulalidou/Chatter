@@ -30,7 +30,6 @@ class Profile extends React.Component {
             displayError: false
         }
 
-        console.log('Profile component called')
         this.getRoomID = this.getRoomID.bind(this)
         this.setRoomID = this.setRoomID.bind(this)
         this.getProfileInfo = this.getProfileInfo.bind(this)
@@ -42,8 +41,6 @@ class Profile extends React.Component {
 
 
     async componentDidMount() {
-        console.log('componentDidMount()')
-
         if (Cookies.get("jwtHP") === undefined) {
             this.setState({isLoggedIn: false})
             return
@@ -81,13 +78,12 @@ class Profile extends React.Component {
 
 
     async getRoomID() {
-        let response = await fetch(`/api/get-user-field-info?userID=${this.state.userID}&attribute=currentRoomOpen`)//, {credentials: "include"})
+        let response = await fetch(`/api/get-user-field-info?userID=${this.state.userID}&attribute=currentRoomOpen`)
 
         try {
             if (response.status !== 200)
                 throw "ERROR-OCCURRED"
         } catch (e) {
-            console.log(e)
             this.setState({displayError: true})
             return "ERROR-OCCURRED"
         }
@@ -103,7 +99,6 @@ class Profile extends React.Component {
             headers: {
                 'Content-Type': 'application/json'
             },
-            // credentials: "include",
             body: JSON.stringify({userID: this.state.userID, attribute: 'currentRoomOpen', value: roomID})
         })
 
@@ -111,7 +106,6 @@ class Profile extends React.Component {
             if (response.status !== 200)
                 throw "ERROR-OCCURRED"
         } catch (e) {
-            console.log(e)
             this.setState({displayError: true})
             return "ERROR-OCCURRED"
         }
@@ -121,14 +115,13 @@ class Profile extends React.Component {
 
 
     async getProfileInfo(userID) {
-        const response = await fetch(`/api/get-profile-info?userID=${userID}`)//, {credentials: "include"})
+        const response = await fetch(`/api/get-profile-info?userID=${userID}`)
         const profileInfo = await response.json()
 
         try {
             if (response.status !== 200)
                 throw "ERROR-OCCURRED"
         } catch (e) {
-            console.log(e)
             this.setState({displayError: true})
             return "ERROR-OCCURRED"
         }
@@ -138,8 +131,6 @@ class Profile extends React.Component {
 
 
     async changeAvatar() {
-        console.log("changeAvatar() called")
-
         const newAvatarString = uuidv4()
 
         const response = await fetch('/api/set-user-info', {
@@ -147,7 +138,6 @@ class Profile extends React.Component {
             headers: {
                 'Content-Type': 'application/json'
             },
-            // credentials: "include",
             body: JSON.stringify({userID: this.state.userID, attribute: 'avatarString', value: newAvatarString})
         })
 
@@ -155,7 +145,6 @@ class Profile extends React.Component {
             if (response.status !== 200)
                 throw "ERROR-OCCURRED"
         } catch (e) {
-            console.log(e)
             this.setState({displayError: true})
             return
         }
@@ -168,9 +157,6 @@ class Profile extends React.Component {
 
 
     toggleComponent(component) {
-        console.log("toggleComponent() called")
-        console.log(component)
-
         if (component === 'ModifyProfileInfo')
             this.setState({showModificationComponent: !this.state.showModificationComponent})
         else
@@ -179,10 +165,6 @@ class Profile extends React.Component {
 
 
     updateInfo(attribute, value) {
-        console.log('updateInfo() called')
-        console.log(attribute)
-        console.log(value)
-
         let newProfileInfo = this.state.profileInfo
         newProfileInfo[attribute] = value
 
@@ -191,15 +173,11 @@ class Profile extends React.Component {
 
 
     toggleErrorComponent() {
-        console.log("toggleErrorComponent()")
         this.setState({displayError: !this.state.displayError})
     }
 
 
     render() {
-        console.log(this.props.location.state)
-        console.log(this.state)
-
         if (!this.state.isLoggedIn)
             return <Redirect to="/login"/>
 

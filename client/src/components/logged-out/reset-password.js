@@ -19,7 +19,6 @@ class ResetPassword extends React.Component {
             displayError: false
         }
 
-        console.log('Reset PASSWORD')
         this.verifyCode = this.verifyCode.bind(this)
         this.hideErrorMessages = this.hideErrorMessages.bind(this)
         this.resendCode = this.resendCode.bind(this)
@@ -30,11 +29,9 @@ class ResetPassword extends React.Component {
 
 
     async verifyCode() {
-        console.log('verify()')
         this.hideErrorMessages()
 
         const code = document.getElementById('rp-code-input').value
-        console.log(code)
 
         if (code === '') {
             document.getElementById('rp-error-message').innerHTML = "This field is required"
@@ -46,7 +43,6 @@ class ResetPassword extends React.Component {
         const response = await fetch(`/api/verify-password-reset-code?email=${this.props.location.state.email}&code=${code}`)
         const result = await response.text()
 
-        console.log(result)
 
         if (result === 'Failure') {
             document.getElementById('rp-error-message').innerHTML = "Please enter the code sent to your email address"
@@ -58,7 +54,6 @@ class ResetPassword extends React.Component {
 
 
     hideErrorMessages() {
-        console.log('hideErrorMessages()')
         document.getElementById('rp-error-message').style.visibility = "hidden"
     }
 
@@ -79,7 +74,6 @@ class ResetPassword extends React.Component {
 
 
     toggleErrorComponent() {
-        console.log("toggleErrorComponent()")
         this.setState({displayError: !this.state.displayError})
     }
 
@@ -98,10 +92,7 @@ class ResetPassword extends React.Component {
 
 
     render() {
-        console.log(this.state)
-
         if (Cookies.get("jwtHP") !== undefined) {
-            console.log("yeet")
             return <Redirect to="/home"/>
         }
 

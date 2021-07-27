@@ -8,7 +8,6 @@ import "../../styles/access-group-denied.css"
 class AccessGroupDenied extends React.Component {
     constructor() {
         super()
-        console.log("ACCESS-GROUP-DENIED called")
     }
 
 

@@ -4,31 +4,14 @@ require('dotenv').config()
 const express = require('express')
 const app = express()
 const server = require('http').Server(app)
-const io = require('socket.io')(server
-//     ,{
-//   cors: {
-//     origin: "https://chatter-client.vercel.app", //"http://localhost:3000",
-//     credentials: true,
-//     // allowedHeaders: ['Origin', 'X-Requested-With', 'Content-Type', 'Accept', 'X-Access-Token', 'Authorization'],
-//     methods: ["GET", "POST"]
-//   }
-// }
-) // the server from the 'socket.io' module
+const io = require('socket.io')(server) // the server from the 'socket.io' module
 
 const expressLayouts = require('express-ejs-layouts')
 const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
 const path = require('path')
-// const cors = require('cors')
 const { v4: uuidv4 } = require('uuid')
 
-// const corsOptions = {
-//   origin: "https://chatter-client.vercel.app", //'http://localhost:3000',
-//   credentials: true,
-//   // allowedHeaders: ['Origin', 'X-Requested-With', 'Content-Type', 'Accept', 'X-Access-Token', 'Authorization'],
-//   methods: ['GET', 'POST']
-//   // optionsSuccessStatus: 200
-// }
 
 
 const AWS = require('aws-sdk')
@@ -46,15 +29,7 @@ app.use(express.urlencoded({extended: true}))
 app.use(express.json())
 app.use(expressLayouts)
 app.use(bodyParser.urlencoded({extended: true}))
-// app.use(cors(corsOptions))
 app.use(cookieParser())
-
-
-
-
-
-
-
 
 
 
@@ -139,9 +114,6 @@ app.use('/api/did-user-receive-invite', didUserReceiveInviteRoute)
 app.use('/api/delete-notification', deleteNotificationRoute)
 app.use('/api/delete-notification-2', deleteNotification2Route)
 app.use('/api/set-new-password', setNewPasswordRoute)
-
-
-
 
 app.get('/*', (req,res) => {
   res.sendFile(path.join(__dirname, '/client/build/index.html'))
@@ -263,8 +235,6 @@ io.on('connection', function(clientSocket) {
     })
 
 
-
-
     clientSocket.on('disconnect', function() {
         delete connectedClients[clientSocket.username]
     })
@@ -374,10 +344,6 @@ function sendUserTheNotification(notificationID, userID) {
 
 
 
-
-
-
-
 async function sendNotificationsToRandomRoomMember(data) {
     console.log('\n\nsendNotificationsToRandomRoomMember() called')
     console.log(data)
@@ -451,24 +417,6 @@ async function createNotification(type, data) {
 }
 
 
-// async function getUsername(id) {
-//     const params = {
-//         TableName: "Users",
-//         Key: {
-//             id: id
-//         }
-//     }
-//
-//     try {
-//         const user = await DynamoDB_client.get(params).promise()
-//         return user.Item.username
-//     } catch (err) {
-//         console.log('\n')
-//         console.log(err)
-//         return undefined
-//     }
-// }
-
 
 function getTime() {
     const today = new Date()
@@ -477,23 +425,16 @@ function getTime() {
 
 
 async function saveNotification(notification) {
-    console.log('\n\nsaveNotification() -- server.js')
-    console.log(notification)
-    console.log('--------------------------------------------------------')
-
     const params = {
         TableName: 'Notifications',
         Item: notification
     }
 
-    console.log('\nsave the DAMN notification')
-    console.log(notification)
-
     try {
         await DynamoDB_client.put(params).promise()
         console.log('notification has been saved whippee!!')
     } catch (err) {
-        console.log('\n\nAn error occurred (server.js - line 403)')
+        console.log('\n\nAn error occurred - server.js - saveNotification()')
         console.log(err)
     }
 }
@@ -509,7 +450,6 @@ async function getUserInfo(id) {
 
     try {
         const users = await DynamoDB_client.get(params).promise()
-        // console.log(users)
         return users.Item
     } catch (err) {
         console.log("An error occurred (home.js)")
@@ -558,8 +498,6 @@ async function getGroupInfo(id) {
 
 
 function saveUserInfo(userInfo) {
-    console.log('\n\n@@@@@@@@@@@@loggy loggy saveUserInfo()')
-
     const params = {
         TableName: 'Users',
         Item: userInfo
@@ -605,9 +543,6 @@ async function getNotificationIDs(userID) {
         const response = await DynamoDB_client.query(params).promise()
         let notificationIDs = []
 
-        // console.log('\n\ngetNotificationIDs() called')
-        // console.log(response)
-
         for (let i = 0; i < response.Items.length; i++)
             notificationIDs.push(response.Items[i].notificationID)
         return notificationIDs
@@ -629,10 +564,6 @@ async function getNotification(id) {
 
     try {
         const user = await DynamoDB_client.get(params).promise()
-        // console.log('\n========================================')
-        // console.log(user.Item)
-        // console.log('========================================\n')
-
         return user.Item
     } catch (err) {
         console.log('\n')
@@ -640,39 +571,6 @@ async function getNotification(id) {
         return undefined
     }
 }
-
-
-// async function getAccountID(username) {
-//     const params = {
-//         TableName: 'Users',
-//         IndexName: 'username-index',
-//         KeyConditionExpression: 'username = :username',
-//         ExpressionAttributeValues: {
-//           ':username': username,
-//         }
-//     }
-//
-//     try {
-//         const user = await DynamoDB_client.query(params).promise()
-//         return user.Items[0].account_id
-//     } catch (err) {
-//         console.log("An error occurred - A\n")
-//         console.log(err)
-//         return false
-//     }
-// }
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -725,16 +623,6 @@ function saveSession(session) {
 
 
 
-
-
-
-
-
-
-
-
-
-
 async function subscribeToRandomRooms(username, clientSocket) {
     const rooms = await getRandomRooms(username)
     console.log('rooms: ')
@@ -768,9 +656,6 @@ async function getRandomRooms(username) {
 }
 
 
-
-
-
 async function getSocketInfo(username) {
     const params = {
         TableName: 'SocketInfo',
@@ -791,12 +676,6 @@ async function getSocketInfo(username) {
         return false
     }
 }
-
-
-
-
-
-
 
 
 
@@ -834,7 +713,6 @@ async function roomExists(roomID) {
 
     try {
         const response = await DynamoDB_client.get(params).promise()
-        console.log(response)
 
         if (isEmpty(response))
             return false
@@ -847,7 +725,6 @@ async function roomExists(roomID) {
 }
 
 
-
 function isEmpty(obj) {
     for (let prop in obj) {
         if (obj.hasOwnProperty(prop))
@@ -858,148 +735,6 @@ function isEmpty(obj) {
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-// async function subscribeToRooms(clientSocket, username, groupIDs) {
-//     for (let i = 0; i < groupIDs.length; i++) {
-//         let group = await getGroupInfo(groupIDs[i])
-//
-//         for (const roomID in group.rooms) {
-//             for (let i = 0; i < group.rooms[roomID].members.length; i++) {
-//                 if (group.rooms[roomID].members[i].username === username)
-//                     clientSocket.join(roomID)
-//             }
-//         }
-//     }
-// }
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-// async function getGroupInfo(groupID) {
-//     let groupInfo = null
-//
-//     // const redisGet = await Promise.promisify(groups_redisClient.get, {context: groups_redisClient})
-//     //
-//     // await redisGet(groupID).then(function(result) {
-//     //     groupInfo = JSON.parse(result)
-//     // }).catch(function(error) {
-//     //     console.log("Error in getGroupInfo() - (groups.js)")
-//     // })
-//
-//     return groupInfo
-// }
-//
-//
-// function saveGroupInfo(groupInfo) {
-//     // groups_redisClient.set(groupInfo.groupID, JSON.stringify(groupInfo), function(error) {
-//     //     if (error)
-//     //         console.log(error)
-//     // })
-// }
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-// function saveRoomInfo(roomID, roomInfo) {
-//     // privateRooms_redisClient.set(roomID, JSON.stringify(roomInfo), function(error) {
-//     //     if (error) {
-//     //         console.log('An error occurred while trying to create a private room (account.js)')
-//     //         console.log(error)
-//     //     }
-//     // })
-// }
-//
-//
-// function sendMessage(clientSocket, data) {
-//     clientSocket.broadcast.to(data.roomID).emit('display-room-message', {message: data.message, sender: data.sender, roomID: data.roomID})
-// }
-//
-//
-// async function getUserInfo_fromSession(username) {
-//     let userInfo = null
-//
-//     // const redisGet = await Promise.promisify(users_redisClient.get, {context: users_redisClient})
-//     //
-//     // await redisGet(username).then(function(result) {
-//     //     userInfo = JSON.parse(result)
-//     // }).catch(function(error) {
-//     //     console.log(error)
-//     // })
-//
-//     return userInfo
-// }
-//
-//
-// async function getUserInfo_fromDB(usernameProvided) {
-//     const params = {
-//         TableName: 'Users',
-//         IndexName: 'username-index',
-//         KeyConditionExpression: 'username = :uProvided',
-//         ExpressionAttributeValues: {
-//           ':uProvided': usernameProvided,
-//         }
-//     }
-//
-//     try {
-//         const user = await DynamoDB_client.query(params).promise()
-//         return user.Items[0]
-//     } catch (err) {
-//         console.log("An error occurred\n")
-//         console.log(err)
-//         return false
-//     }
-// }
-//
-//
-// function saveUserInfo_intoSession(userInfo) {
-//     // users_redisClient.set(userInfo.username, JSON.stringify(userInfo), function(error) {
-//     //     if (error)
-//     //         console.log(error)
-//     // })
-// }
-//
-//
-// function saveUserInfo_intoDB(userInfo) {
-//     const params = {
-//         TableName: 'Users',
-//         Item: userInfo
-//     }
-//
-//     try {
-//         DynamoDB_client.put(params).promise()
-//     } catch (err) {
-//         console.log('An error occurred')
-//         console.log(err)
-//     }
-// }
 
 
 // There are too many files where "getUserInfo()" & "setUserInfo()" and other very similar functions are made.

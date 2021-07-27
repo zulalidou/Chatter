@@ -10,8 +10,6 @@ class CreateRoom extends React.Component {
     constructor(props) {
         super(props)
 
-        console.log("CREATE ROOM component")
-
         this.state = {
             displayError: false
         }
@@ -26,7 +24,6 @@ class CreateRoom extends React.Component {
 
     async createRoom() {
         this.hideErrorMessages()
-        console.log('createRoom() called')
 
         const roomName = document.getElementById("cr-room-name-input").value.trim()
         const roomPurpose = document.getElementById("cr-room-purpose-input").value.trim()
@@ -63,7 +60,6 @@ class CreateRoom extends React.Component {
                 headers: {
                     "Content-Type": "application/json"
                 },
-                // credentials: "include",
                 body: JSON.stringify(newRoom)
             })
 
@@ -72,7 +68,6 @@ class CreateRoom extends React.Component {
                 if (response.status !== 200)
                     throw "ERROR-OCCURRED"
             } catch (e) {
-                console.log(e)
                 this.setState({displayError: true})
                 return
             }
@@ -102,7 +97,6 @@ class CreateRoom extends React.Component {
 
 
     toggleErrorComponent() {
-        console.log("toggleErrorComponent()")
         this.setState({displayError: !this.state.displayError})
     }
 

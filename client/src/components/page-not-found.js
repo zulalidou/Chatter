@@ -13,14 +13,10 @@ class PageNotFound extends React.Component {
         this.state = {
             isLoggedIn: (Cookies.get("jwtHP") === undefined) ? false : true
         }
-
-        console.log("PAGE-NOT-FOUND component")
     }
 
 
     render() {
-        console.log(this.state.isLoggedIn)
-
         if (this.state.isLoggedIn)
             return (
                 <div className="pnfc1-contents">

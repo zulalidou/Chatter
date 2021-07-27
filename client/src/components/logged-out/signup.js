@@ -15,7 +15,6 @@ class Signup extends React.Component {
             displayError: false
         }
 
-        console.log('Sign up component called')
         this.validateForm = this.validateForm.bind(this)
         this.hideErrorMessages = this.hideErrorMessages.bind(this)
         this.isEmpty = this.isEmpty.bind(this)
@@ -36,11 +35,6 @@ class Signup extends React.Component {
         const usernameEmpty = this.isEmpty(username, "signup-error-msg-2")
         const emailEmpty = this.isEmpty(email, "signup-error-msg-3")
         const passwordEmpty = this.isEmpty(password, "signup-error-msg-4")
-
-        console.log(name)
-        console.log(username)
-        console.log(email)
-        console.log(password)
 
         if (nameEmpty || usernameEmpty || emailEmpty || passwordEmpty)
             return
@@ -75,9 +69,7 @@ class Signup extends React.Component {
         })
 
 
-        console.log(response)
         const responseMsg = await response.text()
-        console.log(responseMsg)
 
         if (response.status !== 200) {
             if (responseMsg === "Username taken") {
@@ -131,16 +123,12 @@ class Signup extends React.Component {
 
 
     toggleErrorComponent() {
-        console.log("toggleErrorComponent()")
         this.setState({displayError: !this.state.displayError})
     }
 
 
     render() {
-        console.log('render() called')
-
         if (Cookies.get("jwtHP") !== undefined) {
-            console.log("yeet")
             return <Redirect to="/home"/>
         }
 

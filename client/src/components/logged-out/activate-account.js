@@ -16,8 +16,6 @@ class ActivateAccount extends React.Component {
             displayError: false
         }
 
-        console.log(this.props)
-
         this.resendCode = this.resendCode.bind(this)
         this.verifyCode = this.verifyCode.bind(this)
         this.hideErrorMessages = this.hideErrorMessages.bind(this)
@@ -48,7 +46,6 @@ class ActivateAccount extends React.Component {
 
 
     async verifyCode() {
-        console.log('verify()')
         this.hideErrorMessages()
 
         const code = document.getElementById('aa-code-input').value.trim()
@@ -60,11 +57,7 @@ class ActivateAccount extends React.Component {
         }
 
 
-        console.log(this.props.location.state.email)
-        console.log(code)
-
         const response = await fetch(`/api/verify-account-activation-code?email=${this.props.location.state.email}&code=${code}`)
-        console.log(response)
 
         if (response.status !== 200) {
             const errorMsg = await response.text()
@@ -95,14 +88,12 @@ class ActivateAccount extends React.Component {
 
 
     toggleErrorComponent() {
-        console.log("toggleErrorComponent()")
         this.setState({displayError: !this.state.displayError})
     }
 
 
     render() {
         if (Cookies.get("jwtHP") !== undefined) {
-            console.log("yeet")
             return <Redirect to="/home"/>
         }
 

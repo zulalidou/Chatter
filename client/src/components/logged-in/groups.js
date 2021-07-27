@@ -5,8 +5,8 @@ import jwt_decode from 'jwt-decode'
 import Cookies from 'js-cookie'
 import { v4 as uuidv4 } from 'uuid'
 
-import ShowGroups from './show-groups' //'../logged-in/show-groups'
-import CreateGroup from './create-group' //'../logged-in/create-group'
+import ShowGroups from './show-groups'
+import CreateGroup from './create-group'
 import Loading from "./loading"
 import Error from "./error"
 
@@ -26,8 +26,6 @@ class Groups extends React.Component {
             displayError: false
         }
 
-        console.log('GROUPS')
-
         this.getRoomID = this.getRoomID.bind(this)
         this.setRoomID = this.setRoomID.bind(this)
         this.getGroups = this.getGroups.bind(this)
@@ -38,8 +36,6 @@ class Groups extends React.Component {
 
 
     async componentDidMount() {
-        console.log('componentDidMount()')
-
         if (Cookies.get("jwtHP") === undefined) {
             this.setState({isLoggedIn: false})
             return
@@ -73,13 +69,12 @@ class Groups extends React.Component {
 
 
     async getRoomID() {
-        let response = await fetch(`/api/get-user-field-info?userID=${this.state.userID}&attribute=currentRoomOpen`)//, {credentials: "include"})
+        let response = await fetch(`/api/get-user-field-info?userID=${this.state.userID}&attribute=currentRoomOpen`)
 
         try {
             if (response.status !== 200)
                 throw "ERROR-OCCURRED"
         } catch (e) {
-            console.log(e)
             this.setState({displayError: true})
             return "ERROR-OCCURRED"
         }
@@ -92,7 +87,6 @@ class Groups extends React.Component {
     async setRoomID(roomID) {
         const response = await fetch('/api/set-user-info', {
             method: 'POST',
-            // credentials: "include",
             headers: {
                 'Content-Type': 'application/json'
             },
@@ -109,13 +103,12 @@ class Groups extends React.Component {
 
 
     async getGroups(userID) {
-        const response = await fetch(`/api/get-groups?userID=${userID}`)//, {credentials: "include"})
+        const response = await fetch(`/api/get-groups?userID=${userID}`)
 
         try {
             if (response.status !== 200)
                 throw "ERROR-OCCURRED"
         } catch (e) {
-            console.log(e)
             this.setState({displayError: true})
             return "ERROR-OCCURRED"
         }
@@ -126,14 +119,11 @@ class Groups extends React.Component {
 
 
     toggleCreateGroupComponent() {
-        console.log('toggleCreateGroupComponent()')
         this.setState({showCreateGroupComponent: !this.state.showCreateGroupComponent})
     }
 
 
     async addNewGroup() {
-        console.log('addNewGroup()')
-
         const groups = await this.getGroups(this.state.userID)
 
         if (groups === "ERROR-OCCURRED")
@@ -146,15 +136,11 @@ class Groups extends React.Component {
 
 
     toggleErrorComponent() {
-        console.log("toggleErrorComponent()")
         this.setState({displayError: !this.state.displayError})
     }
 
 
     render() {
-        console.log('render() called')
-        console.log(this.state)
-
         if (!this.state.isLoggedIn)
             return <Redirect to="/login"/>
 

@@ -17,8 +17,6 @@ function authenticate(req, res, next) {
     try {
         jwt.verify(req.cookies.jwtHP + "." + req.cookies.jwtS, process.env.jwtSignKey)
     } catch (err) {
-        console.log("An error occurred - create-groups.js - authenticate()\n")
-        console.log(err.message)
         res.status(401).send(err.message)
         return
     }
@@ -28,11 +26,6 @@ function authenticate(req, res, next) {
 
 
 router.post('/', authenticate, async function(req, res) {
-    console.log('\n\ncreate-group called')
-    console.log(req.body)
-    console.log('++++++++++++++++++++++++++++\n')
-
-
     const status = await createGroup(req.body)
 
     if (status === "Failure") {
@@ -114,8 +107,6 @@ async function createGroup(data) {
         await DynamoDB_client.transactWrite(params).promise()
         return "Success"
     } catch (err) {
-        console.log("\nAn error occurred - create-group.js - createGroup()")
-        console.log(err)
         return "Failure"
     }
 }

@@ -9,7 +9,6 @@ class ForgotPassword extends React.Component {
     constructor(props) {
         super(props)
 
-        console.log('FORGOT PASSWORD')
         this.sendPasswordResetEmail = this.sendPasswordResetEmail.bind(this)
         this.hideErrorMessages = this.hideErrorMessages.bind(this)
         this.isValid = this.isValid.bind(this)
@@ -18,11 +17,9 @@ class ForgotPassword extends React.Component {
 
 
     async sendPasswordResetEmail() {
-        console.log('sendPasswordResetEmail()')
         this.hideErrorMessages()
 
         const email = document.getElementById('fp-email-input').value
-        console.log(email)
 
         if (email === '') {
             document.getElementById('fp-error-msg').innerHTML = "This field is required"
@@ -75,10 +72,9 @@ class ForgotPassword extends React.Component {
 
     render() {
         if (Cookies.get("jwtHP") !== undefined) {
-            console.log("yeet")
             return <Redirect to="/home"/>
         }
-        
+
         return (
             <div className="forgot-password-container">
                 <form className="fp-form">

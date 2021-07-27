@@ -15,7 +15,6 @@ function authenticate(req, res, next) {
     try {
         jwt.verify(req.cookies.jwtHP + "." + req.cookies.jwtS, process.env.jwtSignKey)
     } catch (err) {
-        console.log("An error occurred - become-admin.js - authenticate()\n")
         res.status(401).send(err.message)
         return
     }
@@ -25,8 +24,6 @@ function authenticate(req, res, next) {
 
 
 router.post("/", authenticate, async function(req, res) {
-    console.log("\n\nbecome-admin route called")
-
     const status = await setNewGroupAdmin(req.body.groupID, req.body.userID)
 
     if (status === "ERROR-OCCURRED") {
@@ -60,8 +57,6 @@ async function setNewGroupAdmin(groupID, userID) {
         await DynamoDB_client.update(params).promise()
         return "SUCCESS"
     } catch (err) {
-        console.log("An error occurred - become-admin.js - setNewGroupAdmin()")
-        console.log(err)
         return "ERROR-OCCURRED"
     }
 }

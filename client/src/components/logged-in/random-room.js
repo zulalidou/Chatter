@@ -24,8 +24,6 @@ class RandomRoom extends React.Component {
             user2avatarString: null
         }
 
-        console.log('RANDOM-ROOM')
-
         this.checkIfRoomExists = this.checkIfRoomExists.bind(this)
         this.createRoom = this.createRoom.bind(this)
         this.getDate = this.getDate.bind(this)
@@ -43,8 +41,6 @@ class RandomRoom extends React.Component {
 
 
     async componentDidMount() {
-        console.log('componentDidMount() called')
-
         const roomExists = await this.checkIfRoomExists(this.state.roomID)
 
         if (roomExists === "ERROR-OCCURRED") {
@@ -108,19 +104,17 @@ class RandomRoom extends React.Component {
 
 
     componentDidUpdate() {
-        console.log("componentDidUpdate()")
         this.showLatestMessages()
     }
 
 
     async checkIfRoomExists(roomID) {
-        const response = await fetch(`/api/check-if-room-exists?roomID=${roomID}`)//, {credentials: "include"})
+        const response = await fetch(`/api/check-if-room-exists?roomID=${roomID}`)
 
         try {
             if (response.status !== 200)
                 throw "ERROR-OCCURRED"
         } catch (e) {
-            console.log(e)
             return "ERROR-OCCURRED"
         }
 
@@ -133,14 +127,11 @@ class RandomRoom extends React.Component {
 
 
     async createRoom(roomID) {
-        console.log(roomID)
-
         const response = await fetch("/api/create-room", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
-            // credentials: "include",
             body: JSON.stringify({
                 id: roomID,
                 groupID: "null",
@@ -159,7 +150,6 @@ class RandomRoom extends React.Component {
             if (response.status !== 200)
                 throw "ERROR-OCCURRED"
         } catch (e) {
-            console.log(e)
             return "ERROR-OCCURRED"
         }
 
@@ -186,7 +176,6 @@ class RandomRoom extends React.Component {
             headers: {
                 'Content-Type': 'application/json'
             },
-            // credentials: "include",
             body: JSON.stringify({
                 userID: this.props.user1ID,
                 attribute: 'currentRoomOpen',
@@ -198,7 +187,6 @@ class RandomRoom extends React.Component {
             if (response.status !== 200)
                 throw "ERROR-OCCURRED"
         } catch (e) {
-            console.log(e)
             return "ERROR-OCCURRED"
         }
 
@@ -211,17 +199,11 @@ class RandomRoom extends React.Component {
 
         // this is to receive messages from current room
         this.props.socket.on(roomID, async data => {
-            console.log(data)
-            console.log(this.state)
-
             let roomMessagesUpdated = this.state.roomMessages
             roomMessagesUpdated.push(data)
 
             if (data.senderID === "N/A" && data.message === "THE OTHER USER HAS DISCONNECTED.") {
                 this.props.socket.emit("leave-room", this.state.roomID)
-
-                console.log(document.getElementById("message-input"))
-                console.log(document.getElementById("send-btn"))
 
                 document.getElementById("message-input").setAttribute("disabled", "disabled")
                 document.getElementById("send-btn").setAttribute("disabled", "disabled")
@@ -233,15 +215,12 @@ class RandomRoom extends React.Component {
 
 
     async getRoomMessages(roomID) {
-        console.log(roomID)
-
-        const response = await fetch(`/api/get-room-messages?roomID=${roomID}`)//, {credentials: "include"})
+        const response = await fetch(`/api/get-room-messages?roomID=${roomID}`)
 
         try {
             if (response.status !== 200)
                 throw "ERROR-OCCURRED"
         } catch (e) {
-            console.log(e)
             return "ERROR-OCCURRED"
         }
 
@@ -251,13 +230,12 @@ class RandomRoom extends React.Component {
 
 
     async getAvatarString(userID) {
-        const response = await fetch(`/api/get-user-field-info?userID=${userID}&attribute=avatarString`)//, {credentials: "include"})
+        const response = await fetch(`/api/get-user-field-info?userID=${userID}&attribute=avatarString`)
 
         try {
             if (response.status !== 200)
                 throw "ERROR-OCCURRED"
         } catch (e) {
-            console.log(e)
             return "ERROR-OCCURRED"
         }
 
@@ -276,7 +254,6 @@ class RandomRoom extends React.Component {
 
     async sendMessage() {
         const message = document.getElementById("message-input").value.trim()
-        console.log(message)
 
         if (message === "")
             return
@@ -316,7 +293,6 @@ class RandomRoom extends React.Component {
             headers: {
                 "Content-Type": "application/json"
             },
-            // credentials: "include",
             body: JSON.stringify({
                 id: uuidv4(),
                 senderID: this.props.user1ID,
@@ -334,32 +310,28 @@ class RandomRoom extends React.Component {
             if (response.status !== 200)
                 throw "ERROR-OCCURRED"
         } catch (e) {
-            console.log(e)
             this.props.displayError()
         }
     }
 
 
     showLatestMessages() {
-        console.log("showLatestMessages()")
         const messagesContainer = document.getElementById("messages-container")
         messagesContainer.scrollTop = messagesContainer.scrollHeight
     }
 
 
     async getUserInfo() {
-        const response = await fetch(`/api/get-profile-info?userID=${this.props.user1ID}`)//, {credentials: "include"})
+        const response = await fetch(`/api/get-profile-info?userID=${this.props.user1ID}`)
 
         try {
             if (response.status !== 200)
                 throw "ERROR-OCCURRED"
         } catch (e) {
-            console.log(e)
             return "ERROR-OCCURRED"
         }
 
         const userInfo = await response.json()
-        console.log(userInfo)
         return userInfo
     }
 
@@ -375,10 +347,6 @@ class RandomRoom extends React.Component {
 
 
     render() {
-        console.log(this.props)
-        console.log(this.state)
-
-
         return (
             <div id="random-room-container" key={this.props.childKey}>
                 <h3 id="random-chat-header">

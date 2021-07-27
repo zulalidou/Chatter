@@ -30,7 +30,6 @@ class Navbar extends React.Component {
             timerID: null
         }
 
-        console.log("NAVBAR component called")
         this.logUserOut = this.logUserOut.bind(this)
         this.toggleNotificationsBox = this.toggleNotificationsBox.bind(this)
         this.showNavbarMenu = this.showNavbarMenu.bind(this)
@@ -43,14 +42,8 @@ class Navbar extends React.Component {
 
 
     componentDidUpdate() {
-        // console.log("componentDidUpdate()")
-
         if (Cookies.get("jwtHP") !== undefined && this.state.timerID === null) {
             const timerID = setInterval(async () => {
-                // console.log("setInterval() called")
-                // console.log(timerID)
-                // console.log(this.state)
-
                 if (Cookies.get("jwtHP") === undefined) {
                     clearInterval(timerID)
                     return
@@ -66,10 +59,7 @@ class Navbar extends React.Component {
                 // - Also, the cookie/session is set to expire 1 hour and 1 min after the user logs in, so calling the /logout route 1 min early
                 //   just means that each user's session lasts an hour, so there's no harm done.
                 if (Math.ceil(Date.now()/1000) >= sessionExpirationTime - 60) {
-                    console.log("hell yea")
-
                     await this.logUserOut(timerID)
-                    console.log("\nsetInterval() HAS BEEN CLEARED")
                 }
             }, 1000)
         }
@@ -77,33 +67,25 @@ class Navbar extends React.Component {
 
 
     async logUserOut(timerID) {
-        console.log("logUserOut()")
-
         const response = await fetch("/api/logout", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
-            // credentials: "include",
             body: JSON.stringify({
                 userID: jwt_decode(Cookies.get("jwtHP")).userID,
                 sessionEnded: true
             })
         })
 
-        console.log("1")
-
         try {
             if (response.status !== 200)
                 throw "ERROR-OCCURRED"
         } catch (e) {
-            console.log(e)
             this.setState({displayError: true})
             return
         }
 
-
-        console.log("1")
 
         // deletes the cookies
         document.cookie.split(";").forEach((c) => {
@@ -113,19 +95,12 @@ class Navbar extends React.Component {
         })
 
 
-        console.log(timerID)
-
         if (timerID !== null) {
-            console.log("unconditional")
             clearInterval(timerID)
         }
 
 
-        console.log("1")
-
         this.setState({isLoggedIn: false})
-
-        console.log("1")
 
         this.props.history.push("/login")
     }
@@ -148,18 +123,15 @@ class Navbar extends React.Component {
 
 
     toggleErrorComponent() {
-        console.log("toggleErrorComponent()")
         this.setState({displayError: !this.state.displayError})
     }
 
 
     async logout() {
         this.close()
-        console.log("logout()")
 
         const response = await fetch("/api/logout", {
             method: 'POST',
-            // credentials: "include",
             headers: {
                 'Content-Type': 'application/json'
             },
@@ -173,7 +145,6 @@ class Navbar extends React.Component {
             if (response.status !== 200)
                 throw "ERROR-OCCURRED"
         } catch (e) {
-            console.log(e)
             this.setState({displayError: true})
             return
         }
@@ -206,9 +177,6 @@ class Navbar extends React.Component {
 
 
     render() {
-        // console.log(Cookies.get("jwtHP"))
-        // console.log(this.state)
-
         if (this.state.timerID !== null && Cookies.get("jwtHP") === undefined)
             clearInterval(this.state.timerID)
 

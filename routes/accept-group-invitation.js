@@ -13,7 +13,6 @@ function authenticate(req, res, next) {
     try {
         jwt.verify(req.cookies.jwtHP + "." + req.cookies.jwtS, process.env.jwtSignKey)
     } catch (err) {
-        console.log("An error occurred - accept-group-invite.js - authenticate()\n")
         res.status(401).send(err.message)
         return
     }
@@ -25,8 +24,6 @@ function authenticate(req, res, next) {
 // 1. Make sure that before the user accepts the group invitation, the group hasn't been deleted yet.
 // 2. If it has been deleted, don't do anything, otherwise, add the user as a new member of the group
 router.post('/', authenticate, async function(req, res) {
-    console.log('\n\naccept-group-invitation')
-
     const groupExists = await doesGroupExist(req.body.groupID)
 
     if (groupExists === "ERROR-OCCURRED") {
@@ -34,8 +31,6 @@ router.post('/', authenticate, async function(req, res) {
         return
     }
 
-
-    console.log('group exists')
 
     const userIsAlreadyMember = await isUserAlreadyMember(req.body.userID, req.body.groupID)
 
@@ -46,7 +41,6 @@ router.post('/', authenticate, async function(req, res) {
 
 
     if (userIsAlreadyMember) {
-        console.log('user is already a member of the group')
         res.status(200).end("User is already member")
         return
     }
@@ -90,10 +84,6 @@ async function doesGroupExist(groupID) {
     }
 
 
-    console.log("\n\ndoesGroupExist() called")
-    console.log("groupID = " + groupID)
-    console.log("\n\n")
-
     try {
         const response = await DynamoDB_client.get(params).promise()
         const group = response.Item
@@ -102,8 +92,6 @@ async function doesGroupExist(groupID) {
             return false
         return true
     } catch (err) {
-        console.log("An error has occurred - accept-group-invitation.js - doesGroupExist()")
-        console.log(err)
         return "ERROR-OCCURRED"
     }
 }
@@ -129,9 +117,6 @@ async function isUserAlreadyMember(userID, groupID) {
         }
     }
 
-    console.log("\n\nisUserAlreadyMember() called")
-    console.log("userID = " + userID + ", groupID = " + groupID + "\n")
-
     try {
         const response = await DynamoDB_client.query(params).promise()
 
@@ -142,8 +127,6 @@ async function isUserAlreadyMember(userID, groupID) {
 
         return false
     } catch (err) {
-        console.log("An error has occurred - accept-group-invitation.js - isUserAlreadyMember()")
-        console.log(err)
         return "ERROR-OCCURRED"
     }
 }
@@ -165,8 +148,6 @@ async function createGroupMembership(userID, groupID) {
         await DynamoDB_client.put(params).promise()
         return "Success"
     } catch (err) {
-        console.log('An error occurred (create-group.js)')
-        console.log(err)
         return "ERROR-OCCURRED"
     }
 }
@@ -199,10 +180,6 @@ async function getRoomIDs(groupID) {
     try {
         const response = await DynamoDB_client.query(params).promise()
 
-        console.log("\n\ngetRoomIDs:\n")
-        console.log(response)
-
-
         let roomIDs = []
 
         for (let i = 0; i < response.Items.length; i++)
@@ -210,8 +187,6 @@ async function getRoomIDs(groupID) {
 
         return roomIDs
     } catch (err) {
-        console.log('An error occurred (create-group.js)')
-        console.log(err)
         return "ERROR-OCCURRED"
     }
 }
@@ -232,8 +207,6 @@ async function createRoomMembership(userID, roomID, groupID) {
         await DynamoDB_client.put(params).promise()
         return "Success"
     } catch(err) {
-        console.log("An error occurred (accept-group-invitation.js)")
-        console.log(err)
         return "ERROR-OCCURRED"
     }
 }

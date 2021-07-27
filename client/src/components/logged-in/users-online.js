@@ -5,8 +5,6 @@ import "../../styles/users-online.css"
 class UsersOnline extends React.Component {
     constructor(props) {
         super(props)
-        console.log("USERS-ONLINE constructor called")
-        console.log(this.props)
     }
 
     render() {

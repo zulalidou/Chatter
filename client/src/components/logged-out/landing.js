@@ -10,7 +10,6 @@ import "../../styles/landing.css"
 class Landing extends React.Component {
     render() {
         if (Cookies.get("jwtHP") !== undefined) {
-            console.log("yeet")
             return <Redirect to="/home"/>
         }
 
