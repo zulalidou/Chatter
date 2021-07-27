@@ -36,7 +36,7 @@ router.post('/', async function(req, res) {
     // expires in 1 hour & 1 min
     // - the additional minute is just to make sure that there's enough time for the /logout route to be called and do some cleanup
     //   before the token itself expires
-    const jwtToken = jwt.sign(session, process.env.jwtSignKey, {expiresIn: (60) + 60})
+    const jwtToken = jwt.sign(session, process.env.jwtSignKey, {expiresIn: (60 * 60) + 60})
     const JwtTokenArray = jwtToken.split(".")
     const header = JwtTokenArray[0]
     const payload = JwtTokenArray[1]
@@ -74,9 +74,6 @@ async function getUserInfo(email) {
 
 
 async function isPasswordCorrect(passwordEntered, passwordStored) {
-    // console.log("\n\npasswordEntered = " + passwordEntered)
-    // console.log("passwordStored = " + passwordStored + "\n\n")
-
     if (await bcrypt.compare(passwordEntered, passwordStored))
         return true
     return false
@@ -92,7 +89,7 @@ function getSession(userInfo) {
         // 1: To make each JWT/session unique, that way if a JWT needs to be invalidated, we store it in a table, and if someone tries
         //    to log in with that same JWT, it won't work
         // 2: To set the TTL for the JWT when we blacklist it in a table. (The time needs to be in seconds)
-        expirationTime: Math.ceil(Date.now()/1000) + (60) + 60  // 1 hour + 1 min from now
+        expirationTime: Math.ceil(Date.now()/1000) + (60 * 60) + 60  // 1 hour + 1 min from now
     }
 
     return session
@@ -109,9 +106,6 @@ async function setUserToActive(userID, username, jwt, expirationTime) {
             timeToLive: expirationTime
         }
     }
-
-
-    console.log("setUserToActive() called")
 
     try {
         await DynamoDB_client.put(params).promise()
