@@ -3,6 +3,7 @@
     border-radius: 10px;
     word-wrap: break-word;
     padding: 5px;
+    margin-top: 5px;
 }
 
 .logged-in-user.active {
