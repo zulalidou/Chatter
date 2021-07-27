@@ -245,7 +245,7 @@ async function saveUserInfo(activationCode, name, username, email, password) {
             username: username,
             password: await bcrypt.hash(password, 10), // bcrypt automatically saves the salt inside the password
             activationCode: activationCode,
-            timeToLive: Math.ceil(Date.now() / 1000) + 60 * 60, // 1 hour
+            timeToLive: Math.ceil(Date.now() / 1000) + 60 * 15, // 15 mins
             avatarString: uuidv4(),
             creationDate: getDate(),
             currentRoomOpen: null

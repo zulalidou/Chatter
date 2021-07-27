@@ -409,10 +409,9 @@ async function createNotification(type, data) {
         roomID: data.roomID,
         roomName: data.username,
 
-        // icon: data.avatarString,
         date: data.date,
         time: data.time,
-        expirationTime: getTime() + (60000 * 60 * 24)  // 1 day from now (in milliseconds)
+        expirationTime: getTime() + (60 * 60 * 24)  // 1 day from now (in milliseconds)
     }
 }
 
