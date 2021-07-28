@@ -32,7 +32,7 @@ app.use(expressLayouts)
 app.use(bodyParser.urlencoded({extended: true}))
 app.use(cookieParser())
 app.use(helmet())
-
+app.disable("x-powered-by")
 
 
 const landingRoute = require('./routes/landing')
