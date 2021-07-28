@@ -368,7 +368,7 @@ async function sendNotificationsToRandomRoomMember(data) {
         console.log(")))))))))))))))))))))))))))))))")
         console.log("userGotNotification = " + userGotNotification)
 
-        sendUserTheNotification(notification.id, recipient.id, , notification.timeToLive)
+        sendUserTheNotification(notification.id, recipient.id, notification.timeToLive)
         saveTheNotification(notification)
     }
 }
