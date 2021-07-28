@@ -398,7 +398,7 @@ async function createNotification(type, data) {
 
             date: data.date,
             time: getTime(),
-            timeToLive: (getTime() / 1000) + (60 * 60 * 24 * 7) // 7 days from now (in seconds)
+            timeToLive: Math.ceil(getTime() / 1000) + (60 * 60 * 24 * 7) // 7 days from now (in seconds)
         }
     }
 
@@ -418,7 +418,7 @@ async function createNotification(type, data) {
 
         date: data.date,
         time: data.time,
-        timeToLive: (getTime() / 1000) + (60 * 60 * 24)  // 1 day from now (in milliseconds)
+        timeToLive: Math.ceil(getTime() / 1000) + (60 * 60 * 24)  // 1 day from now (in milliseconds)
     }
 }
 
