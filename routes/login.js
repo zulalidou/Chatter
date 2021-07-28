@@ -43,8 +43,8 @@ router.post('/', async function(req, res) {
     const signature = JwtTokenArray[2]
 
 
-    res.cookie("jwtHP", header + "." + payload, {sameSite: "none", secure: true, httpOnly: false})
-    res.cookie("jwtS", signature, {sameSite: "none", secure: true, httpOnly: true})
+    res.cookie("jwtHP", header + "." + payload, {sameSite: "none", secure: true, httpOnly: false, maxAge: (60 * 60) + 60})
+    res.cookie("jwtS", signature, {sameSite: "none", secure: true, httpOnly: true, maxAge: (60 * 60) + 60})
 
     setUserToActive(session.userID, session.username, header + "." + payload + "." + signature, session.expirationTime)
 
