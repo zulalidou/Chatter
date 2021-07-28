@@ -45,7 +45,7 @@ router.post('/', async function(req, res) {
         const data = {
             email: req.body.email,
             resetCode: resetCode,
-            expirationTime: Math.ceil(Date.now() / 1000) + (60 * 15) // 15 mins
+            timeToLive: Math.ceil(Date.now() / 1000) + (60 * 15) // 15 mins
         }
 
         storePasswordResetCode(data)
