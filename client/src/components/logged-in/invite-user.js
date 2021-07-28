@@ -165,7 +165,7 @@ class InviteUser extends React.Component {
                 groupName: this.props.groupName,
                 date: this.getDate(),
                 time: this.getTime(),
-                expirationTime: this.getTime() + 604800000 // 7 days from now (in milliseconds)
+                timeToLive: this.getTime() + (60 * 60 * 24 * 7) // 7 days from now (in seconds)
             })
         })
 

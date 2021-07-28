@@ -267,7 +267,7 @@ async function sendNotificationsToGroupMembers(data) {
                 notificationSaved = true
             }
 
-            sendUserTheNotification(notification.id, member.id)
+            sendUserTheNotification(notification.id, member.id, notification.timeToLive)
             console.log('notification sent')
         }
         else {
@@ -323,13 +323,14 @@ function saveTheNotification(notification) {
 }
 
 
-function sendUserTheNotification(notificationID, userID) {
+function sendUserTheNotification(notificationID, userID, timeToLive) {
     const params = {
         TableName: 'Users_Notifications',
         Item: {
             id: uuidv4(),
+            userID: userID,
             notificationID: notificationID,
-            userID: userID
+            timeToLive: timeToLive
         }
     }
 
@@ -367,7 +368,7 @@ async function sendNotificationsToRandomRoomMember(data) {
         console.log(")))))))))))))))))))))))))))))))")
         console.log("userGotNotification = " + userGotNotification)
 
-        sendUserTheNotification(notification.id, recipient.id)
+        sendUserTheNotification(notification.id, recipient.id, , notification.timeToLive)
         saveTheNotification(notification)
     }
 }
@@ -391,7 +392,7 @@ async function createNotification(type, data) {
 
             date: data.date,
             time: getTime(),
-            expirationTime: getTime() + 604800000 // 7 days from now (in milliseconds)
+            timeToLive: getTime() + (60 * 60 * 24 * 7) // 7 days from now (in seconds)
         }
     }
 
@@ -411,7 +412,7 @@ async function createNotification(type, data) {
 
         date: data.date,
         time: data.time,
-        expirationTime: getTime() + (60 * 60 * 24)  // 1 day from now (in milliseconds)
+        timeToLive: getTime() + (60 * 60 * 24)  // 1 day from now (in milliseconds)
     }
 }
 

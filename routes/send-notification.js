@@ -59,7 +59,8 @@ async function saveNotification(notification) {
                     Item: {
                         id: uuidv4(),
                         userID: notification.recipient,
-                        notificationID: notification.id
+                        notificationID: notification.id,
+                        timeToLive: notification.timeToLive
                     }
                 }
             }
