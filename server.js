@@ -308,6 +308,12 @@ async function getRoomMembers(groupID) {
 
 
 function saveTheNotification(notification) {
+    console.log("\n\n\nsaveTheNotification()")
+    console.log("notification to be saved: ")
+    console.log(notification)
+    console.log("---------------------------------------\n\n")
+
+
     const params = {
         TableName: 'Notifications',
         Item: notification
@@ -424,21 +430,6 @@ function getTime() {
 }
 
 
-async function saveNotification(notification) {
-    const params = {
-        TableName: 'Notifications',
-        Item: notification
-    }
-
-    try {
-        await DynamoDB_client.put(params).promise()
-        console.log('notification has been saved whippee!!')
-    } catch (err) {
-        console.log('\n\nAn error occurred - server.js - saveNotification()')
-        console.log(err)
-    }
-}
-
 
 async function getUserInfo(id) {
     const params = {
@@ -455,59 +446,6 @@ async function getUserInfo(id) {
         console.log("An error occurred (home.js)")
         console.log(err)
         return null
-    }
-}
-
-
-async function getGroupInfo(id) {
-    const params = {
-        TableName: 'Groups',
-        Key: {
-            id: id,
-        }
-    }
-
-    try {
-        const user = await DynamoDB_client.get(params).promise()
-        return user.Item
-    } catch (err) {
-        console.log('\n')
-        console.log(err)
-        return undefined
-    }
-}
-
-
-async function getGroupInfo(id) {
-    const params = {
-        TableName: 'Groups',
-        Key: {
-            id: id,
-        }
-    }
-
-    try {
-        const user = await DynamoDB_client.get(params).promise()
-        return user.Item
-    } catch (err) {
-        console.log('\n')
-        console.log(err)
-        return undefined
-    }
-}
-
-
-function saveUserInfo(userInfo) {
-    const params = {
-        TableName: 'Users',
-        Item: userInfo
-    }
-
-    try {
-        DynamoDB_client.put(params).promise()
-    } catch (err) {
-        console.log('An error occurred (create-group.js)')
-        console.log(err)
     }
 }
 
@@ -574,132 +512,6 @@ async function getNotification(id) {
 
 
 
-async function saveRoomIdIntoSession(username, roomID) {
-    // 1. Get user session info
-    // 2. Append roomID to session info
-    // 3. Save session info
-
-    const session = await getSession(username)
-    console.log('sess sess below:')
-    console.log(session)
-
-    session.random_roomIDs.push(roomID)
-    saveSession(session)
-}
-
-
-async function getSession(username) {
-    const params = {
-        TableName: 'Sessions',
-        Key: {
-            username: username
-        }
-    }
-
-    try {
-        const response = await DynamoDB_client.get(params).promise()
-        return response.Item
-    } catch (err) {
-        console.log('An error has occurred\n')
-        console.log(err)
-        return false
-    }
-}
-
-
-function saveSession(session) {
-    const params = {
-        TableName: 'Sessions',
-        Item: session
-    }
-
-    try {
-        DynamoDB_client.put(params).promise()
-    } catch (err) {
-        console.log('An error occurred (account.js)')
-        console.log(err)
-    }
-}
-
-
-
-async function subscribeToRandomRooms(username, clientSocket) {
-    const rooms = await getRandomRooms(username)
-    console.log('rooms: ')
-    console.log(rooms)
-
-    for (let i = 0; i < rooms.length; i++) {
-        console.log('Joining room = ' + rooms[i])
-        clientSocket.join(rooms[i])
-    }
-
-    console.log('All random rooms have been joined')
-}
-
-
-async function getRandomRooms(username) {
-    const params = {
-        TableName: 'Sessions',
-        Key: {
-            username: username
-        }
-    }
-
-    try {
-        const response = await DynamoDB_client.get(params).promise()
-        return response.Item.random_roomIDs
-    } catch (err) {
-        console.log('An error has occurred\n')
-        console.log(err)
-        return false
-    }
-}
-
-
-async function getSocketInfo(username) {
-    const params = {
-        TableName: 'SocketInfo',
-        Key: {
-            username: username
-        }
-    }
-
-    try {
-        const response = await DynamoDB_client.get(params).promise()
-
-        if (response.Item == undefined)
-            return null
-        return response.Item
-    } catch (err) {
-        console.log('An error has occurred\n')
-        console.log(err)
-        return false
-    }
-}
-
-
-
-async function getRoomInfo(id) {
-    const params = {
-        TableName: 'RandomChatrooms',
-        Key: {
-            id: id
-        }
-    }
-
-    try {
-        const response = await DynamoDB_client.get(params).promise()
-
-        if (response.Item === undefined)
-            return null
-        return response.Item
-    } catch (err) {
-        console.log('An error has occurred\n')
-        console.log(err)
-        return false
-    }
-}
-
 
 // Checks if the room still exists. This is in case the other user logged out of the account
 // (which would delete this room in the process)
@@ -733,7 +545,6 @@ function isEmpty(obj) {
 
     return true
 }
-
 
 
 
