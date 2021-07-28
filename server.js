@@ -11,6 +11,7 @@ const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
 const path = require('path')
 const { v4: uuidv4 } = require('uuid')
+const helmet = require('helmet')
 
 
 
@@ -30,7 +31,7 @@ app.use(express.json())
 app.use(expressLayouts)
 app.use(bodyParser.urlencoded({extended: true}))
 app.use(cookieParser())
-
+app.use(helmet())
 
 
 
