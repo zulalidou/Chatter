@@ -164,19 +164,19 @@ class Home extends React.Component {
         return (
             <div className="body">
                 <div className="left-container">
-                    <Link to="/profile" style={{textDecoration: "none"}}>
+                    <Link to="/profile" className="lc-links">
                         <div className="left-container-link">
                             Profile
                         </div>
                     </Link>
 
-                    <Link to="/groups" style={{textDecoration: "none"}}>
+                    <Link to="/groups" className="lc-links">
                         <div className="left-container-link">
                             Groups
                         </div>
                     </Link>
 
-                    <Link to="/random-chat" style={{textDecoration: "none"}}>
+                    <Link to="/random-chat" className="lc-links">
                         <div className="left-container-link">
                             Random Chat
                         </div>
