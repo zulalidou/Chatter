@@ -43,8 +43,8 @@ router.post('/', async function(req, res) {
     const signature = JwtTokenArray[2]
 
 
-    res.cookie("jwtHP", header + "." + payload, {sameSite: "none", secure: true, httpOnly: false, maxAge: (60 * 60) + 60})
-    res.cookie("jwtS", signature, {sameSite: "none", secure: true, httpOnly: true, maxAge: (60 * 60) + 60})
+    res.cookie("jwtHP", header + "." + payload, {sameSite: "none", secure: true, httpOnly: false, expires: new Date(getTime() + (((60 * 60) + 60) * 1000))})
+    res.cookie("jwtS", signature, {sameSite: "none", secure: true, httpOnly: true, expires: new Date(getTime() + (((60 * 60) + 60) * 1000))})
 
     setUserToActive(session.userID, session.username, header + "." + payload + "." + signature, session.expirationTime)
 
@@ -115,6 +115,12 @@ async function setUserToActive(userID, username, jwt, expirationTime) {
         console.log(err)
         console.log("setUserToActive() -- FAILURE")
     }
+}
+
+
+function getTime() {
+    let dateObj = new Date()
+    return dateObj.getTime()
 }
 
 
