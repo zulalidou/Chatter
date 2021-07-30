@@ -11,7 +11,14 @@ const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
 const path = require('path')
 const { v4: uuidv4 } = require('uuid')
+// const cors = require('cors')
+
 const helmet = require('helmet')
+// const corsOptions = {
+//     origin: 'http://localhost:3000',
+//     credentials: true,
+//     optionsSuccessStatus: 200
+// }
 
 
 
@@ -33,6 +40,8 @@ app.use(bodyParser.urlencoded({extended: true}))
 app.use(cookieParser())
 app.use(helmet())
 app.disable("x-powered-by")
+// app.use(cors(corsOptions))
+
 
 
 const landingRoute = require('./routes/landing')

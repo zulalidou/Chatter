@@ -1,3 +1,8 @@
+.agd-link:hover {
+    text-decoration: none;
+}
+
+
 @media screen and (max-width: 768px) {
     .access-group-denied-container {
         background-color: #F2F2F2;

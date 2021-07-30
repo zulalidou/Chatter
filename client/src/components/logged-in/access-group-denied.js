@@ -27,13 +27,13 @@ class AccessGroupDenied extends React.Component {
                 <br/>
 
                 <div className="access-group-denied-container-link access-group-denied-btn1">
-                    <Link to="/home" style={{textDecoration: "none", color: "black"}}>
+                    <Link to="/home" className="agd-link">
                         Home
                     </Link>
                 </div>
 
                 <div className="access-group-denied-container-link">
-                    <Link to="/groups" style={{textDecoration: "none", color: "black"}}>
+                    <Link to="/groups" className="agd-link">
                         Groups
                     </Link>
                 </div>
