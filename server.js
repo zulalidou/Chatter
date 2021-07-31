@@ -13,7 +13,11 @@ const path = require('path')
 const { v4: uuidv4 } = require('uuid')
 const helmet = require('helmet')
 const csrf = require('csurf')
-const csrfProtection = csrf({cookie: true})
+const csrfProtection = csrf({
+    key: "CSRF-Token",
+    secure: true,
+    sameSite: true
+})
 
 
 
