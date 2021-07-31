@@ -42,34 +42,6 @@ const loginRoute = require('./routes/login')
 const verifyPasswordResetCodeRoute = require('./routes/verify-password-reset-code')
 const setNewPasswordRoute = require('./routes/set-new-password')
 const signupRoute = require('./routes/signup')
-
-app.use('/api/send-account-activation-code', sendActivationCodeRoute)
-app.use('/api/verify-account-activation-code', verifyAccountActivationCodeRoute)
-app.use('/api/send-password-reset-code', sendPasswordResetCodeRoute)
-app.use('/api/login', loginRoute)
-app.use('/api/verify-password-reset-code', verifyPasswordResetCodeRoute)
-app.use('/api/set-new-password', setNewPasswordRoute)
-app.use('/api/signup', signupRoute)
-
-app.use(csrf({
-    key: "CSRF-Token",
-    secure: true,
-    sameSite: true
-}))
-
-
-
-const acceptGroupInviteRoute = require('./routes/accept-group-invitation')
-const becomeAdminRoute = require('./routes/become-admin')
-const createGroupRoute = require('./routes/create-group')
-const createRoomRoute = require('./routes/create-room')
-const deleteAccountRoute = require('./routes/delete-account')
-const leaveGroupRoute = require('./routes/leave-group')
-const logoutRoute = require('./routes/logout')
-const saveMessageToDbRoute = require('./routes/save-message-to-db')
-const sendNotificationRoute = require('./routes/send-notification')
-const setUserInfoRoute = require('./routes/set-user-info')
-const landingRoute = require('./routes/landing')
 const loggedInUsersRoute = require('./routes/get-logged-in-users')
 const getAccountInfoRoute = require('./routes/get-profile-info')
 const getUserFieldInfoRoute = require('./routes/get-user-field-info')
@@ -92,17 +64,13 @@ const didUserReceiveInviteRoute = require('./routes/did-user-receive-invite')
 const deleteNotificationRoute = require('./routes/delete-notification')
 const deleteNotification2Route = require('./routes/delete-notification-2')
 
-app.use('/api/accept-group-invitation', acceptGroupInviteRoute)
-app.use('/api/become-admin', becomeAdminRoute)
-app.use('/api/create-group', createGroupRoute)
-app.use('/api/create-room', createRoomRoute)
-app.use('/api/delete-account', deleteAccountRoute)
-app.use('/api/leave-group', leaveGroupRoute)
-app.use('/api/logout', logoutRoute)
-app.use('/api/save-message-to-db', saveMessageToDbRoute)
-app.use('/api/send-notification', sendNotificationRoute)
-app.use('/api/set-user-info', setUserInfoRoute)
-app.use('/api/', landingRoute)
+app.use('/api/send-account-activation-code', sendActivationCodeRoute)
+app.use('/api/verify-account-activation-code', verifyAccountActivationCodeRoute)
+app.use('/api/send-password-reset-code', sendPasswordResetCodeRoute)
+app.use('/api/login', loginRoute)
+app.use('/api/verify-password-reset-code', verifyPasswordResetCodeRoute)
+app.use('/api/set-new-password', setNewPasswordRoute)
+app.use('/api/signup', signupRoute)
 app.use('/api/get-logged-in-users', loggedInUsersRoute)
 app.use('/api/get-profile-info', getAccountInfoRoute)
 app.use('/api/get-user-field-info', getUserFieldInfoRoute)
@@ -124,6 +92,38 @@ app.use('/api/get-group-number', getGroupNumberRoute)
 app.use('/api/did-user-receive-invite', didUserReceiveInviteRoute)
 app.use('/api/delete-notification', deleteNotificationRoute)
 app.use('/api/delete-notification-2', deleteNotification2Route)
+
+app.use(csrf({
+    key: "CSRF-Token",
+    secure: true,
+    sameSite: true
+}))
+
+
+
+const acceptGroupInviteRoute = require('./routes/accept-group-invitation')
+const becomeAdminRoute = require('./routes/become-admin')
+const createGroupRoute = require('./routes/create-group')
+const createRoomRoute = require('./routes/create-room')
+const deleteAccountRoute = require('./routes/delete-account')
+const leaveGroupRoute = require('./routes/leave-group')
+const logoutRoute = require('./routes/logout')
+const saveMessageToDbRoute = require('./routes/save-message-to-db')
+const sendNotificationRoute = require('./routes/send-notification')
+const setUserInfoRoute = require('./routes/set-user-info')
+
+app.use('/api/accept-group-invitation', acceptGroupInviteRoute)
+app.use('/api/become-admin', becomeAdminRoute)
+app.use('/api/create-group', createGroupRoute)
+app.use('/api/create-room', createRoomRoute)
+app.use('/api/delete-account', deleteAccountRoute)
+app.use('/api/leave-group', leaveGroupRoute)
+app.use('/api/logout', logoutRoute)
+app.use('/api/save-message-to-db', saveMessageToDbRoute)
+app.use('/api/send-notification', sendNotificationRoute)
+app.use('/api/set-user-info', setUserInfoRoute)
+
+
 
 app.get('/*', (req,res) => {
     res.sendFile(path.join(__dirname, '/client/build/index.html'))
