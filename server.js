@@ -137,6 +137,7 @@ app.use('/api/set-user-info', csrfProtection, setUserInfoRoute)
 
 
 app.get('/*', (req,res) => {
+    res.cookie('XSRF-TOKEN', req.csrfToken())
     res.sendFile(path.join(__dirname, '/client/build/index.html'))
 })
 
