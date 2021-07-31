@@ -1,5 +1,5 @@
 import React from "react"
-
+import Cookies from "js-cookie"
 import "../../styles/set-new-password.css"
 
 
@@ -52,10 +52,13 @@ class SetNewPassword extends React.Component {
         }
 
 
+        const token = Cookies.get("CSRF-Token")
+
         const response = await fetch('/api/set-new-password', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'CSRF-Token': token
             },
             body: JSON.stringify({password: password1, email: this.props.email})
         })

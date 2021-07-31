@@ -3,6 +3,7 @@ import { v4 as uuidv4 } from 'uuid'
 
 import MessageBox from './message-box'
 import Loading from "./loading"
+import Cookies from "js-cookie"
 import "../../styles/random-room.css"
 
 
@@ -127,10 +128,13 @@ class RandomRoom extends React.Component {
 
 
     async createRoom(roomID) {
+        const token = Cookies.get("CSRF-Token")
+
         const response = await fetch("/api/create-room", {
             method: "POST",
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "CSRF-Token": token
             },
             body: JSON.stringify({
                 id: roomID,
@@ -171,10 +175,13 @@ class RandomRoom extends React.Component {
 
 
     async setRoomID(roomID) {
+        const token = Cookies.get("CSRF-Token")
+
         const response = await fetch('/api/set-user-info', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'CSRF-Token': token
             },
             body: JSON.stringify({
                 userID: this.props.user1ID,
@@ -288,10 +295,14 @@ class RandomRoom extends React.Component {
         }
 
 
+
+        const token = Cookies.get("CSRF-Token")
+
         const response = await fetch("/api/save-message-to-db", {
             method: "POST",
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "CSRF-Token": token
             },
             body: JSON.stringify({
                 id: uuidv4(),

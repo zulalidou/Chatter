@@ -41,10 +41,13 @@ class GroupInvitationReceived extends React.Component {
 
 
     async acceptInvitation() {
+        const token = Cookies.get("CSRF-Token")
+
         const response = await fetch("/api/accept-group-invitation", {
             method: "POST",
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'CSRF-Token': token
             },
             body: JSON.stringify({
                 userID: this.state.userID,

@@ -45,7 +45,6 @@ router.post('/', async function(req, res) {
 
     res.cookie("jwtHP", header + "." + payload, {sameSite: "none", secure: true, httpOnly: false, expires: new Date(getTime() + (((60 * 60) + 60) * 1000))})
     res.cookie("jwtS", signature, {sameSite: "none", secure: true, httpOnly: true, expires: new Date(getTime() + (((60 * 60) + 60) * 1000))})
-
     setUserToActive(session.userID, session.username, header + "." + payload + "." + signature, session.expirationTime)
 
     res.status(200).send("Login successful")

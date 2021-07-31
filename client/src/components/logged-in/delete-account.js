@@ -1,4 +1,5 @@
 import React from 'react'
+import Cookies from "js-cookie"
 import "../../styles/delete-account.css"
 
 
@@ -68,10 +69,13 @@ class DeleteAccount extends React.Component {
 
 
     async delete() {
+        const token = Cookies.get("CSRF-Token")
+
         const response = await fetch('/api/delete-account', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'CSRF-Token': token
             },
             body: JSON.stringify({id: this.props.userID})
         })

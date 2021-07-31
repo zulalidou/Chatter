@@ -1,4 +1,5 @@
 import React from 'react'
+import Cookies from "js-cookie"
 import { v4 as uuidv4 } from 'uuid'
 import "../../styles/modify-profile-info.css"
 
@@ -119,10 +120,13 @@ class ModifyProfileInfo extends React.Component {
 
 
     async setUserInfo(attribute, newValue) {
+        const token = Cookies.get("CSRF-Token")
+
         const response = await fetch('/api/set-user-info', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'CSRF-Token': token
             },
             body: JSON.stringify({userID: this.props.userID, email: this.props.email, attribute: attribute, value: newValue})
         })

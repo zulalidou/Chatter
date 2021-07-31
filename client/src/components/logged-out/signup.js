@@ -60,10 +60,13 @@ class Signup extends React.Component {
 
 
 
+        const token = Cookies.get("CSRF-Token")
+
         const response = await fetch("/api/signup", {
             method: "POST",
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'CSRF-Token': token
             },
             body: JSON.stringify({name: name, username: username, email: email, password: password})
         })

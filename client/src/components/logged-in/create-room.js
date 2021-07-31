@@ -3,6 +3,7 @@ import { v4 as uuidv4 } from "uuid"
 import { withRouter } from "react-router-dom"
 
 import Error from "./error"
+import Cookies from "js-cookie"
 import "../../styles/create-room.css"
 
 
@@ -55,10 +56,14 @@ class CreateRoom extends React.Component {
                 groupRoom: true
             }
 
+
+            const token = Cookies.get("CSRF-Token")
+
             const response = await fetch("/api/create-room", {
                 method: "POST",
                 headers: {
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
+                    "CSRF-Token": token
                 },
                 body: JSON.stringify(newRoom)
             })

@@ -94,10 +94,13 @@ class Profile extends React.Component {
 
 
     async setRoomID(roomID) {
+        const token = Cookies.get("CSRF-Token")
+
         const response = await fetch('/api/set-user-info', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'CSRF-Token': token
             },
             body: JSON.stringify({userID: this.state.userID, attribute: 'currentRoomOpen', value: roomID})
         })
@@ -133,10 +136,13 @@ class Profile extends React.Component {
     async changeAvatar() {
         const newAvatarString = uuidv4()
 
+        const token = Cookies.get("CSRF-Token")
+
         const response = await fetch('/api/set-user-info', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'CSRF-Token': token
             },
             body: JSON.stringify({userID: this.state.userID, attribute: 'avatarString', value: newAvatarString})
         })

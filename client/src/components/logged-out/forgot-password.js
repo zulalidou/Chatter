@@ -34,10 +34,14 @@ class ForgotPassword extends React.Component {
         }
 
 
+
+        const token = Cookies.get("CSRF-Token")
+
         fetch('/api/send-password-reset-code', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'CSRF-Token': token
             },
             body: JSON.stringify({email: email})
         })

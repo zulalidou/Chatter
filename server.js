@@ -11,8 +11,13 @@ const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
 const path = require('path')
 const { v4: uuidv4 } = require('uuid')
-const csrf = require('csurf')
 const helmet = require('helmet')
+const csrf = require('csurf')
+const csrfProtection = csrf({
+    sameSite: "none",
+    secure: true,
+    httpOnly: false
+})
 
 
 
@@ -34,15 +39,6 @@ app.use(bodyParser.urlencoded({extended: true}))
 app.use(cookieParser())
 app.use(helmet())
 app.disable("x-powered-by")
-
-app.use(csrf({
-  cookie: {
-    secure: true,
-    httpOnly: true,
-    sameSite: true
-  }
-}))
-
 
 
 const landingRoute = require('./routes/landing')
@@ -87,34 +83,34 @@ const setNewPasswordRoute = require('./routes/set-new-password')
 
 
 app.use('/api/', landingRoute)
-app.use('/api/login', loginRoute)
-app.use('/api/signup', signupRoute)
-app.use('/api/logout', logoutRoute)
-app.use('/api/create-group', createGroupRoute)
-app.use('/api/create-room', createRoomRoute)
+app.use('/api/login', csrfProtection, loginRoute)
+app.use('/api/signup', csrfProtection, signupRoute)
+app.use('/api/logout', csrfProtection, logoutRoute)
+app.use('/api/create-group', csrfProtection, createGroupRoute)
+app.use('/api/create-room', csrfProtection, createRoomRoute)
 app.use('/api/get-logged-in-users', loggedInUsersRoute)
-app.use('/api/save-message-to-db', saveMessageToDbRoute)
+app.use('/api/save-message-to-db', csrfProtection, saveMessageToDbRoute)
 app.use('/api/get-profile-info', getAccountInfoRoute)
 app.use('/api/get-user-field-info', getUserFieldInfoRoute)
-app.use('/api/set-user-info', setUserInfoRoute)
-app.use('/api/send-notification', sendNotificationRoute)
+app.use('/api/set-user-info', csrfProtection, setUserInfoRoute)
+app.use('/api/send-notification', csrfProtection, sendNotificationRoute)
 app.use('/api/get-notifications', getNotificationsRoute)
-app.use('/api/accept-group-invitation', acceptGroupInviteRoute)
+app.use('/api/accept-group-invitation', csrfProtection, acceptGroupInviteRoute)
 app.use('/api/verify-password', verifyPasswordRoute)
 app.use('/api/verify-account-exists', verifyAccountExistsRoute)
-app.use('/api/delete-account', deleteAccountRoute)
+app.use('/api/delete-account', csrfProtection, deleteAccountRoute)
 app.use('/api/get-group-members', getGroupMembersRoute)
 app.use('/api/verify-account-activation-code', verifyAccountActivationCodeRoute)
-app.use('/api/send-account-activation-code', sendActivationCodeRoute)
-app.use('/api/send-password-reset-code', sendPasswordResetCodeRoute)
+app.use('/api/send-account-activation-code', csrfProtection, sendActivationCodeRoute)
+app.use('/api/send-password-reset-code', csrfProtection, sendPasswordResetCodeRoute)
 app.use('/api/verify-password-reset-code', verifyPasswordResetCodeRoute)
 app.use('/api/get-groups', getGroupsRoute)
 app.use('/api/get-group-rooms', getGroupRoomsRoute)
 app.use('/api/get-room-messages', getRoomMessagesRoute)
 app.use('/api/get-user-id', getUserIDRoute)
 app.use('/api/notification-check', notificationCheckRoute)
-app.use('/api/leave-group', leaveGroupRoute)
-app.use('/api/become-admin', becomeAdminRoute)
+app.use('/api/leave-group', csrfProtection, leaveGroupRoute)
+app.use('/api/become-admin', csrfProtection, becomeAdminRoute)
 app.use('/api/get-group', getGroupRoute)
 app.use('/api/check-if-room-exists', checkIfRoomExistsRoute)
 app.use('/api/is-user-group-member', isUserGroupMemberRoute)
@@ -124,10 +120,10 @@ app.use('/api/get-group-number', getGroupNumberRoute)
 app.use('/api/did-user-receive-invite', didUserReceiveInviteRoute)
 app.use('/api/delete-notification', deleteNotificationRoute)
 app.use('/api/delete-notification-2', deleteNotification2Route)
-app.use('/api/set-new-password', setNewPasswordRoute)
+app.use('/api/set-new-password', csrfProtection, setNewPasswordRoute)
 
 app.get('/*', (req,res) => {
-    res.cookie('XSRF-TOKEN', req.csrfToken())
+    res.cookie("CSRF-Token", req.csrfToken(), )
     res.sendFile(path.join(__dirname, '/client/build/index.html'))
 })
 

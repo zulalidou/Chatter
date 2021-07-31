@@ -1,6 +1,7 @@
 import React from 'react'
 
 import Error from './error'
+import Cookies from "js-cookie"
 import "../../styles/create-group.css"
 
 
@@ -29,10 +30,13 @@ class CreateGroup extends React.Component {
         const purpose = document.getElementById('group-purpose-input').value.trim()
 
 
+        const token = Cookies.get("CSRF-Token")
+
         const response = await fetch('/api/create-group', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'CSRF-Token': token
             },
             body: JSON.stringify({
                 name: name,

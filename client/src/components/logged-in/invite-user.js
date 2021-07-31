@@ -3,6 +3,7 @@ import { v4 as uuidv4 } from 'uuid'
 
 import "../../styles/invite-user.css"
 import Error from './error'
+import Cookies from "js-cookie"
 
 
 class InviteUser extends React.Component {
@@ -150,10 +151,13 @@ class InviteUser extends React.Component {
 
 
     async sendInvitation(recipient) {
+        const token = Cookies.get("CSRF-Token")
+
         const response = await fetch('/api/send-notification', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'CSRF-Token': token
             },
             body: JSON.stringify({
                 id: uuidv4(),

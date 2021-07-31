@@ -2,6 +2,7 @@ import React from 'react'
 import { Redirect } from "react-router-dom"
 
 import Error from "./error"
+import Cookies from "js-cookie"
 import "../../styles/leave-group.css"
 
 
@@ -20,10 +21,13 @@ class LeaveGroup extends React.Component {
 
 
     async leaveGroup() {
+        const token = Cookies.get("CSRF-Token")
+
         const response = await fetch("/api/leave-group", {
             method: "POST",
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'CSRF-Token': token
             },
             body: JSON.stringify({userID: this.props.userID, groupID: this.props.groupID})
         })

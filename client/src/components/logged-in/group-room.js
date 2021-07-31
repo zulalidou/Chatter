@@ -3,6 +3,7 @@ import { v4 as uuidv4 } from 'uuid'
 
 import MessageBox from './message-box'
 import Loading from "./loading"
+import Cookies from "js-cookie"
 import "../../styles/group-room.css"
 
 
@@ -112,10 +113,13 @@ class GroupRoom extends React.Component {
         }
 
 
+        const token = Cookies.get("CSRF-Token")
+
         const response = await fetch("/api/save-message-to-db", {
             method: "POST",
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "CSRF-Token": token
             },
             body: JSON.stringify({
                 id: uuidv4(),

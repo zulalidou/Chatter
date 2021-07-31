@@ -1,6 +1,7 @@
 import React from "react"
 import "../../styles/become-admin.css"
 import Error from "./error"
+import Cookies from "js-cookie"
 
 
 class BecomeAdmin extends React.Component {
@@ -17,10 +18,13 @@ class BecomeAdmin extends React.Component {
 
 
     async becomeAdmin() {
+        const token = Cookies.get("CSRF-Token")
+        
         const response = await fetch("/api/become-admin", {
             method: "POST",
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "CSRF-Token": token
             },
             body: JSON.stringify({groupID: this.props.groupID, userID: this.props.userID})
         })

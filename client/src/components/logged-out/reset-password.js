@@ -61,10 +61,13 @@ class ResetPassword extends React.Component {
     resendCode() {
         document.getElementById("code-sent-div").style.visibility = "visible"
 
+        const token = Cookies.get("CSRF-Token")
+
         fetch('/api/send-password-reset-code', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'CSRF-Token': token
             },
             body: JSON.stringify({email: this.props.location.state.email})
         })

@@ -27,10 +27,13 @@ class ActivateAccount extends React.Component {
     async resendCode() {
         document.getElementById("aa-code-sent-div").style.visibility = "visible"
 
+        const token = Cookies.get("CSRF-Token")
+
         const response = await fetch('/api/send-account-activation-code', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'CSRF-Token': token
             },
             body: JSON.stringify({email: this.props.location.state.email})
         })
