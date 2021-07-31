@@ -41,7 +41,6 @@ app.use(bodyParser.urlencoded({extended: true}))
 app.use(cookieParser())
 app.use(helmet())
 app.disable("x-powered-by")
-app.use(csrf())
 
 
 
@@ -110,6 +109,9 @@ app.use('/api/delete-notification-2', deleteNotification2Route)
 //         sameSite: "strict"
 //     }
 // }))
+
+app.use(csrf())
+
 
 
 
