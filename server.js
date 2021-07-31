@@ -14,7 +14,6 @@ const { v4: uuidv4 } = require('uuid')
 const helmet = require('helmet')
 const csrf = require('csurf')
 
-
 const AWS = require('aws-sdk')
 AWS.config.update({
     region: "us-west-2",
@@ -22,8 +21,8 @@ AWS.config.update({
 })
 const DynamoDB_client = new AWS.DynamoDB.DocumentClient()
 
-
 app.use(express.static(path.join(__dirname, '/client/build')))
+
 
 
 app.use(express.urlencoded({extended: true}))
@@ -52,8 +51,6 @@ app.use('/api/verify-password-reset-code', verifyPasswordResetCodeRoute)
 app.use('/api/set-new-password', setNewPasswordRoute)
 app.use('/api/signup', signupRoute)
 
-
-
 app.use(csrf({
     key: "CSRF-Token",
     secure: true,
@@ -62,29 +59,29 @@ app.use(csrf({
 
 
 
-const landingRoute = require('./routes/landing')
-const logoutRoute = require('./routes/logout')
+const acceptGroupInviteRoute = require('./routes/accept-group-invitation')
+const becomeAdminRoute = require('./routes/become-admin')
 const createGroupRoute = require('./routes/create-group')
 const createRoomRoute = require('./routes/create-room')
-const loggedInUsersRoute = require('./routes/get-logged-in-users')
+const deleteAccountRoute = require('./routes/delete-account')
+const leaveGroupRoute = require('./routes/leave-group')
+const logoutRoute = require('./routes/logout')
 const saveMessageToDbRoute = require('./routes/save-message-to-db')
+const sendNotificationRoute = require('./routes/send-notification')
+const setUserInfoRoute = require('./routes/set-user-info')
+const landingRoute = require('./routes/landing')
+const loggedInUsersRoute = require('./routes/get-logged-in-users')
 const getAccountInfoRoute = require('./routes/get-profile-info')
 const getUserFieldInfoRoute = require('./routes/get-user-field-info')
-const setUserInfoRoute = require('./routes/set-user-info')
-const sendNotificationRoute = require('./routes/send-notification')
 const getNotificationsRoute = require('./routes/get-notifications')
-const acceptGroupInviteRoute = require('./routes/accept-group-invitation')
 const verifyPasswordRoute = require('./routes/verify-password')
 const verifyAccountExistsRoute = require('./routes/verify-account-exists')
-const deleteAccountRoute = require('./routes/delete-account')
 const getGroupMembersRoute = require('./routes/get-group-members')
 const getGroupsRoute = require('./routes/get-groups')
 const getGroupRoomsRoute = require('./routes/get-group-rooms')
 const getRoomMessagesRoute = require('./routes/get-room-messages')
 const getUserIDRoute = require('./routes/get-user-id')
 const notificationCheckRoute = require('./routes/notification-check')
-const leaveGroupRoute = require('./routes/leave-group')
-const becomeAdminRoute = require('./routes/become-admin')
 const getGroupRoute = require('./routes/get-group')
 const checkIfRoomExistsRoute = require('./routes/check-if-room-exists')
 const isUserGroupMemberRoute = require('./routes/is-user-group-member')
@@ -95,30 +92,29 @@ const didUserReceiveInviteRoute = require('./routes/did-user-receive-invite')
 const deleteNotificationRoute = require('./routes/delete-notification')
 const deleteNotification2Route = require('./routes/delete-notification-2')
 
-
-app.use('/api/', landingRoute)
-app.use('/api/logout', logoutRoute)
+app.use('/api/accept-group-invitation', acceptGroupInviteRoute)
+app.use('/api/become-admin', becomeAdminRoute)
 app.use('/api/create-group', createGroupRoute)
 app.use('/api/create-room', createRoomRoute)
-app.use('/api/get-logged-in-users', loggedInUsersRoute)
+app.use('/api/delete-account', deleteAccountRoute)
+app.use('/api/leave-group', leaveGroupRoute)
+app.use('/api/logout', logoutRoute)
 app.use('/api/save-message-to-db', saveMessageToDbRoute)
+app.use('/api/send-notification', sendNotificationRoute)
+app.use('/api/set-user-info', setUserInfoRoute)
+app.use('/api/', landingRoute)
+app.use('/api/get-logged-in-users', loggedInUsersRoute)
 app.use('/api/get-profile-info', getAccountInfoRoute)
 app.use('/api/get-user-field-info', getUserFieldInfoRoute)
-app.use('/api/set-user-info', setUserInfoRoute)
-app.use('/api/send-notification', sendNotificationRoute)
 app.use('/api/get-notifications', getNotificationsRoute)
-app.use('/api/accept-group-invitation', acceptGroupInviteRoute)
 app.use('/api/verify-password', verifyPasswordRoute)
 app.use('/api/verify-account-exists', verifyAccountExistsRoute)
-app.use('/api/delete-account', deleteAccountRoute)
 app.use('/api/get-group-members', getGroupMembersRoute)
 app.use('/api/get-groups', getGroupsRoute)
 app.use('/api/get-group-rooms', getGroupRoomsRoute)
 app.use('/api/get-room-messages', getRoomMessagesRoute)
 app.use('/api/get-user-id', getUserIDRoute)
 app.use('/api/notification-check', notificationCheckRoute)
-app.use('/api/leave-group', leaveGroupRoute)
-app.use('/api/become-admin', becomeAdminRoute)
 app.use('/api/get-group', getGroupRoute)
 app.use('/api/check-if-room-exists', checkIfRoomExistsRoute)
 app.use('/api/is-user-group-member', isUserGroupMemberRoute)
