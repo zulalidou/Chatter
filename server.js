@@ -11,14 +11,8 @@ const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
 const path = require('path')
 const { v4: uuidv4 } = require('uuid')
-// const cors = require('cors')
-
+const csrf = require('csurf')
 const helmet = require('helmet')
-// const corsOptions = {
-//     origin: 'http://localhost:3000',
-//     credentials: true,
-//     optionsSuccessStatus: 200
-// }
 
 
 
@@ -40,7 +34,14 @@ app.use(bodyParser.urlencoded({extended: true}))
 app.use(cookieParser())
 app.use(helmet())
 app.disable("x-powered-by")
-// app.use(cors(corsOptions))
+
+app.use(csrf({
+  cookie: {
+    secure: true,
+    httpOnly: true,
+    sameSite: true
+  }
+}))
 
 
 
@@ -126,7 +127,8 @@ app.use('/api/delete-notification-2', deleteNotification2Route)
 app.use('/api/set-new-password', setNewPasswordRoute)
 
 app.get('/*', (req,res) => {
-  res.sendFile(path.join(__dirname, '/client/build/index.html'))
+    res.cookie('XSRF-TOKEN', req.csrfToken())
+    res.sendFile(path.join(__dirname, '/client/build/index.html'))
 })
 
 
