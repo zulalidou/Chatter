@@ -13,11 +13,7 @@ const path = require('path')
 const { v4: uuidv4 } = require('uuid')
 const helmet = require('helmet')
 const csrf = require('csurf')
-const csrfProtection = csrf({
-    sameSite: "none",
-    secure: true,
-    httpOnly: false
-})
+const csrfProtection = csrf({cookie: true})
 
 
 
@@ -123,7 +119,6 @@ app.use('/api/delete-notification-2', deleteNotification2Route)
 app.use('/api/set-new-password', csrfProtection, setNewPasswordRoute)
 
 app.get('/*', (req,res) => {
-    res.cookie("CSRF-Token", req.csrfToken(), )
     res.sendFile(path.join(__dirname, '/client/build/index.html'))
 })
 
