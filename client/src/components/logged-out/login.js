@@ -37,7 +37,10 @@ class Login extends React.Component {
 
 
 
+        console.log("About to get token:")
         const token = Cookies.get("CSRF-Token")
+        console.log("token below:")
+        console.log(token)
 
         const response = await fetch("/api/login", {
             method: "POST",
