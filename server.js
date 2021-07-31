@@ -13,13 +13,13 @@ const path = require('path')
 const { v4: uuidv4 } = require('uuid')
 const helmet = require('helmet')
 const csrf = require('csurf')
-const csrfProtection = csrf({
-    cookie: {
-        key: "CSRF-Token",
-        secure: true,
-        sameSite: "strict"
-    }
-})
+// const csrfProtection = csrf({
+//     cookie: {
+//         key: "CSRF-Token",
+//         secure: true,
+//         sameSite: "strict"
+//     }
+// })
 
 
 
@@ -123,21 +123,21 @@ const saveMessageToDbRoute = require('./routes/save-message-to-db')
 const sendNotificationRoute = require('./routes/send-notification')
 const setUserInfoRoute = require('./routes/set-user-info')
 
-app.use('/api/accept-group-invitation', csrfProtection, acceptGroupInviteRoute)
-app.use('/api/become-admin', csrfProtection, becomeAdminRoute)
-app.use('/api/create-group', csrfProtection, createGroupRoute)
-app.use('/api/create-room', csrfProtection, createRoomRoute)
-app.use('/api/delete-account', csrfProtection, deleteAccountRoute)
-app.use('/api/leave-group', csrfProtection, leaveGroupRoute)
-app.use('/api/logout', csrfProtection, logoutRoute)
-app.use('/api/save-message-to-db', csrfProtection, saveMessageToDbRoute)
-app.use('/api/send-notification', csrfProtection, sendNotificationRoute)
-app.use('/api/set-user-info', csrfProtection, setUserInfoRoute)
+app.use('/api/accept-group-invitation', acceptGroupInviteRoute)
+app.use('/api/become-admin', becomeAdminRoute)
+app.use('/api/create-group', createGroupRoute)
+app.use('/api/create-room', createRoomRoute)
+app.use('/api/delete-account', deleteAccountRoute)
+app.use('/api/leave-group', leaveGroupRoute)
+app.use('/api/logout', logoutRoute)
+app.use('/api/save-message-to-db', saveMessageToDbRoute)
+app.use('/api/send-notification', sendNotificationRoute)
+app.use('/api/set-user-info', setUserInfoRoute)
 
 
 
 app.get('/*', (req,res) => {
-    res.cookie('XSRF-TOKEN', req.csrfToken())
+    res.cookie('CSRF-TOKEN', req.csrfToken())
     res.sendFile(path.join(__dirname, '/client/build/index.html'))
 })
 
