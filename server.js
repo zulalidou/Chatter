@@ -33,13 +33,36 @@ app.use(bodyParser.urlencoded({extended: true}))
 app.use(cookieParser())
 app.use(helmet())
 app.disable("x-powered-by")
-app.use(csrf({ cookie: true }))
+
+
+
+const sendActivationCodeRoute = require('./routes/send-account-activation-code')
+const verifyAccountActivationCodeRoute = require('./routes/verify-account-activation-code')
+const sendPasswordResetCodeRoute = require('./routes/send-password-reset-code')
+const loginRoute = require('./routes/login')
+const verifyPasswordResetCodeRoute = require('./routes/verify-password-reset-code')
+const setNewPasswordRoute = require('./routes/set-new-password')
+const signupRoute = require('./routes/signup')
+
+app.use('/api/send-account-activation-code', sendActivationCodeRoute)
+app.use('/api/verify-account-activation-code', verifyAccountActivationCodeRoute)
+app.use('/api/send-password-reset-code', sendPasswordResetCodeRoute)
+app.use('/api/login', loginRoute)
+app.use('/api/verify-password-reset-code', verifyPasswordResetCodeRoute)
+app.use('/api/set-new-password', setNewPasswordRoute)
+app.use('/api/signup', signupRoute)
+
+
+
+app.use(csrf({
+    key: "CSRF-Token",
+    secure: true,
+    sameSite: true
+}))
 
 
 
 const landingRoute = require('./routes/landing')
-const loginRoute = require('./routes/login')
-const signupRoute = require('./routes/signup')
 const logoutRoute = require('./routes/logout')
 const createGroupRoute = require('./routes/create-group')
 const createRoomRoute = require('./routes/create-room')
@@ -55,10 +78,6 @@ const verifyPasswordRoute = require('./routes/verify-password')
 const verifyAccountExistsRoute = require('./routes/verify-account-exists')
 const deleteAccountRoute = require('./routes/delete-account')
 const getGroupMembersRoute = require('./routes/get-group-members')
-const verifyAccountActivationCodeRoute = require('./routes/verify-account-activation-code')
-const sendActivationCodeRoute = require('./routes/send-account-activation-code')
-const sendPasswordResetCodeRoute = require('./routes/send-password-reset-code')
-const verifyPasswordResetCodeRoute = require('./routes/verify-password-reset-code')
 const getGroupsRoute = require('./routes/get-groups')
 const getGroupRoomsRoute = require('./routes/get-group-rooms')
 const getRoomMessagesRoute = require('./routes/get-room-messages')
@@ -75,12 +94,9 @@ const getGroupNumberRoute = require('./routes/get-group-number')
 const didUserReceiveInviteRoute = require('./routes/did-user-receive-invite')
 const deleteNotificationRoute = require('./routes/delete-notification')
 const deleteNotification2Route = require('./routes/delete-notification-2')
-const setNewPasswordRoute = require('./routes/set-new-password')
 
 
 app.use('/api/', landingRoute)
-app.use('/api/login', loginRoute)
-app.use('/api/signup', signupRoute)
 app.use('/api/logout', logoutRoute)
 app.use('/api/create-group', createGroupRoute)
 app.use('/api/create-room', createRoomRoute)
@@ -96,10 +112,6 @@ app.use('/api/verify-password', verifyPasswordRoute)
 app.use('/api/verify-account-exists', verifyAccountExistsRoute)
 app.use('/api/delete-account', deleteAccountRoute)
 app.use('/api/get-group-members', getGroupMembersRoute)
-app.use('/api/verify-account-activation-code', verifyAccountActivationCodeRoute)
-app.use('/api/send-account-activation-code', sendActivationCodeRoute)
-app.use('/api/send-password-reset-code', sendPasswordResetCodeRoute)
-app.use('/api/verify-password-reset-code', verifyPasswordResetCodeRoute)
 app.use('/api/get-groups', getGroupsRoute)
 app.use('/api/get-group-rooms', getGroupRoomsRoute)
 app.use('/api/get-room-messages', getRoomMessagesRoute)
@@ -116,7 +128,6 @@ app.use('/api/get-group-number', getGroupNumberRoute)
 app.use('/api/did-user-receive-invite', didUserReceiveInviteRoute)
 app.use('/api/delete-notification', deleteNotificationRoute)
 app.use('/api/delete-notification-2', deleteNotification2Route)
-app.use('/api/set-new-password', setNewPasswordRoute)
 
 app.get('/*', (req,res) => {
     res.sendFile(path.join(__dirname, '/client/build/index.html'))
