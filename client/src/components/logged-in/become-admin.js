@@ -18,13 +18,13 @@ class BecomeAdmin extends React.Component {
 
 
     async becomeAdmin() {
-        const token = Cookies.get("CSRF-Token")
-        
+        const token = Cookies.get("XSRF-Token")
+
         const response = await fetch("/api/become-admin", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
-                "CSRF-Token": token
+                "XSRF-Token": token
             },
             body: JSON.stringify({groupID: this.props.groupID, userID: this.props.userID})
         })

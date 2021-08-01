@@ -151,13 +151,13 @@ class InviteUser extends React.Component {
 
 
     async sendInvitation(recipient) {
-        const token = Cookies.get("CSRF-Token")
+        const token = Cookies.get("XSRF-Token")
 
         const response = await fetch('/api/send-notification', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'CSRF-Token': token
+                'XSRF-Token': token
             },
             body: JSON.stringify({
                 id: uuidv4(),

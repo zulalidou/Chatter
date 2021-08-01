@@ -120,13 +120,13 @@ class ModifyProfileInfo extends React.Component {
 
 
     async setUserInfo(attribute, newValue) {
-        const token = Cookies.get("CSRF-Token")
+        const token = Cookies.get("XSRF-Token")
 
         const response = await fetch('/api/set-user-info', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'CSRF-Token': token
+                'XSRF-Token': token
             },
             body: JSON.stringify({userID: this.props.userID, email: this.props.email, attribute: attribute, value: newValue})
         })

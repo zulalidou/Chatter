@@ -69,13 +69,13 @@ class DeleteAccount extends React.Component {
 
 
     async delete() {
-        const token = Cookies.get("CSRF-Token")
+        const token = Cookies.get("XSRF-Token")
 
         const response = await fetch('/api/delete-account', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'CSRF-Token': token
+                'XSRF-Token': token
             },
             body: JSON.stringify({id: this.props.userID})
         })

@@ -57,13 +57,13 @@ class CreateRoom extends React.Component {
             }
 
 
-            const token = Cookies.get("CSRF-Token")
+            const token = Cookies.get("XSRF-Token")
 
             const response = await fetch("/api/create-room", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
-                    "CSRF-Token": token
+                    "XSRF-Token": token
                 },
                 body: JSON.stringify(newRoom)
             })

@@ -21,13 +21,13 @@ class LeaveGroup extends React.Component {
 
 
     async leaveGroup() {
-        const token = Cookies.get("CSRF-Token")
+        const token = Cookies.get("XSRF-Token")
 
         const response = await fetch("/api/leave-group", {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',
-                'CSRF-Token': token
+                'XSRF-Token': token
             },
             body: JSON.stringify({userID: this.props.userID, groupID: this.props.groupID})
         })

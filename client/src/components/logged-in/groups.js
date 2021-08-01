@@ -85,13 +85,13 @@ class Groups extends React.Component {
 
 
     async setRoomID(roomID) {
-        const token = Cookies.get("CSRF-Token")
+        const token = Cookies.get("XSRF-Token")
 
         const response = await fetch('/api/set-user-info', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'CSRF-Token': token
+                'XSRF-Token': token
             },
             body: JSON.stringify({userID: this.state.userID, attribute: 'currentRoomOpen', value: roomID})
         })

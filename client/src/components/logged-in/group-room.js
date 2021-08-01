@@ -113,13 +113,13 @@ class GroupRoom extends React.Component {
         }
 
 
-        const token = Cookies.get("CSRF-Token")
+        const token = Cookies.get("XSRF-Token")
 
         const response = await fetch("/api/save-message-to-db", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
-                "CSRF-Token": token
+                "XSRF-Token": token
             },
             body: JSON.stringify({
                 id: uuidv4(),

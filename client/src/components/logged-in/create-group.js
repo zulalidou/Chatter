@@ -30,13 +30,13 @@ class CreateGroup extends React.Component {
         const purpose = document.getElementById('group-purpose-input').value.trim()
 
 
-        const token = Cookies.get("CSRF-Token")
+        const token = Cookies.get("XSRF-Token")
 
         const response = await fetch('/api/create-group', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'CSRF-Token': token
+                'XSRF-Token': token
             },
             body: JSON.stringify({
                 name: name,

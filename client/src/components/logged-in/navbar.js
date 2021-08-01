@@ -67,13 +67,13 @@ class Navbar extends React.Component {
 
 
     async logUserOut(timerID) {
-        const token = Cookies.get("CSRF-Token")
+        const token = Cookies.get("XSRF-Token")
 
         const response = await fetch("/api/logout", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
-                "CSRF-Token": token
+                "XSRF-Token": token
             },
             body: JSON.stringify({
                 userID: jwt_decode(Cookies.get("jwtHP")).userID,
@@ -133,13 +133,13 @@ class Navbar extends React.Component {
     async logout() {
         this.close()
 
-        const token = Cookies.get("CSRF-Token")
+        const token = Cookies.get("XSRF-Token")
 
         const response = await fetch("/api/logout", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'CSRF-Token': token
+                'XSRF-Token': token
             },
             body: JSON.stringify({
                 userID: jwt_decode(Cookies.get("jwtHP")).userID,
