@@ -105,6 +105,9 @@ class ModifyProfileInfo extends React.Component {
 
         const status = await response.text()
 
+        console.log(response)
+        console.log(status)
+
         if (status === "Failure") {
             const errorTag = document.createElement("span")
             const text = document.createTextNode(" - Password is incorrect")
