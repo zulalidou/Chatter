@@ -102,9 +102,6 @@ app.use('/api/did-user-receive-invite', didUserReceiveInviteRoute)
 app.use('/api/delete-notification', deleteNotificationRoute)
 app.use('/api/delete-notification-2', deleteNotification2Route)
 
-app.use(csrfProtection)
-
-
 
 
 const acceptGroupInviteRoute = require('./routes/accept-group-invitation')
@@ -132,7 +129,6 @@ app.use('/api/set-user-info', csrfProtection, setUserInfoRoute)
 
 
 app.get('/*', (req,res) => {
-    // res.cookie('CSRF-TOKEN', req.csrfToken())
     res.sendFile(path.join(__dirname, '/client/build/index.html'))
 })
 
