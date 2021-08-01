@@ -9,7 +9,8 @@ class ModifyProfileInfo extends React.Component {
         super(props)
 
         this.state = {
-            showPopupMenu: false
+            showPopupMenu: false,
+            displayError: false
         }
 
         this.modifyInfo = this.modifyInfo.bind(this)
@@ -18,6 +19,7 @@ class ModifyProfileInfo extends React.Component {
         this.passwordIsValid = this.passwordIsValid.bind(this)
         this.setUserInfo = this.setUserInfo.bind(this)
         this.togglePopupMenu = this.togglePopupMenu.bind(this)
+        this.toggleErrorComponent = this.toggleErrorComponent.bind(this)
     }
 
 
@@ -95,21 +97,11 @@ class ModifyProfileInfo extends React.Component {
         const response = await fetch(`/api/verify-password?userID=${this.props.userID}&password=${password}`)
         const status = await response.text()
         console.log(response)
-        console.log(status)
 
-        try {
-            if (response.status !== 200)
-                throw "ERROR-OCCURRED"
-        } catch (e) {
-            this.setState({displayError: true})
-            return "ERROR-OCCURRED"
-        }
+        if (response.status === 200)
+            return true
 
-
-        console.log("one")
-        console.log("two")
-
-        if (status === "Failure") {
+        if (response.status === 500) {
             const errorTag = document.createElement("span")
             const text = document.createTextNode(" - Password is incorrect")
             errorTag.className = "error-message-profile"
@@ -119,7 +111,8 @@ class ModifyProfileInfo extends React.Component {
             return false
         }
 
-        return true
+        this.setState({displayError: true})
+        return false
     }
 
 
@@ -149,6 +142,11 @@ class ModifyProfileInfo extends React.Component {
 
     togglePopupMenu() {
         this.setState({showPopupMenu: !this.state.showPopupMenu})
+    }
+
+
+    toggleErrorComponent() {
+        this.setState({displayError: !this.state.displayError})
     }
 
 
@@ -208,6 +206,8 @@ class ModifyProfileInfo extends React.Component {
                         </form>
                     </div>
                 }
+
+                { this.state.displayError && <Error closeComponent={this.toggleErrorComponent}/> }
             </div>
         )
     }
