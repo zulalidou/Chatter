@@ -93,6 +93,9 @@ class ModifyProfileInfo extends React.Component {
 
     async passwordIsValid(password) {
         const response = await fetch(`/api/verify-password?userID=${this.props.userID}&password=${password}`)
+        const status = await response.text()
+        console.log(response)
+        console.log(status)
 
         try {
             if (response.status !== 200)
@@ -103,10 +106,8 @@ class ModifyProfileInfo extends React.Component {
         }
 
 
-        const status = await response.text()
-
-        console.log(response)
-        console.log(status)
+        console.log("one")
+        console.log("two")
 
         if (status === "Failure") {
             const errorTag = document.createElement("span")
