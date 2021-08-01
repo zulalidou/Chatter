@@ -97,7 +97,6 @@ class ModifyProfileInfo extends React.Component {
     async passwordIsValid(password) {
         const response = await fetch(`/api/verify-password?userID=${this.props.userID}&password=${password}`)
         const status = await response.text()
-        console.log(response)
 
         if (response.status === 200)
             return true

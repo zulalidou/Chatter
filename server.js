@@ -13,15 +13,6 @@ const path = require('path')
 const { v4: uuidv4 } = require('uuid')
 const helmet = require('helmet')
 const csrf = require('csurf')
-// const csrfProtection = csrf({
-//     cookie: {
-//         key: "CSRF-Token",
-//         secure: true,
-//         sameSite: "strict"
-//     }
-// })
-
-
 
 const AWS = require('aws-sdk')
 AWS.config.update({
@@ -30,10 +21,8 @@ AWS.config.update({
 })
 const DynamoDB_client = new AWS.DynamoDB.DocumentClient()
 
+
 app.use(express.static(path.join(__dirname, '/client/build')))
-
-
-
 app.use(express.urlencoded({extended: true}))
 app.use(express.json())
 app.use(expressLayouts)
@@ -41,6 +30,15 @@ app.use(bodyParser.urlencoded({extended: true}))
 app.use(cookieParser())
 app.use(helmet())
 app.disable("x-powered-by")
+app.use(
+    csrf({
+        cookie: {
+            secure: true,
+            httpOnly: true,
+            sameSite: "strict"
+        }
+    })
+)
 
 
 
@@ -126,43 +124,10 @@ app.use('/api/save-message-to-db', saveMessageToDbRoute)
 app.use('/api/send-notification', sendNotificationRoute)
 app.use('/api/set-user-info', setUserInfoRoute)
 
-
-app.use(
-    csrf({
-        cookie: {
-            secure: true,
-            httpOnly: true,
-            sameSite: "strict"
-        }
-    })
-)
-
-
 app.get('/*', (req,res) => {
     res.cookie('XSRF-TOKEN', req.csrfToken())
     res.sendFile(path.join(__dirname, '/client/build/index.html'))
 })
-
-
-
-// app.use(function (err, req, res, next) {
-//     console.log("\n\n\nSERVER-CSRF-ERROR-CALLBACK:")
-//     console.log(err.code)
-//     console.log("------------------------------------------------")
-//     console.log("cookies names:")
-//     console.log(req.cookies)
-//     console.log("------------------------------------------------\n")
-//
-//
-//     if (err.code !== 'EBADCSRFTOKEN') return next(err)
-//
-//
-//
-//     // handle CSRF token errors here
-//     res.status(403)
-//     res.send('form tampered with')
-// })
-
 
 
 
