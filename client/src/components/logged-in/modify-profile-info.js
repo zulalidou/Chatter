@@ -1,4 +1,5 @@
 import React from 'react'
+import Error from "./error"
 import Cookies from "js-cookie"
 import { v4 as uuidv4 } from 'uuid'
 import "../../styles/modify-profile-info.css"
