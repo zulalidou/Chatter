@@ -21,20 +21,12 @@ function authenticate(req, res, next) {
 
 
 router.get('/', authenticate, async function(req, res) {
-    console.log('\n\nget-groups.js called')
-    console.log(req.query)
-    console.log('\n\n')
-
     const groupMemberships = await getGroupMemberships(req.query.userID)
 
     if (groupMemberships === "ERROR-OCCURRED") {
         res.status(404).send("Couldn't retrieve data")
         return
     }
-
-
-    console.log('groupMemberships found:')
-    console.log(groupMemberships)
 
     let groups = []
 

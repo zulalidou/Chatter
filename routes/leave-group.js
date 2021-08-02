@@ -415,8 +415,6 @@ async function getRoomIDs(groupID) {
         for (let i = 0; i < response.Items.length; i++)
             roomIDs.push(response.Items[i].id)
 
-        console.log("\n\n-------------------------------------------->\ngetRoomIDs()")
-        console.log(roomIDs)
         return roomIDs
     } catch (err) {
         console.log("An error has occurred - leave-group.js - getRoomIDs()")
@@ -437,14 +435,8 @@ async function getRoomMembershipIDs(groupID) {
     }
 
 
-    console.log("\n\ngetRoomMembershipIDs()")
-
     try {
         const response = await DynamoDB_client.query(params).promise()
-
-        console.log("\nRESPONSE IS GONNA BE BELOW:")
-        console.log(response)
-        console.log("===============================================\n\n")
 
         let roomMembershipIDs = []
 

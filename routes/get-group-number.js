@@ -23,8 +23,6 @@ function authenticate(req, res, next) {
 
 
 router.get('/', authenticate, async function(req, res) {
-    console.log('\n\nget-group-number.js called')
-
     const groupNumber = await getGroupNumber(req.query.userID)
 
     if (groupNumber === "ERROR-OCCURRED") {

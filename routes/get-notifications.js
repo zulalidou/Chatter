@@ -21,7 +21,6 @@ function authenticate(req, res, next) {
 
 
 router.get('/', authenticate, async function(req, res) {
-    console.log("\n\n@@@ get-notifications.js @@@\n")
     const notifications = await getNotifications(req.query.userID)
 
     if (notifications === "ERROR-OCCURRED") {
@@ -57,15 +56,8 @@ async function getNotifications(userID) {
         }
     }
 
-
-    console.log("\ngetNotifications() called")
-    console.log("userID = " + userID + "\n")
-
     try {
         const groups = await DynamoDB_client.query(params).promise()
-        console.log("\ngroups:")
-        console.log(groups)
-        console.log("============================================================\n\n")
         return groups.Items
     } catch (err) {
         console.log("\nAn error occurred - get-qualifications.js - getNotifications()")

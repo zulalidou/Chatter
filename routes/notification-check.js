@@ -22,9 +22,6 @@ function authenticate(req, res, next) {
 
 
 router.get("/", authenticate, async function(req, res) {
-    console.log("\n\nnotification-check.js")
-    console.log(req.query)
-
     const notificationsList = await getUserNotifications(req.query.userID)
 
     if (notificationsList === "ERROR-OCCURRED") {

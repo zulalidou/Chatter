@@ -22,10 +22,6 @@ function authenticate(req, res, next) {
 
 
 router.get('/', authenticate, async function(req, res) {
-    console.log('\n\n|| ~~~ get-user-field-info.js ~~~ ||')
-    console.log(req.query)
-    console.log('\n')
-
     const userInfo = await getUserInfo(req.query.userID)
 
     if (userInfo === "ERROR-OCCURRED") {
@@ -33,8 +29,6 @@ router.get('/', authenticate, async function(req, res) {
         return
     }
 
-    console.log(userInfo[req.query.attribute])
-    console.log("\n\n")
     res.status(200).send(userInfo[req.query.attribute])
 })
 

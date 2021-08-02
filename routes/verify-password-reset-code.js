@@ -12,12 +12,7 @@ const DynamoDB_client = new AWS.DynamoDB.DocumentClient()
 
 
 router.get('/', async function(req, res) {
-    console.log('\n\nverify-password-reset-code')
-    console.log(req.query)
-    console.log('---------------------------\n\n')
-
     const userInfo = await getUserInfo(req.query.email)
-    console.log(userInfo)
 
     if (userInfo === undefined) {
         res.status(500).send('Failure')

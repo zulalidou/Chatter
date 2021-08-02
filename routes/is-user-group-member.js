@@ -22,9 +22,6 @@ function authenticate(req, res, next) {
 
 
 router.get("/", authenticate, async function(req, res) {
-    console.log("\n\n\nis-user-group-member.js route")
-    console.log(req.query)
-
     const result = await userIsGroupMember(req.query.userID, req.query.groupID)
 
     if (result === "Failure") {
@@ -37,8 +34,6 @@ router.get("/", authenticate, async function(req, res) {
 
 
 async function userIsGroupMember(userID, groupID) {
-    console.log("\n\nuserIsGroupMember()")
-
     const params = {
         TableName: "Users_Groups",
         IndexName: "userID-index",
@@ -50,8 +45,6 @@ async function userIsGroupMember(userID, groupID) {
 
     try {
         const response = await DynamoDB_client.query(params).promise()
-        console.log(response)
-        console.log("=================================================\n\n")
 
         for (let i = 0; i < response.Items.length; i++) {
             if (response.Items[i].groupID === groupID)

@@ -23,10 +23,6 @@ function authenticate(req, res, next) {
 
 
 router.get('/', authenticate, async function(req, res) {
-    console.log('\n\ndelete-notification-2 route called')
-    console.log(req.query)
-
-
     const notificationMembershipID = await getNotificationMembershipID(req.query.notificationID)
 
     if (notificationMembershipID === "ERROR-OCCURRED") {
@@ -48,8 +44,6 @@ router.get('/', authenticate, async function(req, res) {
 
 
 async function getNotificationMembershipID(notificationID) {
-    console.log("getNotificationMembershipID()")
-
     const params = {
         TableName: "Users_Notifications",
         IndexName: "notificationID-index",
@@ -72,10 +66,6 @@ async function getNotificationMembershipID(notificationID) {
 
 
 async function deleteNotifications(notificationID, notificationMembershipID) {
-    console.log("\n\ndeleteNotifications() called")
-    console.log(notificationID)
-    console.log(notificationMembershipID)
-
     const params = {
         TransactItems: [
             {

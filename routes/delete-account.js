@@ -26,7 +26,6 @@ function authenticate(req, res, next) {
     try {
         jwt.verify(req.cookies.jwtHP + "." + req.cookies.jwtS, process.env.jwtSignKey)
     } catch (err) {
-        console.log("An error occurred - delete-account.js - authenticate()\n")
         console.log(err.message)
         res.status(401).send(err.message)
         return
@@ -37,10 +36,6 @@ function authenticate(req, res, next) {
 
 
 router.post('/', authenticate, async function(req, res) {
-    console.log('\n\n\ndelete-account-route called')
-    console.log(req.body)
-
-
     const userInfo = await getUserInfo(req.body.id)
 
     if (userInfo === null) {
@@ -158,8 +153,6 @@ async function getGroupRoomMembershipIDs(userID, groupID) {
 
     try {
         const response = await DynamoDB_client.query(params).promise()
-        console.log("\n\n\ngetGroupRoomMembershipIDs()")
-        console.log(response)
 
         let groupRoomMembershipIDs = []
 
@@ -189,7 +182,6 @@ async function getGroupData(userID) {
 
     try {
         const response = await DynamoDB_client.query(params).promise()
-        console.log(response)
 
         let groupMembershipIDs = []
         let groupIDs = []
@@ -387,8 +379,6 @@ async function deleteGroup(groupID) {
 
 
 async function deleteTableRow(table, key, value) {
-    // console.log()
-
     const params = {
         TableName: table,
         Key: {
@@ -493,12 +483,6 @@ async function sendEmailNotification(email, firstName) {
 
 
 function blacklistJWT(token, expirationTime) {
-    console.log("\n\n----------------------------------------------------------------------------------")
-    console.log("~~ blacklistJWT() called ~~")
-    console.log("token = " + token)
-    console.log("exp = " + expirationTime)
-    console.log("----------------------------------------------------------------------------------\n")
-
     const params = {
         TableName: "BlacklistedJWTs",
         Item: {
@@ -557,12 +541,6 @@ async function getMessagesInfo(userID) {
 
     try {
         const response = await DynamoDB_client.query(params).promise()
-
-        console.log("\n\n\ngetMessagesInfo()")
-        console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
-        console.log(response)
-        console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n")
-
         return response.Items
     } catch (err) {
         console.log("An error occurred - delete-account.js - getGroupData()")
@@ -620,15 +598,8 @@ async function deleteRandomChat(userID) {
 
         const messageIDs = await getRandomRoomMessageIDs(randomRoomIDs[i])
 
-        console.log("\n\nmessageIDs: ")
-        console.log(messageIDs)
-        console.log("===================================\n")
-
         for (let j = 0; j < messageIDs.length; j++) {
-            console.log("Before - " + j)
             status = await deleteTableRow("Messages", "id", messageIDs[j])
-            console.log("After - " + j)
-            console.log("\n\n\n")
 
             if (status === null)
                 return null
@@ -661,8 +632,6 @@ async function getRandomRoomIDs(userID) {
 
     try {
         const response = await DynamoDB_client.query(params).promise()
-        console.log("\n\n\ngetRandomRoomIDs()")
-        console.log(response)
 
         let randomRoomIDs = []
 
@@ -692,9 +661,6 @@ async function getRandomRoomMessageIDs(roomID) {
 
     try {
         const response = await DynamoDB_client.query(params).promise()
-        console.log("\n\n\ngetRandomRoomMessageIDs()")
-        console.log(response)
-
         let messageIDs = []
 
         for (let i = 0; i < response.Items.length; i++)
@@ -720,9 +686,6 @@ async function getRandomRoomMembershipIDs(roomID) {
 
     try {
         const response = await DynamoDB_client.query(params).promise()
-        console.log("\n\n\ngetRandomRoomMembershipIDs()")
-        console.log(response)
-
         let randomRoomMembershipIDs = []
 
         for (let i = 0; i < response.Items.length; i++)

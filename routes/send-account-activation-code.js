@@ -11,8 +11,6 @@ const DynamoDB_client = new AWS.DynamoDB.DocumentClient()
 
 
 router.post('/', async function(req, res) {
-    console.log('\n\nsend-account-activation-code')
-
     const newActivationCode = randomstring.generate({length: 6, charset: 'numeric'})
 
     let status = await updateActivationCode(req.body.email, newActivationCode)
@@ -30,8 +28,6 @@ router.post('/', async function(req, res) {
 
 
 async function updateActivationCode(email, activationCode) {
-    console.log('updateActivationCode()')
-
     const params = {
         TableName: 'UnactivatedAccounts',
         Key: {
@@ -46,13 +42,9 @@ async function updateActivationCode(email, activationCode) {
 
     await DynamoDB_client.update(params, function(err, data) {
         if (err) {
-            console.error("Unable to update item. Error JSON:", JSON.stringify(err, null, 2))
             return "ERROR-OCCURRED"
         }
         else {
-            console.log(data)
-            console.log('-------------------------')
-            console.log("UpdateItem succeeded:", JSON.stringify(data, null, 2))
             return "Success"
         }
     })
@@ -60,14 +52,9 @@ async function updateActivationCode(email, activationCode) {
 
 
 function sendEmailActivationCode(email, activationCode) {
-    console.log('\n\nsendEmailActivationCode() called')
-
-
     const SibApiV3Sdk = require('sib-api-v3-sdk')
     const api = new SibApiV3Sdk.TransactionalEmailsApi()
     let sendSmtpEmail = new SibApiV3Sdk.SendSmtpEmail()
-
-    console.log('activationCode = ' + activationCode + '\n')
 
     sendSmtpEmail = {
         to: [{

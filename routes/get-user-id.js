@@ -22,9 +22,6 @@ function authenticate(req, res, next) {
 
 
 router.get("/", authenticate, async function(req, res) {
-    console.log("\n\nget-user-id route called")
-    console.log(req.query)
-
     const userID = await getUserID(req.query.username)
 
     if (userID === "ERROR-OCCURRED") {
@@ -48,8 +45,6 @@ async function getUserID(username) {
 
     try {
         const response = await DynamoDB_client.query(params).promise()
-        console.log("\ngetUserID() called")
-        console.log(response)
 
         if (response.Count === 0)
             return ""

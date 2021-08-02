@@ -27,10 +27,6 @@ function authenticate(req, res, next) {
 
 
 router.get("/", authenticate, async function(req, res) {
-    console.log("\n\n\n\nget-room-messages route called")
-    console.log(req.query)
-    console.log("[[[[[[[[[[[[[[[[[[[[[[[[[[[[[]]]]]]]]]]]]]]]]]]]]]]]]]]]]]\n\n")
-
     const messagesInfo = await getMessages(req.query.roomID)
 
     if (messagesInfo === "ERROR-OCCURRED") {
@@ -82,17 +78,8 @@ async function getMessages(roomID) {
         }
     }
 
-
-    console.log("\n\ngetMessages()")
-    console.log("roomID === " + roomID + "\n")
-
     try {
         const response = await DynamoDB_client.query(params).promise()
-
-        console.log("\nresponse:")
-        console.log(response)
-        console.log("=+++++++++++++++++++++++++++====================++++++++++++++++++++++++\n")
-
         return response.Items
     } catch (err) {
         console.log("An error occurred - get-room-messages.js - getMessages()\n")
@@ -109,9 +96,6 @@ async function getAvatarString(userID) {
             id: userID
         }
     }
-
-
-    console.log("\n\ngetAvatarString() called")
 
     try {
         const response = await DynamoDB_client.get(params).promise()

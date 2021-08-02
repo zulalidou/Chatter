@@ -25,18 +25,14 @@ apiKey.apiKey = process.env.Sib_API_Key
 
 
 router.post('/', async function(req, res) {
-    console.log('\n\nsignup.js called')
-
     const usernameExists = await usernameAlreadyExists(req.body.username)
 
     if (usernameExists === "ERROR-OCCURRED") {
-        console.log("1")
         res.status(500).send("ERROR-OCCURRED")
         return
     }
 
     if (usernameExists) {
-        console.log("2")
         res.status(500).send("Username taken")
         return
     }
@@ -45,13 +41,11 @@ router.post('/', async function(req, res) {
     const emailExists = await emailAlreadyExists(req.body.email)
 
     if (emailExists === "ERROR-OCCURRED") {
-        console.log("3")
         res.status(500).send("ERROR-OCCURRED")
         return
     }
 
     if (emailExists) {
-        console.log("4")
         res.status(500).send("Email taken")
         return
     }
@@ -101,12 +95,8 @@ async function usernameAlreadyExists(username) {
         }
     }
 
-    console.log('--------------------------')
-    console.log('usernameAlreadyExists()')
-
     try {
         const user = await DynamoDB_client.query(params).promise()
-        console.log(user)
 
         if (user.Count === 0)
             return false
@@ -129,12 +119,8 @@ async function emailAlreadyExists(email) {
         }
     }
 
-    console.log('--------------------------')
-    console.log('emailAlreadyExists(), email = ' + email)
-
     try {
         const user = await DynamoDB_client.query(params).promise()
-        console.log(user)
 
         if (user.Count === 0)
             return false
@@ -155,12 +141,8 @@ async function rowInTable(email) {
         }
     }
 
-    console.log('--------------------------')
-    console.log('rowInTable()')
-
     try {
         const response = await DynamoDB_client.get(params).promise()
-        console.log(response)
 
         if (isEmpty(response))
             return false
@@ -191,8 +173,6 @@ async function deleteRowFromTable(table, email) {
         }
     }
 
-    console.log('\ndeleteRowFromTable() called\n')
-
     try {
         await DynamoDB_client.delete(params).promise()
         return "Success"
@@ -205,12 +185,8 @@ async function deleteRowFromTable(table, email) {
 
 
 async function sendEmailActivationCode(email, activationCode) {
-    console.log('sendEmailActivationCode() called')
-
     const api = new SibApiV3Sdk.TransactionalEmailsApi()
     let sendSmtpEmail = new SibApiV3Sdk.SendSmtpEmail()
-
-    console.log('activationCode = ' + activationCode + '\n')
 
     sendSmtpEmail = {
         to: [{
@@ -235,8 +211,6 @@ async function sendEmailActivationCode(email, activationCode) {
 
 
 async function saveUserInfo(activationCode, name, username, email, password) {
-    console.log('\nsaveUserInfo() called\n')
-
     var params = {
         TableName: 'UnactivatedAccounts',
         Item: {

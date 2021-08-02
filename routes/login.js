@@ -108,11 +108,8 @@ async function setUserToActive(userID, username, jwt, expirationTime) {
 
     try {
         await DynamoDB_client.put(params).promise()
-        console.log("setUserToActive() -- SUCCESS")
     } catch (err) {
-        console.log("An error occurred - login.js - setUserToActive()")
         console.log(err)
-        console.log("setUserToActive() -- FAILURE")
     }
 }
 

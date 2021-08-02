@@ -22,10 +22,6 @@ apiKey.apiKey = process.env.Sib_API_Key
 
 
 router.post('/', async function(req, res) {
-    console.log('\n\nsend-password-reset-code route called')
-    console.log(req.body)
-    console.log("========================================================\n\n")
-
     res.status(200).send("Success")
     // The reason I'm ending this call immediately is so that if the user happens to be testing the app to see which email addresses
     // are registered with this app and which aren't, they wouldn't be able to do that. Every single time they provide an email address,
@@ -35,10 +31,6 @@ router.post('/', async function(req, res) {
 
 
     const userInfo = await getUserInfo(req.body.email)
-
-    console.log("\n\nuserInfo:")
-    console.log(userInfo)
-    console.log("========================================================\n\n")
 
     if (!isEmpty(userInfo)) {
         const resetCode = randomstring.generate({length: 6, charset: 'numeric'})
@@ -66,7 +58,6 @@ async function getUserInfo(email) {
 
     try {
         const users = await DynamoDB_client.query(params).promise()
-        console.log(users)
         return users.Items[0]
     } catch (err) {
         console.log("An error occurred (send-password-reset-code.js userExists())")
@@ -103,10 +94,6 @@ function storePasswordResetCode(data) {
 
 
 function sendPasswordResetCode(email, firstName, resetCode) {
-    console.log('\n\nsendPasswordResetCode() called')
-    console.log('firstName = ' + firstName)
-    console.log('resetCode = ' + resetCode)
-
     const api = new SibApiV3Sdk.TransactionalEmailsApi()
     let sendSmtpEmail = new SibApiV3Sdk.SendSmtpEmail()
 

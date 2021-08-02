@@ -73,7 +73,6 @@ async function getUserInfo(id) {
 
     try {
         const response = await DynamoDB_client.get(params).promise()
-        console.log(response)
         return response.Item
     } catch (err) {
         console.log("An error occurred - set-user-info.js - getUserInfo()")

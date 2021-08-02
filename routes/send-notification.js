@@ -23,11 +23,7 @@ function authenticate(req, res, next) {
 
 
 router.post('/', authenticate, async function(req, res) {
-    console.log("\n\nsend-notification.js has been called\n")
-
-
     const status = await saveNotification(req.body)
-    console.log("\nstatus = " + status + "\n\n")
 
     if (status === "ERROR-OCCURRED") {
         res.status(500).send("Operation failed")
@@ -39,12 +35,6 @@ router.post('/', authenticate, async function(req, res) {
 
 
 async function saveNotification(notification) {
-    console.log("\nsaveNotification -- before\n")
-
-    console.log("params-params-params:")
-    console.log(notification)
-    console.log("==========================================================================>>>>>>>>>>>>>>>>>>>>>>>>>\n")
-
     const params = {
         TransactItems: [
             {
@@ -66,9 +56,6 @@ async function saveNotification(notification) {
             }
         ]
     }
-
-    console.log("\nsaveNotification -- after\n")
-
 
     try {
         await DynamoDB_client.transactWrite(params).promise()

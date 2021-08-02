@@ -22,8 +22,6 @@ function authenticate(req, res, next) {
 
 
 router.get("/", authenticate, async function(req, res) {
-    console.log('\n\ndid-user-receive-invite.js')
-
     const notifications = await getNotifications(req.query.userID)
 
     if (notifications === "ERROR-OCCURRED") {

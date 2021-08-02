@@ -29,11 +29,6 @@ router.get('/', authenticate, async function(req, res) {
         return
     }
 
-
-    console.log("\n\n\nget-group-rooms.js\n")
-    console.log(rooms)
-    console.log("*************************======================================******************\n")
-
     rooms.sort((a, b) => (a.time < b.time) ? -1 : 1)
     res.status(200).send(rooms)
 })

@@ -22,10 +22,6 @@ function authenticate(req, res, next) {
 
 
 router.get('/', authenticate, async function(req, res) {
-    console.log('\n\nget-profile-info.js called')
-    console.log(req.query)
-    console.log('\n')
-
     const profileInfo = await getProfileInfo(req.query.userID)
 
     if (profileInfo === "ERROR-OCCURRED") {
@@ -42,16 +38,11 @@ router.get('/', authenticate, async function(req, res) {
         username: profileInfo.username
     }
 
-    console.log("\n\n============AFTER PASS:")
-    console.log(profileInfo_simplified)
-
     res.status(200).send(profileInfo_simplified)
 })
 
 
 async function getProfileInfo(id) {
-    console.log('getProfileInfo()')
-
     const params = {
         TableName: 'Users',
         Key: {
@@ -61,7 +52,6 @@ async function getProfileInfo(id) {
 
     try {
         const user = await DynamoDB_client.get(params).promise()
-        console.log(user)
         return user.Item
     } catch (err) {
         console.log("\nAn error occurred - get-profile-info.js - getProfileInfo()\n")

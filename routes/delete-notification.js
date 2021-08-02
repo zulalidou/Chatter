@@ -26,9 +26,6 @@ router.get('/', authenticate, async function(req, res) {
     // 1. Remove notification from user's info
     // 2. Remove notification from Notifications table in DB
 
-    console.log('\n\ndelete-notification route called')
-    console.log(req.query)
-
     const notificationID = await getNotificationID(req.query.userID, req.query.groupID)
 
     if (notificationID === "ERROR-OCCURRED") {
@@ -58,8 +55,6 @@ router.get('/', authenticate, async function(req, res) {
 
 
 async function getNotificationID(userID, groupID) {
-    console.log("\ngetNotificationID()")
-
     const params = {
         TableName: "Notifications",
         IndexName: "recipient-index",
@@ -73,9 +68,6 @@ async function getNotificationID(userID, groupID) {
         let response = await DynamoDB_client.query(params).promise()
 
         let notificationID = null
-        console.log("\nresponse:")
-        console.log(response)
-        console.log("=====================>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n\n")
 
         for (let i = 0; i < response.Items.length; i++) {
             if (response.Items[i].type === "group-invitation" && response.Items[i].groupID === groupID)
@@ -92,8 +84,6 @@ async function getNotificationID(userID, groupID) {
 
 
 async function getNotificationMembershipID(notificationID) {
-    console.log("getNotificationMembershipID()")
-
     const params = {
         TableName: "Users_Notifications",
         IndexName: "notificationID-index",
@@ -116,10 +106,6 @@ async function getNotificationMembershipID(notificationID) {
 
 
 async function deleteNotifications(notificationID, notificationMembershipID) {
-    console.log("\n\ndeleteNotifications() called")
-    console.log(notificationID)
-    console.log(notificationMembershipID)
-
     const params = {
         TransactItems: [
             {

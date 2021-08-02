@@ -7,13 +7,7 @@ const DynamoDB_client = new AWS.DynamoDB.DocumentClient()
 
 
 router.get('/', async function(req, res) {
-    console.log('\n\nverify-account-exists')
-    console.log(req.query)
-
     const userInfo = await getUserAccount(req.query.attribute, req.query.newValue)
-    console.log('---------------------------------------------')
-    console.log(userInfo)
-
 
     if (userInfo === undefined)
         res.send('ACCOUNT-DOES-NOT-EXIST')

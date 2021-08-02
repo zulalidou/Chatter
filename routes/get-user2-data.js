@@ -25,12 +25,6 @@ function authenticate(req, res, next) {
 
 
 router.get("/", authenticate, async function(req, res) {
-    console.log("\n\n\nget-user2-data route")
-    console.log("req.query:")
-    console.log(req.query)
-    console.log("===================================================\n\n")
-
-
     const user2ID = await getUser2ID(req.query.roomID, req.query.user1ID)
 
     if (user2ID === "ERROR-OCCURRED") {
@@ -62,11 +56,6 @@ async function getUser2ID(roomID, user1ID) {
 
     try {
         const response = await DynamoDB_client.query(params).promise()
-
-        console.log("\n\n\ngetUser2ID() called")
-        console.log("===================================================")
-        console.log(response)
-        console.log("===================================================\n")
 
         if (response.Items[0].userID === user1ID)
             return response.Items[1].userID

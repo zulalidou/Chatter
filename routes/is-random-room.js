@@ -22,10 +22,6 @@ function authenticate(req, res, next) {
 
 
 router.get("/", authenticate, async function(req, res) {
-    console.log("\n\nis-random-room route called\n")
-    console.log(req.query)
-    console.log("+++++++++++++++++++++++++++++++++++++++\n")
-
     const result = await isRandomRoom(req.query.roomID)
 
     if (result === "ERROR-OCCURRED") {
@@ -46,10 +42,6 @@ async function isRandomRoom(roomID) {
 
     try {
         const response = await DynamoDB_client.get(params).promise()
-
-        console.log("\nisRandomRoom() called")
-        console.log(response)
-        console.log("\n()((((((((((((((((((((()))))))))))))))))))))")
 
         if (isEmpty(response))
             return false

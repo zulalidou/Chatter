@@ -22,19 +22,12 @@ apiKey.apiKey = process.env.Sib_API_Key
 
 
 router.get('/', async function(req, res) {
-    console.log('\n\nverify-activation-code')
-
     const userInfo = await getUserInfo(req.query.email)
 
     if (userInfo === "ERROR-OCCURRED") {
         res.status(500).send("An error occurred")
         return
     }
-
-    console.log("\n\nPLAYER-1:")
-    console.log(userInfo)
-    console.log("-------------------------------------------->>>>>>>>>>>>>>>>>>>>>>>\n")
-
 
     if (userInfo !== undefined && userInfo.activationCode === req.query.code) {
         let status = await deleteRowFromTable('UnactivatedAccounts', 'email', req.query.email)
@@ -50,10 +43,6 @@ router.get('/', async function(req, res) {
         delete userInfo.timeToLive
 
         status = await createContact(req.query.email, userInfo)
-
-        console.log("\n\n\nAFTER createContact() called:")
-        console.log(status)
-        console.log("=================================================================\n\n")
 
         if (status === "ERROR-OCCURRED") {
             res.status(500).send("An error occurred")
@@ -109,8 +98,6 @@ async function deleteRowFromTable(table, key, value) {
 
 
 async function createContact(email, userInfo) {
-    console.log('\n\ncreateContact()')
-
     const api = new SibApiV3Sdk.ContactsApi()
     const createContact = new SibApiV3Sdk.CreateContact()
     createContact.email = email
@@ -120,9 +107,6 @@ async function createContact(email, userInfo) {
 
     await api.createContact(createContact)
         .then(async function(data) {
-            console.log('API called successfully')
-            console.log(data)
-
             const status = await addRowIntoTable('Users', userInfo)
 
             if (status === "ERROR-OCCURRED")
@@ -137,7 +121,6 @@ async function createContact(email, userInfo) {
             result = "ERROR-OCCURRED"
         })
 
-    console.log('\nexiting createContact()\n')
     return result
 }
 
@@ -160,8 +143,6 @@ async function addRowIntoTable(table, userInfo) {
 
 
 function sendWelcomeEmail(email) {
-    console.log('\n\nsendWelcomeEmail()')
-
     const api = new SibApiV3Sdk.TransactionalEmailsApi()
     let sendSmtpEmail = new SibApiV3Sdk.SendSmtpEmail()
 

@@ -27,10 +27,6 @@ function authenticate(req, res, next) {
 
 
 router.post('/', authenticate, async function(req, res) {
-    console.log('\n\nlogout-route called')
-    console.log(req.body)
-
-
     const loggedInInfo = await getUserInfo(req.body.userID)
 
     if (loggedInInfo === "ERROR-OCCURRED") {
@@ -92,9 +88,6 @@ async function getUserInfo(userID) {
 
     try {
         const response = await DynamoDB_client.get(params).promise()
-        console.log("\n\ngetUserInfo()")
-        console.log(response)
-        console.log("---------------------------------------------\n")
         return response.Item
     } catch (err) {
         console.log("\nAn error has occurred - logout.js - getUserInfo()")

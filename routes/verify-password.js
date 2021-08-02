@@ -23,10 +23,6 @@ function authenticate(req, res, next) {
 
 
 router.get('/', authenticate, async function(req, res) {
-    console.log('\n\nverify-pasword-route')
-    console.log(req.query)
-    console.log('------------------------------\n')
-
     const userInfo = await getUserInfo(req.query.userID)
 
     if (userInfo === "ERROR-OCCURRED") {
@@ -52,10 +48,6 @@ async function getUserInfo(userID) {
 
     try {
         const response = await DynamoDB_client.get(params).promise()
-
-        console.log("\ngetUserInfo() called")
-        console.log(response)
-        console.log("==================================================\n\n")
         return response.Item
     } catch (err) {
         console.log("An error occurred - verify-password.js - getUserInfo()")
@@ -66,13 +58,9 @@ async function getUserInfo(userID) {
 
 
 async function isPasswordCorrect(passwordEntered, passwordStored) {
-    console.log("\nisPasswordCorrect() called")
-    if (await bcrypt.compare(passwordEntered, passwordStored)) {
-        console.log("TRRUUEE")
+    if (await bcrypt.compare(passwordEntered, passwordStored))
         return true
-    }
 
-    console.log("FALLSSE")
     return false
 }
 
