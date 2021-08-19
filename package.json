@@ -13,13 +13,11 @@
   "dependencies": {
     "@aws-crypto/client-browser": "^2.0.0",
     "@aws-crypto/client-node": "^2.0.0",
-    "amqplib": "^0.7.0",
     "aws-sdk": "^2.789.0",
     "bcrypt": "^5.0.0",
     "bcryptjs": "^2.4.3",
     "bluebird": "^3.7.2",
     "body-parser": "^1.19.0",
-    "connect-redis": "^5.1.0",
     "cookie-parser": "^1.4.5",
     "cookies": "^0.8.0",
     "cors": "^2.8.5",
@@ -32,7 +30,6 @@
     "express-flash": "0.0.2",
     "express-session": "^1.17.1",
     "googleapis": "^66.0.0",
-    "gulp": "^4.0.2",
     "helmet": "^4.6.0",
     "jquery": "^3.5.1",
     "jsdom": "^16.4.0",
@@ -41,17 +38,16 @@
     "method-override": "^3.0.0",
     "mongoose": "^5.10.7",
     "node-jose": "^2.0.0",
-    "nodemailer": "^6.4.17",
-    "passport": "^0.4.1",
-    "passport-local": "^1.0.0",
     "path": "^0.12.7",
     "randomstring": "^1.1.5",
-    "redis": "^3.0.2",
     "sib-api-v3-sdk": "^8.2.0",
     "socket.io": "^3.1.2",
     "uuid": "^8.3.2"
   },
   "devDependencies": {
+    "eslint": "^7.32.0",
+    "eslint-config-google": "^0.14.0",
+    "eslint-plugin-react": "^7.24.0",
     "nodemon": "^2.0.4"
   }
 }

@@ -1,4 +1,3 @@
-// if (process.env.NODE_ENV !== 'production')
 require('dotenv').config()
 
 const express = require('express')
@@ -134,10 +133,8 @@ server.listen(PORT, () => {
 })
 
 
-
-
 // Maps usernames to their respective client sockets
-let connectedClients = {}
+const connectedClients = {}
 
 
 // Every time a user loads up our website, this function gets called. It also gives each of these users their own socket.
