@@ -12,6 +12,7 @@ const path = require('path')
 const { v4: uuidv4 } = require('uuid')
 const helmet = require('helmet')
 const csrf = require('csurf')
+const compression = require('compression')
 
 const AWS = require('aws-sdk')
 AWS.config.update({
@@ -28,6 +29,7 @@ app.use(bodyParser.urlencoded({extended: true}))
 app.use(cookieParser())
 app.use(helmet())
 app.disable("x-powered-by")
+app.use(compression())
 
 
 
