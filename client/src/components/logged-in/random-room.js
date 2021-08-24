@@ -161,10 +161,26 @@ class RandomRoom extends React.Component {
     }
 
 
+    // Retrieves the current date.
     getDate() {
-        let dateObj = new Date()
-        const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
-        return months[dateObj.getMonth()] + " " + dateObj.getDate() + ", " + dateObj.getFullYear()
+      const dateObj = new Date();
+
+      const months = [
+        'January',
+        'February',
+        'March',
+        'April',
+        'May',
+        'June',
+        'July',
+        'August',
+        'September',
+        'October',
+        'November',
+        'December',
+      ];
+
+      return `${months[dateObj.getMonth()]} ${dateObj.getDate()}, ${dateObj.getFullYear()}`;
     }
 
 

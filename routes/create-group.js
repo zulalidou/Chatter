@@ -1,176 +1,205 @@
-const express = require('express')
-const router = express.Router()
-const jose = require('node-jose')
-const bcrypt = require('bcryptjs')
-const loginFile = require('./login')
-const randomstring = require('randomstring')
-const { v4: uuidv4 } = require('uuid')
-const jwt = require('jsonwebtoken')
+const express = require('express');
+const router = express.Router();
+const {v4: uuidv4} = require('uuid');
+const jwt = require('jsonwebtoken');
 
-const AWS = require('aws-sdk')
-AWS.config.update({region: "us-west-2", endpoint: "https://dynamodb.us-west-2.amazonaws.com"})
-const DynamoDB_client = new AWS.DynamoDB.DocumentClient() // a simplified client for interacting with DynamoDB
+const AWS = require('aws-sdk');
+AWS.config.update({
+  region: 'us-west-2',
+  endpoint: 'https://dynamodb.us-west-2.amazonaws.com',
+});
+
+// a simplified client for interacting with DynamoDB
+const dynamoDbClient = new AWS.DynamoDB.DocumentClient();
 
 
-
+/*
+ * This function determines whether or not the incoming request should be
+ * executed. If it decides it shouldn't be executed, it returns a 401 status
+ * code, otherwise, it continues with the request.
+ */
 async function authenticate(req, res, next) {
-    try {
-        jwt.verify(req.cookies.jwtHP + "." + req.cookies.jwtS, process.env.jwtSignKey)
+  try {
+    jwt.verify(req.cookies.jwtHP + '.' + req.cookies.jwtS, process.env.jwtSignKey);
 
 
-        // Now check to see if the jwt token is stored in the BlacklistedJWTs table
-        // - If it is, then deny the request
-        // - Otherwise, allow the request
-        const tokenIsBlacklisted = await tokenBlacklisted(req.cookies.jwtHP + "." + req.cookies.jwtS)
+    /*
+     * Checks to see if the jwt token is stored in the BlacklistedJWTs table
+     * - If it is, then it denies the request. Otherwise, the request is allowed
+     */
+    const tokenIsBlacklisted = await tokenBlacklisted(req.cookies.jwtHP + '.' + req.cookies.jwtS);
 
-        if (tokenIsBlacklisted === "ERROR-OCCURRED") {
-            res.status(401).send("An error occurred")
-            return
-        }
-
-        if (tokenIsBlacklisted) {
-            res.status(401).send("The token was blacklisted")
-            return
-        }
-    } catch (err) {
-        res.status(401).send(err.message)
-        return
+    if (tokenIsBlacklisted === 'ERROR-OCCURRED') {
+      res.status(401).send('An error occurred');
+      return;
     }
 
-    next()
+    if (tokenIsBlacklisted) {
+      res.status(401).send('The token was blacklisted');
+      return;
+    }
+  } catch (err) {
+    res.status(401).send(err.message);
+    return;
+  }
+
+  next();
 }
 
 
+// Checks to see whether the token passed has been blacklisted.
 async function tokenBlacklisted(jwt) {
-    const params = {
-        TableName: "BlacklistedJWTs",
-        Key: {
-            jwt: jwt
-        }
-    }
+  const params = {
+    TableName: 'BlacklistedJWTs',
+    Key: {
+      jwt: jwt,
+    },
+  };
 
-    try {
-        const response = await DynamoDB_client.get(params).promise()
-        const jwt = response.Item
+  try {
+    const response = await dynamoDbClient.get(params).promise();
+    const jwt = response.Item;
 
-        if (isEmpty(jwt))
-            return false
-        return true
-    } catch (err) {
-        return "ERROR-OCCURRED"
+    if (isEmpty(jwt)) {
+      return false;
     }
+    return true;
+  } catch (err) {
+    return 'ERROR-OCCURRED';
+  }
 }
 
 
 router.post('/', authenticate, async function(req, res) {
-    const status = await createGroup(req.body)
+  const status = await createGroup(req.body);
 
-    if (status === "Failure") {
-        res.status(500).send("Could not create group")
-        return
-    }
+  if (status === 'Failure') {
+    res.status(500).send('Could not create group');
+    return;
+  }
 
-    res.status(200).send(status)
-})
+  res.status(200).send(status);
+});
 
 
-
-// 1. Save the group data in table 'Groups'
-// 2. Save the group data in table 'Users_Groups'
-// 3. Save the main room data in table 'Rooms'
-// 4. Save the main room data in table 'Rooms'
+// Creates a group using the data provided.
 async function createGroup(data) {
-    const groupID = uuidv4()
-    const roomID = uuidv4()
+  /*
+   * 1. Save the group data in table 'Groups'
+   * 2. Save the group data in table 'Users_Groups'
+   * 3. Save the main room data in table 'Rooms'
+   * 4. Save the main room data in table 'Rooms'
+   */
 
-    const params = {
-        TransactItems: [
-            {
-                Put: {
-                    TableName: "Groups",
-                    Item: {
-                        id: groupID,
-                        name: data.name,
-                        purpose: data.purpose,
-                        date: getDate(),
-                        time: getTime(),
-                        admin: data.admin,
-                        creator: data.admin
-                    }
-                }
-            },
-            {
-                Put: {
-                    TableName: "Users_Groups",
-                    Item: {
-                        id: uuidv4(),
-                        userID: data.admin,
-                        groupID: groupID,
-                        date: getDate(),
-                        time: getTime()
-                    }
-                }
-            },
-            {
-                Put: {
-                    TableName: "Rooms",
-                    Item: {
-                        id: roomID,
-                        groupID: groupID,
-                        name: "main",
-                        purpose: 'The central location of the group, where all members can meet up to talk about anything.',
-                        creator: data.admin, // if this user leaves the group, put "USER NOT FOUND" here instead
-                        date: getDate(),
-                        time: getTime()
-                    }
-                }
-            },
-            {
-                Put: {
-                    TableName: "Users_Rooms",
-                    Item: {
-                        id: uuidv4(),
-                        userID: data.admin,
-                        roomID: roomID,
-                        groupID: groupID
-                    }
-                }
-            }
-        ]
-    }
+  const groupID = uuidv4();
+  const roomID = uuidv4();
+
+  const params = {
+    TransactItems: [
+      {
+        Put: {
+          TableName: 'Groups',
+          Item: {
+            id: groupID,
+            name: data.name,
+            purpose: data.purpose,
+            date: getDate(),
+            time: getTime(),
+            admin: data.admin,
+            creator: data.admin,
+          },
+        },
+      },
+      {
+        Put: {
+          TableName: 'Users_Groups',
+          Item: {
+            id: uuidv4(),
+            userID: data.admin,
+            groupID: groupID,
+            date: getDate(),
+            time: getTime(),
+          },
+        },
+      },
+      {
+        Put: {
+          TableName: 'Rooms',
+          Item: {
+            id: roomID,
+            groupID: groupID,
+            name: 'main',
+            purpose: 'The central location of the group, where all members can meet up to talk about anything.',
+
+            // if this user leaves the group, put "USER NOT FOUND" here instead
+            creator: data.admin,
+
+            date: getDate(),
+            time: getTime(),
+          },
+        },
+      },
+      {
+        Put: {
+          TableName: 'Users_Rooms',
+          Item: {
+            id: uuidv4(),
+            userID: data.admin,
+            roomID: roomID,
+            groupID: groupID,
+          },
+        },
+      },
+    ],
+  };
 
 
-    try {
-        await DynamoDB_client.transactWrite(params).promise()
-        return "Success"
-    } catch (err) {
-        return "Failure"
-    }
+  try {
+    await dynamoDbClient.transactWrite(params).promise();
+    return 'Success';
+  } catch (err) {
+    return 'Failure';
+  }
 }
 
 
+// Retrieves the current date.
 function getDate() {
-    let dateObj = new Date()
-    const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+  const dateObj = new Date();
 
-    return months[dateObj.getMonth()] + " " + dateObj.getDate() + ", " + dateObj.getFullYear()
+  const months = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
+  ];
+
+  return `${months[dateObj.getMonth()]} ${dateObj.getDate()}, ${dateObj.getFullYear()}`;
 }
 
 
+// Retrieves the current time.
 function getTime() {
-    let dateObj = new Date()
-    return dateObj.getTime()
+  const dateObj = new Date();
+  return dateObj.getTime();
 }
 
 
+/*
+ * Checks if the object passed into the function is empty. If yes it returns
+ * true, otherwise it returns false.
+ */
 function isEmpty(obj) {
-    for (let prop in obj) {
-        if (obj.hasOwnProperty(prop))
-            return false
-    }
-
-    return true
+  return Object.keys(obj).length === 0;
 }
 
 
-module.exports = router
+module.exports = router;
