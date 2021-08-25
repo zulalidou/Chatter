@@ -24,7 +24,6 @@ const path = require('path');
 const {v4: uuidv4} = require('uuid');
 const helmet = require('helmet');
 const csrf = require('csurf');
-const compression = require('compression');
 const AWS = require('aws-sdk');
 const dynamoDbClient = new AWS.DynamoDB.DocumentClient();
 
@@ -34,7 +33,6 @@ app.use(express.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(cookieParser());
 app.use(helmet());
-app.use(compression());
 app.disable('x-powered-by');
 AWS.config.update({
   region: 'us-west-2',
