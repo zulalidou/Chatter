@@ -17,6 +17,7 @@ const dynamoDbClient = new AWS.DynamoDB.DocumentClient();
  * code, otherwise, it continues with the request.
  */
 async function authenticate(req, res, next) {
+  console.log("authenticate - get-user-field-info.js called")
   try {
     jwt.verify(req.cookies.jwtHP + '.' + req.cookies.jwtS, process.env.jwtSignKey);
 
@@ -59,9 +60,14 @@ async function tokenBlacklisted(jwt) {
     const response = await dynamoDbClient.get(params).promise();
     const jwt = response.Item;
 
+    if (jwt === undefined) {
+      return false;
+    }
+
     if (isEmpty(jwt)) {
       return false;
     }
+
     return true;
   } catch (err) {
     return 'ERROR-OCCURRED';

@@ -64,9 +64,14 @@ async function tokenBlacklisted(jwt) {
     const response = await dynamoDbClient.get(params).promise();
     const jwt = response.Item;
 
+    if (jwt === undefined) {
+      return false;
+    }
+
     if (isEmpty(jwt)) {
       return false;
     }
+
     return true;
   } catch (err) {
     return 'ERROR-OCCURRED';

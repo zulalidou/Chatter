@@ -9,6 +9,7 @@
  * development mode
  */
 if (process.env.NODE_ENV !== 'production') {
+  console.log("Server is NOT being run in production mode")
   require('dotenv').config();
 }
 
@@ -135,9 +136,10 @@ app.get('/*', (req, res) => {
 });
 
 
-const PORT = process.env.PORT || 8000;
+const PORT = process.env.PORT || 9000;
 
 server.listen(PORT, () => {
+  console.log('ELMO\'s world!!')
   console.log(`\nListening to port ${PORT}\n\n`);
 });
 

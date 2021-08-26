@@ -81,8 +81,10 @@ class Home extends React.Component {
 
 
     async getRoomID() {
+        console.log("getRoomID()")
         const response = await fetch(`/api/get-user-field-info?userID=${this.state.userID}&attribute=currentRoomOpen`)
-
+        console.log(response)
+        
         try {
             if (response.status !== 200)
                 throw "ERROR-OCCURRED"

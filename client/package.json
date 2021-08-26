@@ -47,5 +47,5 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "https://chatter-re.herokuapp.com"
+  "proxy": "http://localhost:9000/"
 }
