@@ -6,7 +6,7 @@
     "@testing-library/jest-dom": "^5.11.9",
     "@testing-library/react": "^11.2.3",
     "@testing-library/user-event": "^12.6.0",
-    "bootstrap": "^4.5.3",
+    "bootstrap": "^5.0.0",
     "generate-avatar": "^1.4.6",
     "history": "^5.0.0",
     "jquery": "^3.6.0",
