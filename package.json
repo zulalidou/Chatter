@@ -14,7 +14,7 @@
     "@aws-crypto/client-browser": "^2.0.0",
     "@aws-crypto/client-node": "^2.0.0",
     "aws-sdk": "^2.789.0",
-    "bcrypt": "^5.0.0",
+    "bcrypt": "^6.0.0",
     "bcryptjs": "^2.4.3",
     "bluebird": "^3.7.2",
     "body-parser": "^1.19.0",
